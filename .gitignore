@@ -1,0 +1,9 @@
+dist
+node_modules
+src-tauri/target
+.DS_Store
+debug
+
+# Whisper model files (too large for git, download separately)
+src-tauri/resources/*.bin
+.specstory

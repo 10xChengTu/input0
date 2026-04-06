@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Input 0 — Zero typing. Pure voice."/>
+<meta property="og:description" content="Speak your thoughts and let Input 0 do the rest. Native macOS integration meets high-fidelity AI transcription."/>
+<meta property="og:image" content="og.png"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Input 0 — Zero typing. Pure voice."/>
+<meta name="twitter:description" content="Speak your thoughts and let Input 0 do the rest. Native macOS integration meets high-fidelity AI transcription."/>
+<meta name="twitter:image" content="og.png"/>
+
+<script>
+    (function() {
+        const savedTheme = localStorage.getItem('input0-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+        
+        const savedLang = localStorage.getItem('input0-lang') || 'en';
+        document.documentElement.lang = savedLang;
+    })();
+</script>
+<title>Input 0 — Zero typing. Pure voice.</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+
+                    "surface-container-lowest-dark": "#1e1e1e",
+                    "surface-container-low-dark": "#1a1a1a",
+                    "surface-container-high-dark": "#252525",
+                    "on-surface-variant-dark": "#a0a0a0",
+                    "on-surface-dark": "#e6e6e6",
+                    "background-dark": "#121212",
+
+                    "secondary": "#5e5e5e",
+                    "secondary-container": "#d6d4d4",
+                    "on-tertiary": "#e2e2e2",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e2e2e2",
+                    "on-error-container": "#410002",
+                    "error": "#ba1a1a",
+                    "on-primary": "#e5e2e1",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-tint": "#5f5e5e",
+                    "inverse-surface": "#2f3131",
+                    "tertiary-fixed": "#5e5e5e",
+                    "on-surface": "#1a1c1c",
+                    "surface-container-high": "#e8e8e8",
+                    "on-tertiary-fixed-variant": "#e2e2e2",
+                    "tertiary-container": "#747474",
+                    "on-primary-fixed-variant": "#e5e2e1",
+                    "surface-dim": "#dadada",
+                    "primary-container": "#3c3b3b",
+                    "on-primary-fixed": "#ffffff",
+                    "secondary-fixed": "#c8c6c6",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#c8c6c5",
+                    "on-tertiary-container": "#ffffff",
+                    "on-surface-variant": "#474747",
+                    "surface": "#f9f9f9",
+                    "surface-container": "#eeeeee",
+                    "secondary-fixed-dim": "#acabab",
+                    "on-primary-container": "#ffffff",
+                    "background": "#f5f5f5",
+                    "outline-variant": "#c6c6c6",
+                    "on-tertiary-fixed": "#ffffff",
+                    "on-secondary-fixed-variant": "#3b3b3b",
+                    "tertiary-fixed-dim": "#474747",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "primary": "#171717",
+                    "primary-fixed": "#5f5e5e",
+                    "outline": "#777777",
+                    "surface-bright": "#f9f9f9",
+                    "primary-fixed-dim": "#474746",
+                    "inverse-on-surface": "#f1f1f1",
+                    "tertiary": "#3b3b3b",
+                    "on-background": "#1a1c1c",
+                    "on-secondary-container": "#1b1c1c",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Inter", "sans-serif"],
+                    "body": ["Inter", "sans-serif"],
+                    "label": ["Inter", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: "Inter", sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .dark .glass-panel {
+            background: rgba(30, 30, 30, 0.8);
+        }
+        .milled-button {
+            background: radial-gradient(circle at center, #3c3b3b 0%, #171717 100%);
+        }
+        .dark .milled-button {
+            background: radial-gradient(circle at center, #ffffff 0%, #e8e8e8 100%);
+            color: #171717;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 600ms cubic-bezier(0.25, 1, 0.5, 1), transform 600ms cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .feature-card {
+            transition: all 300ms ease-out;
+        }
+        .feature-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes ai-dot-bounce {
+            0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+            40% { opacity: 1; transform: scale(1); }
+        }
+        .ai-dot {
+            animation: ai-dot-bounce 1.4s ease-in-out infinite;
+        }
+
+        @keyframes ai-shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .ai-text-shimmer {
+            animation: ai-shimmer 2.5s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .animate-on-scroll {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            .feature-card:hover {
+                transform: none !important;
+            }
+            .typing-cursor::after {
+                animation: none !important;
+                opacity: 0 !important;
+            }
+            .ai-dot,
+            .ai-text-shimmer {
+                animation: none !important;
+                opacity: 1 !important;
+            }
+            html {
+                scroll-behavior: auto !important;
+            }
+        }
+
+
+        html.theme-transition,
+        html.theme-transition *,
+        html.theme-transition *:before,
+        html.theme-transition *:after {
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+            transition-delay: 0s !important;
+        }
+</style>
+</head>
+<body class="selection:bg-primary/10 bg-[#f5f5f5] dark:bg-[#121212] text-[#171717] dark:text-[#e6e6e6]">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl shadow-sm shadow-black/5">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-2">
+<img src="logo.png" alt="Input 0" class="w-6 h-6 rounded-sm">
+<span class="text-lg font-semibold tracking-tighter text-neutral-900 dark:text-neutral-50">Input 0</span>
+</div>
+<div id="nav-links" class="hidden md:flex items-center gap-8 font-sans text-sm font-medium tracking-tight">
+<a class="text-neutral-900 dark:text-neutral-50 font-semibold transition-colors" href="#features" data-i18n="nav.features">Features</a>
+<a class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors" href="#process" data-i18n="nav.process">Process</a>
+<a class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors" href="#process" data-i18n="nav.howItWorks">How It Works</a>
+<a class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors" href="#download" data-i18n="nav.download">Download</a>
+</div>
+<div class="flex items-center gap-1">
+    <button id="lang-toggle" class="flex items-center justify-center w-9 h-9 rounded-lg text-sm font-bold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50 transition-colors cursor-pointer">
+        EN
+    </button>
+    <button id="theme-toggle" class="flex items-center justify-center w-9 h-9 rounded-lg material-symbols-outlined text-xl text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50 transition-colors cursor-pointer">
+        light_mode
+    </button>
+    <button id="mobile-menu-btn" class="md:hidden material-symbols-outlined text-2xl text-neutral-500 dark:text-neutral-400 cursor-pointer">menu</button>
+    <a href="https://github.com/10xChengTu/input0" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center justify-center w-9 h-9 rounded-lg text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50 transition-colors cursor-pointer" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+    </a>
+</div>
+
+</div>
+</nav>
+<main class="pt-32">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-6 text-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high dark:bg-surface-container-high-dark mb-8">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-on-surface-variant-dark" data-i18n="hero.badge">Built with Rust + Metal</span>
+</div>
+<h1 class="text-[3.5rem] md:text-[5rem] font-extrabold tracking-tighter leading-[1.05] mb-8 text-neutral-900 dark:text-white" data-i18n="hero.title">
+                Zero typing.<br/>Pure voice.
+            </h1>
+<p class="max-w-2xl mx-auto text-on-surface-variant dark:text-on-surface-variant-dark text-lg md:text-xl font-medium leading-relaxed mb-12" data-i18n="hero.subtitle">
+                Speak your thoughts and let Input 0 do the rest. Native macOS integration meets high-fidelity AI transcription. Speak. It's done.
+            </p>
+<div class="flex flex-col md:flex-row items-center justify-center gap-4">
+<a href="https://github.com/10xChengTu/input0/releases" target="_blank" rel="noopener noreferrer" class="w-full md:w-auto px-8 py-4 milled-button text-white dark:text-[#171717] font-semibold rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all no-underline">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-5 h-5 flex-shrink-0" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                    <span data-i18n="hero.download">Download for macOS</span>
+                </a>
+<button class="w-full md:w-auto px-8 py-4 bg-white dark:bg-[#252525] text-primary dark:text-[#e6e6e6] font-semibold rounded-xl transition-all relative cursor-default opacity-80">
+                    <span data-i18n="hero.otherVersions">Other Versions</span>
+                    <span class="absolute -top-2.5 -right-3 px-2 py-0.5 bg-neutral-700 dark:bg-neutral-300 text-white dark:text-neutral-900 text-[10px] font-bold uppercase tracking-wider rounded-full whitespace-nowrap">Coming Soon</span>
+                </button>
+</div>
+</section>
+<!-- Product Preview (Liquid Glass UI) -->
+<section class="max-w-6xl mx-auto px-6 mt-24 relative">
+<div class="aspect-[16/10] bg-surface-container-low dark:bg-surface-container-low-dark rounded-2xl p-4 md:p-12 relative overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-30 mix-blend-overlay" data-alt="Soft ethereal background with minimal abstract fluid shapes in neutral beige and cream tones for high-end macOS UI" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5bUemS9Lb6Xez3xzFb0ZM0ocxmBBXvtAKfD0gCM-5iMzR8xWEgnCO3Fg2V21Cr16G2dHHdYGtaX4Wnx3NDVRI2zAleFa7TqxYBqcVoOxKSApvUAE-t0mUAgakow1YA1wKM30UgOmo11OU2u1suJ9mZx5Ay11nWqE80pWkwK5HuXn7Rov9V6lFmg38KdYoEpSEFSg-xkN1W34IDwi7IfoQf928CMn2F_w3jFnxsVauN5H2Z3KFozvgAAEnCBvZ7bk8n0M1R-38ry0"/>
+</div>
+<!-- Floating Glass UI Mockup -->
+<div class="relative z-10 w-full h-full glass-panel rounded-xl shadow-2xl flex flex-col p-6">
+<div class="flex items-center justify-between mb-6">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-neutral-300"></div>
+<div class="w-3 h-3 rounded-full bg-neutral-300"></div>
+<div class="w-3 h-3 rounded-full bg-neutral-300"></div>
+</div>
+<div class="px-4 py-1.5 rounded-full bg-white/50 dark:bg-white/10 text-[10px] font-bold tracking-widest uppercase border border-white/20">
+                            <span data-i18n="glass.active">Transcription Active</span>
+                        </div>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<p id="typing-text" data-text="&quot;Let's schedule a meeting for next Tuesday to discuss the new architectural system benchmarks...&quot;" class="text-2xl md:text-4xl font-medium text-neutral-800 dark:text-neutral-200 leading-tight min-h-[80px] md:min-h-[96px]">
+                        </p>
+<div class="mt-4 flex items-center gap-3">
+<div class="flex items-center h-8">
+<canvas id="hero-waveform"></canvas>
+</div>
+<span class="text-neutral-400 italic"><span data-i18n="glass.processing">Processing high-fidelity voice stream...</span></span>
+</div>
+<!-- AI Text Optimization Phase -->
+<div class="hidden md:flex items-center gap-3 mt-4">
+<span class="text-[11px] font-semibold tracking-wide text-neutral-500 dark:text-neutral-400 whitespace-nowrap flex-shrink-0" data-i18n="glass.aiOptimizing">AI Polishing Text</span>
+<span class="flex gap-[3px]">
+<span class="w-1 h-1 bg-neutral-400 rounded-full ai-dot"></span>
+<span class="w-1 h-1 bg-neutral-400 rounded-full ai-dot" style="animation-delay: 0.2s"></span>
+<span class="w-1 h-1 bg-neutral-400 rounded-full ai-dot" style="animation-delay: 0.4s"></span>
+</span>
+<span class="text-[11px] text-neutral-400 dark:text-neutral-500 line-through decoration-1 ml-2 truncate" data-i18n="glass.rawText">"uh, let's schedule a meeting for next tuesday to, um, discuss the new rui en te system benchmarks..."</span>
+<span class="text-neutral-300 dark:text-neutral-600 flex-shrink-0">→</span>
+<span class="text-[11px] text-neutral-700 dark:text-neutral-200 ai-text-shimmer truncate" data-i18n="glass.polishedText">"Let's schedule a meeting for next Tuesday to discuss the new React system benchmarks."</span>
+</div>
+</div>
+<div class="mt-auto flex items-center justify-between pt-6 border-t border-black/5">
+<div class="flex items-center gap-4 text-xs font-medium text-neutral-500">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">memory</span> <span data-i18n="glass.gpu">Metal GPU Active</span></span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">lock</span> <span data-i18n="glass.local">Voice Stays Local</span></span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 bg-neutral-100 dark:bg-white/10 rounded text-[10px] font-mono">⌥ Space</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Features -->
+<section id="features" class="max-w-7xl mx-auto px-6 py-32">
+<h2 class="text-3xl font-bold tracking-tight mb-12 dark:text-white" data-i18n="feat.title">Performance by Design.</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Press & Speak -->
+<div class="md:col-span-2 bg-surface-container-lowest dark:bg-surface-container-lowest-dark p-8 rounded-xl flex flex-col justify-between min-h-[300px] feature-card animate-on-scroll">
+<div>
+<span class="material-symbols-outlined text-3xl mb-6">keyboard_command_key</span>
+<h3 class="text-xl font-semibold mb-2 dark:text-white" data-i18n="feat.1.title">Press &amp; Speak</h3>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark leading-relaxed max-w-sm" data-i18n="feat.1.desc">Global hotkey integration. No window switching, no friction. Just hold and talk from anywhere in macOS.</p>
+</div>
+<div class="mt-8 flex gap-2">
+<kbd class="px-3 py-1.5 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-sm font-semibold border border-outline-variant/20">Option</kbd>
+<span class="text-neutral-400 self-center">+</span>
+<kbd class="px-3 py-1.5 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-sm font-semibold border border-outline-variant/20">Space</kbd>
+</div>
+</div>
+<!-- Local AI -->
+<div class="bg-primary dark:bg-white text-white dark:text-[#171717] p-8 rounded-xl flex flex-col justify-between feature-card animate-on-scroll">
+<div>
+<span class="material-symbols-outlined text-3xl mb-6" data-weight="fill">security</span>
+<h3 class="text-xl font-semibold mb-2" data-i18n="feat.2.title">Privacy-First Architecture</h3>
+<p class="text-neutral-400 dark:text-neutral-500 leading-relaxed" data-i18n="feat.2.desc">Voice transcription runs entirely on your Mac via Metal GPU — your audio never leaves the device. Text optimization connects to your own LLM API, giving you full control over your data pipeline.</p>
+</div>
+<div class="text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest mt-8" data-i18n="feat.2.badge">Your voice stays local</div>
+</div>
+<!-- AI Polish -->
+<div class="bg-surface-container-lowest dark:bg-surface-container-lowest-dark p-8 rounded-xl feature-card animate-on-scroll">
+<span class="material-symbols-outlined text-3xl mb-6">auto_fix_high</span>
+<h3 class="text-xl font-semibold mb-2 dark:text-white" data-i18n="feat.3.title">AI Polish</h3>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark leading-relaxed" data-i18n="feat.3.desc">LLM-powered optimization removes filler words, fixes grammar, and corrects 40+ technical terms by pronunciation (e.g., 'rui en te' → 'React'). Context-aware with 10-message history.</p>
+</div>
+<!-- Auto-Paste -->
+<div class="bg-surface-container-lowest dark:bg-surface-container-lowest-dark p-8 rounded-xl feature-card animate-on-scroll">
+<span class="material-symbols-outlined text-3xl mb-6">content_paste_go</span>
+<h3 class="text-xl font-semibold mb-2 dark:text-white" data-i18n="feat.4.title">Auto-Paste</h3>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark leading-relaxed" data-i18n="feat.4.desc">Transcribe and inject text directly into Slack, VS Code, or your browser without a single click.</p>
+</div>
+<!-- Language Support -->
+<div class="bg-surface-container-lowest dark:bg-surface-container-lowest-dark p-8 rounded-xl feature-card animate-on-scroll">
+<span class="material-symbols-outlined text-3xl mb-6">language</span>
+<h3 class="text-xl font-semibold mb-2 dark:text-white" data-i18n="feat.5.title">Multi-Language</h3>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark leading-relaxed mb-4" data-i18n="feat.5.desc">4 AI engines with 9 models covering 99+ languages. Smart recommendation picks the best model for your language automatically.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-[10px] font-bold">English</span>
+<span class="px-2 py-1 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-[10px] font-bold">中文</span>
+<span class="px-2 py-1 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-[10px] font-bold">日本語</span>
+<span class="px-2 py-1 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-[10px] font-bold">한국어</span>
+<span class="px-2 py-1 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-[10px] font-bold">Español</span>
+<span class="px-2 py-1 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-[10px] font-bold">Français</span>
+<span class="px-2 py-1 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-[10px] font-bold">Deutsch</span>
+<span class="px-2 py-1 bg-surface-container-low dark:bg-surface-container-low-dark rounded text-[10px] font-bold">99+</span>
+</div>
+</div>
+<!-- 4 AI Engines -->
+<div class="md:col-span-2 bg-surface-container-lowest dark:bg-surface-container-lowest-dark p-8 rounded-xl feature-card animate-on-scroll">
+<span class="material-symbols-outlined text-3xl mb-6">model_training</span>
+<h3 class="text-xl font-semibold mb-2 dark:text-white" data-i18n="feat.6.title">4 AI Engines. 9 Models.</h3>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark leading-relaxed mb-6 max-w-lg" data-i18n="feat.6.desc">Not just Whisper. Choose the best engine for your language and speed requirements. Download only what you need.</p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<div class="px-3 py-3 bg-surface-container-low dark:bg-surface-container-low-dark rounded-lg">
+<div class="text-sm font-bold dark:text-white" data-i18n="feat.6.engine1">Whisper</div>
+<div class="text-[11px] text-on-surface-variant dark:text-on-surface-variant-dark mt-1" data-i18n="feat.6.engine1.desc">6 models · 99 languages</div>
+</div>
+<div class="px-3 py-3 bg-surface-container-low dark:bg-surface-container-low-dark rounded-lg">
+<div class="text-sm font-bold dark:text-white" data-i18n="feat.6.engine2">SenseVoice</div>
+<div class="text-[11px] text-on-surface-variant dark:text-on-surface-variant-dark mt-1" data-i18n="feat.6.engine2.desc">Best for CJK</div>
+</div>
+<div class="px-3 py-3 bg-surface-container-low dark:bg-surface-container-low-dark rounded-lg">
+<div class="text-sm font-bold dark:text-white" data-i18n="feat.6.engine3">Paraformer</div>
+<div class="text-[11px] text-on-surface-variant dark:text-on-surface-variant-dark mt-1" data-i18n="feat.6.engine3.desc">Chinese · Ultra-fast</div>
+</div>
+<div class="px-3 py-3 bg-surface-container-low dark:bg-surface-container-low-dark rounded-lg">
+<div class="text-sm font-bold dark:text-white" data-i18n="feat.6.engine4">Moonshine</div>
+<div class="text-[11px] text-on-surface-variant dark:text-on-surface-variant-dark mt-1" data-i18n="feat.6.engine4.desc">English · 5× faster</div>
+</div>
+</div>
+</div>
+<!-- Custom Vocabulary -->
+<div class="bg-surface-container-lowest dark:bg-surface-container-lowest-dark p-8 rounded-xl feature-card animate-on-scroll">
+<span class="material-symbols-outlined text-3xl mb-6">dictionary</span>
+<h3 class="text-xl font-semibold mb-2 dark:text-white" data-i18n="feat.7.title">Custom Vocabulary</h3>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark leading-relaxed" data-i18n="feat.7.desc">Add your own terms — names, brands, jargon. The AI also auto-learns from your corrections via LLM validation.</p>
+</div>
+
+</div>
+</section>
+<!-- Process Section -->
+<section id="process" class="bg-surface-container-low dark:bg-surface-container-low-dark py-32">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col md:flex-row gap-24">
+<div class="md:w-1/3">
+<h2 class="text-5xl font-extrabold tracking-tighter mb-6 dark:text-white" data-i18n="process.title">Privacy by performance.</h2>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark" data-i18n="process.subtitle">Three steps to a faster workflow. No accounts, no clouds, no tracking.</p>
+</div>
+<div class="md:w-2/3 grid grid-cols-1 gap-16">
+<div class="flex gap-8 animate-on-scroll">
+<span class="text-4xl font-extrabold text-neutral-300 dark:text-neutral-600">01</span>
+<div>
+<h4 class="text-xl font-bold mb-2 dark:text-white" data-i18n="process.1.title">Hold Key (Option+Space)</h4>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark leading-relaxed" data-i18n="process.1.desc">Activate Input 0 from anywhere. The interface appears as a subtle glass overlay that respects your focus.</p>
+</div>
+</div>
+<div class="flex gap-8 animate-on-scroll">
+<span class="text-4xl font-extrabold text-neutral-300 dark:text-neutral-600">02</span>
+<div>
+<h4 class="text-xl font-bold mb-2 dark:text-white" data-i18n="process.2.title">AI Transcribe & Polish</h4>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark leading-relaxed" data-i18n="process.2.desc">Release the key and Input 0 transcribes your speech locally, then an LLM refines it into polished, professional text.</p>
+</div>
+</div>
+<div class="flex gap-8 animate-on-scroll">
+<span class="text-4xl font-extrabold text-neutral-300 dark:text-neutral-600">03</span>
+<div>
+<h4 class="text-xl font-bold mb-2 dark:text-white" data-i18n="process.3.title">Auto Paste</h4>
+<p class="text-on-surface-variant dark:text-on-surface-variant-dark leading-relaxed" data-i18n="process.3.desc">Release the key and the text is automatically injected into your active application. System-level integration.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section id="download" class="max-w-7xl mx-auto px-6 py-40 text-center">
+<h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-12 dark:text-white" data-i18n="download.title">Experience the flow.</h2>
+<div class="flex items-center justify-center gap-4">
+<a href="https://github.com/10xChengTu/input0/releases" target="_blank" rel="noopener noreferrer" class="px-12 py-5 milled-button text-white dark:text-[#171717] text-lg font-bold rounded-xl active:scale-95 transition-all shadow-xl shadow-black/20 inline-flex items-center justify-center gap-3 no-underline">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-6 h-6 flex-shrink-0" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                <span data-i18n="hero.download">Download Input 0 for macOS</span>
+            </a>
+</div>
+<p class="mt-8 text-neutral-400 text-sm font-medium uppercase tracking-widest" data-i18n="download.subtitle">Supports M1, M2, M3 Macs</p>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-neutral-200/50 dark:border-white/10 bg-neutral-50 dark:bg-neutral-950">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 w-full max-w-7xl mx-auto">
+<p class="font-sans text-xs uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-6 md:mb-0">
+                CC BY-NC 4.0 © 2025 Input 0
+            </p>
+<div class="flex gap-12 font-sans text-xs uppercase tracking-widest">
+<a class="text-neutral-400 dark:text-neutral-600 hover:text-neutral-900 dark:hover:text-neutral-50 transition-all opacity-80 hover:opacity-100" href="https://github.com/10xChengTu/input0" target="_blank" rel="noopener noreferrer">GitHub</a>
+<a class="text-neutral-400 dark:text-neutral-600 hover:text-neutral-900 dark:hover:text-neutral-50 transition-all opacity-80 hover:opacity-100" href="#">Documentation</a>
+<a class="text-neutral-400 dark:text-neutral-600 hover:text-neutral-900 dark:hover:text-neutral-50 transition-all opacity-80 hover:opacity-100" href="#">Support</a>
+</div>
+</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    if(menuBtn && navLinks) {
+        menuBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-full');
+            navLinks.classList.toggle('left-0');
+            navLinks.classList.toggle('w-full');
+            if (isDark) {
+                navLinks.classList.toggle('bg-neutral-900');
+            } else {
+                navLinks.classList.toggle('bg-white');
+            }
+            navLinks.classList.toggle('p-6');
+            navLinks.classList.toggle('shadow-lg');
+            navLinks.classList.toggle('gap-4');
+            navLinks.classList.toggle('items-start');
+        });
+    }
+
+    // Nav Scroll Behavior
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+        const isDark = document.documentElement.classList.contains('dark');
+        if (window.scrollY > 50) {
+            nav.classList.add('shadow-md');
+            if (isDark) {
+                nav.classList.replace('dark:bg-neutral-900/80', 'dark:bg-neutral-900/95');
+            }
+            nav.classList.replace('bg-white/80', 'bg-white/95');
+        } else {
+            nav.classList.remove('shadow-md');
+            if (isDark) {
+                nav.classList.replace('dark:bg-neutral-900/95', 'dark:bg-neutral-900/80');
+            }
+            nav.classList.replace('bg-white/95', 'bg-white/80');
+        }
+    });
+
+    // Intersection Observer for Animations
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach((el, index) => {
+        if(el.closest('.grid')) {
+            el.style.transitionDelay = `${(index % 10) * 100}ms`;
+        }
+        observer.observe(el);
+    });
+
+    // Active Nav Link Tracking
+    const sections = document.querySelectorAll('section[id]');
+    const navItems = document.querySelectorAll('#nav-links a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (scrollY >= sectionTop - 150) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navItems.forEach(item => {
+            item.classList.remove('text-neutral-900', 'dark:text-neutral-50', 'font-semibold');
+            item.classList.add('text-neutral-500', 'dark:text-neutral-400');
+            if (item.getAttribute('href') === `#${current}`) {
+                item.classList.remove('text-neutral-500', 'dark:text-neutral-400');
+                item.classList.add('text-neutral-900', 'dark:text-neutral-50', 'font-semibold');
+            }
+        });
+    });
+
+    
+    // Theme & i18n logic
+    const themeBtn = document.getElementById('theme-toggle');
+    const langBtn = document.getElementById('lang-toggle');
+    const htmlEl = document.documentElement;
+
+    const i18n = {
+        en: {
+            "nav.features": "Features",
+            "nav.process": "Process",
+            "nav.howItWorks": "How It Works",
+            "nav.download": "Download",
+            "nav.getStarted": "Get Started",
+            "hero.badge": "Built with Rust + Metal",
+            "hero.title": "Zero typing.<br/>Pure voice.",
+            "hero.subtitle": "Speak your thoughts and let Input 0 do the rest. Native macOS integration meets high-fidelity AI transcription. Speak. It's done.",
+            "hero.download": "Download for macOS",
+            "hero.action": "See in Action",
+            "hero.otherVersions": "Other Versions",
+            "glass.active": "Transcription Active",
+            "glass.processing": "Processing high-fidelity voice stream...",
+            "glass.gpu": "Metal GPU Active",
+            "glass.local": "Voice Stays Local",
+            "glass.aiOptimizing": "AI Polishing Text",
+            "glass.rawText": "\"uh, let's schedule a meeting for next tuesday to, um, discuss the new rui en te system benchmarks...\"",
+            "glass.polishedText": "\"Let's schedule a meeting for next Tuesday to discuss the new React system benchmarks.\"",
+            "typing.text": "\"Let's schedule a meeting for next Tuesday to discuss the new architectural system benchmarks...\"",
+            "feat.title": "Performance by Design.",
+            "feat.1.title": "Press & Speak",
+            "feat.1.desc": "Global hotkey integration. No window switching, no friction. Just hold and talk from anywhere in macOS.",
+            "feat.2.title": "Privacy-First Architecture",
+            "feat.2.desc": "Voice transcription runs entirely on your Mac via Metal GPU — your audio never leaves the device. Text optimization connects to your own LLM API, giving you full control over your data pipeline.",
+            "feat.2.badge": "Your voice stays local",
+            "feat.3.title": "AI Polish",
+            "feat.3.desc": "LLM-powered optimization removes filler words, fixes grammar, and corrects 40+ technical terms by pronunciation (e.g., 'rui en te' → 'React'). Context-aware with 10-message history.",
+            "feat.4.title": "Auto-Paste",
+            "feat.4.desc": "Transcribe and inject text directly into Slack, VS Code, or your browser without a single click.",
+            "feat.5.title": "Multi-Language",
+            "feat.5.desc": "4 AI engines with 9 models covering 99+ languages. Smart recommendation picks the best model for your language automatically.",
+            "feat.6.title": "4 AI Engines. 9 Models.",
+            "feat.6.desc": "Not just Whisper. Choose the best engine for your language and speed requirements. Download only what you need.",
+            "feat.6.engine1": "Whisper",
+            "feat.6.engine1.desc": "6 models · 99 languages",
+            "feat.6.engine2": "SenseVoice",
+            "feat.6.engine2.desc": "Best for CJK",
+            "feat.6.engine3": "Paraformer",
+            "feat.6.engine3.desc": "Chinese · Ultra-fast",
+            "feat.6.engine4": "Moonshine",
+            "feat.6.engine4.desc": "English · 5× faster",
+            "feat.7.title": "Custom Vocabulary",
+            "feat.7.desc": "Add your own terms — names, brands, jargon. The AI also auto-learns from your corrections via LLM validation.",
+            "process.title": "Privacy by performance.",
+            "process.subtitle": "Three steps to a faster workflow. No accounts, no clouds, no tracking.",
+            "process.1.title": "Hold Key (Option+Space)",
+            "process.1.desc": "Activate Input 0 from anywhere. The interface appears as a minimal floating pill that respects your focus.",
+            "process.2.title": "AI Transcribe & Polish",
+            "process.2.desc": "Release the key and Input 0 transcribes your speech locally, then an LLM refines it into polished, professional text.",
+            "process.3.title": "Auto Paste",
+            "process.3.desc": "Release the key and the text is automatically injected into your active application. System-level integration.",
+            "download.title": "Experience the flow.",
+            "download.subtitle": "Supports M1, M2, M3 Macs"
+        },
+        zh: {
+            "nav.features": "功能",
+            "nav.process": "流程",
+            "nav.howItWorks": "工作原理",
+            "nav.download": "下载",
+            "nav.getStarted": "立即开始",
+            "hero.badge": "基于 Rust + Metal 构建",
+            "hero.title": "开口即书写<br/>落笔即完美",
+            "hero.subtitle": "自然说话，剩下的交给 Input 0。macOS 原生级集成，与高保真 AI 转录完美结合。说出来，就写好了。",
+            "hero.download": "下载 macOS 版",
+            "hero.action": "查看演示",
+            "hero.otherVersions": "其他版本",
+            "glass.active": "正在转录",
+            "glass.processing": "正在处理高保真语音流...",
+            "glass.gpu": "Metal GPU 加速中",
+            "glass.local": "语音数据完全本地处理",
+            "glass.aiOptimizing": "AI 正在优化文本",
+            "glass.rawText": "\u201c呃，帮我安排一下下周二的那个会议，嗯，讨论一下新的瑞嗯特系统架构基准测试...\u201d",
+            "glass.polishedText": "\u201c帮我安排下周二的会议，讨论新的 React 系统架构基准测试结果。\u201d",
+            "typing.text": "\u201c帮我安排下周二的会议，我们要讨论一下新的系统架构基准测试结果...\u201d",
+            "feat.title": "为性能而生",
+            "feat.1.title": "一键语音输入",
+            "feat.1.desc": "全局快捷键唤醒。无需切换窗口，零摩擦体验。在 macOS 的任何地方，按住即可说话。",
+            "feat.2.title": "隐私优先架构",
+            "feat.2.desc": "语音转录通过 Metal GPU 完全在你的 Mac 上本地运行——音频数据永不离开设备。文本优化可连接你自己的 LLM API，完全掌控数据流。",
+            "feat.2.badge": "你的语音，始终留在本地",
+            "feat.3.title": "AI 智能润色",
+            "feat.3.desc": "大语言模型自动去除语气词、修正语法，并根据发音纠正 40 多种技术术语（如“瑞嗯特” → “React”）。支持 10 条历史上下文。",
+            "feat.4.title": "自动粘贴",
+            "feat.4.desc": "转录完成后，无需任何点击，文本自动注入到 Slack、VS Code 或浏览器等当前活跃的输入框中。",
+            "feat.5.title": "多语言支持",
+            "feat.5.desc": "四大 AI 引擎、9 个模型，覆盖 99+ 种语言。系统会根据你的语言自动推荐最佳模型。",
+            "feat.6.title": "四大引擎，九种模型",
+            "feat.6.desc": "不只有 Whisper。根据你的语言和速度需求选择最佳引擎，按需下载，即用即装。",
+            "feat.6.engine1": "Whisper",
+            "feat.6.engine1.desc": "6 个模型 · 99 种语言",
+            "feat.6.engine2": "SenseVoice",
+            "feat.6.engine2.desc": "中日韩识别最佳",
+            "feat.6.engine3": "Paraformer",
+            "feat.6.engine3.desc": "中文专用 · 极速推理",
+            "feat.6.engine4": "Moonshine",
+            "feat.6.engine4.desc": "英文专用 · 5 倍速",
+            "feat.7.title": "自定义词汇库",
+            "feat.7.desc": "添加专业术语、人名、品牌名，AI 优先识别。还能从你的纠正中自动学习，经 LLM 验证后入库。",
+            "process.title": "兼顾性能与隐私",
+            "process.subtitle": "仅需三步，体验更快的输入流。无需账号，无需云端，无任何追踪。",
+            "process.1.title": "按住快捷键 (Option+Space)",
+            "process.1.desc": "在任何界面随时唤起 Input 0。极简悬浮胶囊设计，毫不打扰你的当前工作。",
+            "process.2.title": "AI 转录与润色",
+            "process.2.desc": "松开快捷键，Input 0 会在本地快速转录语音，并通过 LLM 将其优化为专业、流畅的书面文本。",
+            "process.3.title": "自动上屏",
+            "process.3.desc": "完成优化后，系统级集成会将文本自动粘贴至你当前正在使用的应用程序中。",
+            "download.title": "开口即输入",
+            "download.subtitle": "支持 M1, M2, M3 芯片的 Mac"
+        }
+    };
+
+    function updateThemeUI() {
+        const isDark = htmlEl.classList.contains('dark');
+        const icon = isDark ? 'dark_mode' : 'light_mode';
+        if (themeBtn) themeBtn.textContent = icon;
+    }
+
+    function toggleTheme() {
+        htmlEl.classList.add('theme-transition');
+        if (htmlEl.classList.contains('dark')) {
+            htmlEl.classList.remove('dark');
+            htmlEl.classList.add('light');
+            localStorage.setItem('input0-theme', 'light');
+        } else {
+            htmlEl.classList.remove('light');
+            htmlEl.classList.add('dark');
+            localStorage.setItem('input0-theme', 'dark');
+        }
+        updateThemeUI();
+        setTimeout(() => htmlEl.classList.remove('theme-transition'), 250);
+    }
+
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    updateThemeUI();
+
+    let typingInterval;
+    function updateI18n() {
+        const lang = htmlEl.lang || 'en';
+        const dict = i18n[lang];
+        
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key]) {
+                el.innerHTML = dict[key];
+            }
+        });
+
+        const langText = lang === 'en' ? '中文' : 'EN';
+        if (langBtn) langBtn.textContent = langText;
+
+        // Update typing text
+        const typingEl = document.getElementById('typing-text');
+        if (typingEl) {
+            typingEl.setAttribute('data-text', dict['typing.text']);
+            // restart animation
+            clearInterval(typingInterval);
+            typingEl.textContent = '';
+            typingEl.classList.add('typing-cursor');
+            let i = 0;
+            const text = dict['typing.text'];
+            setTimeout(() => {
+                typingInterval = setInterval(() => {
+                    if (i < text.length) {
+                        typingEl.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typingInterval);
+                        setTimeout(() => {
+                            typingEl.classList.remove('typing-cursor');
+                        }, 2000);
+                    }
+                }, 40);
+            }, 100);
+        }
+    }
+
+    function toggleLang() {
+        const newLang = htmlEl.lang === 'en' ? 'zh' : 'en';
+        htmlEl.lang = newLang;
+        localStorage.setItem('input0-lang', newLang);
+        updateI18n();
+    }
+
+    if (langBtn) langBtn.addEventListener('click', toggleLang);
+    
+    // Initialize i18n on load
+    updateI18n();
+
+    // Hero Waveform Animation (Canvas, matching desktop WaveformAnimation.tsx)
+    (function initHeroWaveform() {
+        const canvas = document.getElementById('hero-waveform');
+        if (!canvas) return;
+
+        const BAR_COUNT = 20;
+        const BAR_WIDTH = 3;
+        const BAR_GAP = 2;
+        const MIN_HEIGHT = 4;
+        const MAX_HEIGHT = 28;
+        const CANVAS_HEIGHT = 32;
+        const totalWidth = BAR_COUNT * (BAR_WIDTH + BAR_GAP) - BAR_GAP;
+
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = totalWidth * dpr;
+        canvas.height = CANVAS_HEIGHT * dpr;
+        canvas.style.width = totalWidth + 'px';
+        canvas.style.height = CANVAS_HEIGHT + 'px';
+        canvas.style.display = 'block';
+
+        const ctx = canvas.getContext('2d');
+        const phases = Array.from({ length: BAR_COUNT }, () => Math.random() * Math.PI * 2);
+
+        // Check reduced-motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        function getBarColor() {
+            const isDark = document.documentElement.classList.contains('dark');
+            return isDark ? [230, 230, 230] : [23, 23, 23]; // #e6e6e6 : #171717
+        }
+
+        function drawStatic() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.scale(dpr, dpr);
+            const [r, g, b] = getBarColor();
+            const h = CANVAS_HEIGHT;
+            for (let i = 0; i < BAR_COUNT; i++) {
+                const barH = (MIN_HEIGHT + MAX_HEIGHT) / 2;
+                const barX = i * (BAR_WIDTH + BAR_GAP);
+                const barY = (h - barH) / 2;
+                ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',0.6)';
+                ctx.beginPath();
+                ctx.roundRect(barX, barY, BAR_WIDTH, barH, BAR_WIDTH / 2);
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        let animId = 0;
+
+        function draw(time) {
+            if (prefersReducedMotion.matches) {
+                drawStatic();
+                return;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.scale(dpr, dpr);
+
+            const t = time / 1000;
+            const h = CANVAS_HEIGHT;
+            const [r, g, b] = getBarColor();
+
+            for (let i = 0; i < BAR_COUNT; i++) {
+                const phase = phases[i];
+                const pos = i / (BAR_COUNT - 1);
+
+                // Multi-frequency sine superposition (same algorithm as desktop)
+                var f1 = Math.sin(t * 2.2 + phase + pos * Math.PI * 1.5) * 0.35;
+                var f2 = Math.sin(t * 3.7 + phase * 1.3 + pos * Math.PI * 2.8) * 0.25;
+                var f3 = Math.sin(t * 5.9 + phase * 2.1 + pos * Math.PI * 4.2) * 0.15;
+                var f4 = Math.sin(t * 0.8 + phase * 0.5) * 0.15;
+                var pulse = Math.pow(Math.sin(t * 1.5 + phase * 3.0 + pos * 6), 8) * 0.1;
+
+                var combined = 0.5 + f1 + f2 + f3 + f4 + pulse;
+                var normalized = Math.max(0, Math.min(1, combined));
+
+                var centerBias = 1 - Math.pow((pos - 0.5) * 2, 2) * 0.35;
+
+                var barH = MIN_HEIGHT + (MAX_HEIGHT - MIN_HEIGHT) * normalized * centerBias;
+                var barX = i * (BAR_WIDTH + BAR_GAP);
+                var barY = (h - barH) / 2;
+
+                var alpha = 0.5 + 0.5 * (barH / MAX_HEIGHT);
+                ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+                ctx.beginPath();
+                ctx.roundRect(barX, barY, BAR_WIDTH, barH, BAR_WIDTH / 2);
+                ctx.fill();
+            }
+
+            ctx.restore();
+            animId = requestAnimationFrame(draw);
+        }
+
+        // Start animation
+        if (prefersReducedMotion.matches) {
+            drawStatic();
+        } else {
+            animId = requestAnimationFrame(draw);
+        }
+
+        // React to reduced-motion changes
+        prefersReducedMotion.addEventListener('change', () => {
+            if (prefersReducedMotion.matches) {
+                cancelAnimationFrame(animId);
+                drawStatic();
+            } else {
+                animId = requestAnimationFrame(draw);
+            }
+        });
+    })();
+
+});
+</script>
+</body>
+</html>

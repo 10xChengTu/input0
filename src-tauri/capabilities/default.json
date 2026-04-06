@@ -1,0 +1,12 @@
+{
+  "identifier": "default",
+  "description": "Default capabilities for the app",
+  "windows": ["*"],
+  "permissions": [
+    "core:default",
+    "shell:allow-open",
+    "global-shortcut:default",
+    "updater:default",
+    "process:allow-restart"
+  ]
+}

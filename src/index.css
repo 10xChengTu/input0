@@ -1,0 +1,431 @@
+@import "tailwindcss";
+
+/* ===== Input0 Design System — Landing Page → Desktop Migration ===== */
+/* Based on the Landing Page's Material Design 3 color system + Inter typography */
+
+@theme {
+  /* --- Surface hierarchy (MD3-inspired) --- */
+  --color-surface: var(--theme-surface);
+  --color-surface-dim: var(--theme-surface-dim);
+  --color-surface-bright: var(--theme-surface-bright);
+  --color-surface-container-lowest: var(--theme-surface-container-lowest);
+  --color-surface-container-low: var(--theme-surface-container-low);
+  --color-surface-container: var(--theme-surface-container);
+  --color-surface-container-high: var(--theme-surface-container-high);
+  --color-surface-container-highest: var(--theme-surface-container-highest);
+
+  /* --- On-surface text --- */
+  --color-on-surface: var(--theme-on-surface);
+  --color-on-surface-variant: var(--theme-on-surface-variant);
+  --color-inverse-surface: var(--theme-inverse-surface);
+  --color-inverse-on-surface: var(--theme-inverse-on-surface);
+
+  /* --- Primary --- */
+  --color-primary: var(--theme-primary);
+  --color-primary-container: var(--theme-primary-container);
+  --color-on-primary: var(--theme-on-primary);
+  --color-on-primary-container: var(--theme-on-primary-container);
+  --color-inverse-primary: var(--theme-inverse-primary);
+
+  /* --- Secondary --- */
+  --color-secondary: var(--theme-secondary);
+  --color-secondary-container: var(--theme-secondary-container);
+  --color-on-secondary: var(--theme-on-secondary);
+  --color-on-secondary-container: var(--theme-on-secondary-container);
+
+  /* --- Outline --- */
+  --color-outline: var(--theme-outline);
+  --color-outline-variant: var(--theme-outline-variant);
+
+  /* --- Error / Success --- */
+  --color-error: #ba1a1a;
+  --color-error-container: var(--theme-error-container);
+  --color-on-error: #ffffff;
+  --color-on-error-container: var(--theme-on-error-container);
+  --color-success: #22c55e;
+
+  /* --- Glass / Overlay (shared across themes) --- */
+  --color-glass-bg: rgba(0, 0, 0, 0.55);
+  --color-glass-bg-recording: rgba(0, 0, 0, 0.65);
+  --color-glass-bg-done: rgba(22, 163, 74, 0.7);
+  --color-glass-bg-error: rgba(239, 68, 68, 0.7);
+  --color-glass-border: rgba(255, 255, 255, 0.12);
+  --color-glass-glow: rgba(255, 255, 255, 0.06);
+
+  /* --- Border radius (Landing Page scale) --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+
+  /* --- Easing --- */
+  --ease-spring: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* --- Font --- */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+}
+
+/* ===== Light Theme (default) ===== */
+:root {
+  /* Surface hierarchy */
+  --theme-surface: #f9f9f9;
+  --theme-surface-dim: #dadada;
+  --theme-surface-bright: #f9f9f9;
+  --theme-surface-container-lowest: #ffffff;
+  --theme-surface-container-low: #f3f3f3;
+  --theme-surface-container: #eeeeee;
+  --theme-surface-container-high: #e8e8e8;
+  --theme-surface-container-highest: #e2e2e2;
+
+  /* On-surface */
+  --theme-on-surface: #1a1c1c;
+  --theme-on-surface-variant: #474747;
+  --theme-inverse-surface: #2f3131;
+  --theme-inverse-on-surface: #f1f1f1;
+
+  /* Primary */
+  --theme-primary: #171717;
+  --theme-primary-container: #3c3b3b;
+  --theme-on-primary: #ffffff;
+  --theme-on-primary-container: #ffffff;
+  --theme-inverse-primary: #c8c6c5;
+
+  /* Secondary */
+  --theme-secondary: #5e5e5e;
+  --theme-secondary-container: #d6d4d4;
+  --theme-on-secondary: #ffffff;
+  --theme-on-secondary-container: #1b1c1c;
+
+  /* Outline */
+  --theme-outline: #888888;
+  --theme-outline-variant: rgba(0, 0, 0, 0.05);
+
+  /* Error */
+  --theme-error-container: #ffdad6;
+  --theme-on-error-container: #410002;
+
+  /* --- Component-level tokens (Light) --- */
+
+  /* Milled button (radial gradient) */
+  --theme-btn-primary-from: #3c3b3b;
+  --theme-btn-primary-to: #171717;
+  --theme-btn-primary-text: #ffffff;
+  --theme-btn-primary-hover-from: #474746;
+  --theme-btn-primary-hover-to: #2a2a2a;
+
+  /* Secondary button — Landing Page: bg-white, no border */
+  --theme-btn-secondary-bg: #ffffff;
+  --theme-btn-secondary-text: #171717;
+  --theme-btn-secondary-border: transparent;
+  --theme-btn-secondary-hover-bg: var(--theme-surface-container-low);
+
+  /* Tags / badges — Landing Page: surface hierarchy, no border */
+  --theme-tag-bg: var(--theme-surface-container-low);
+  --theme-tag-text: var(--theme-on-surface-variant);
+  --theme-tag-border: transparent;
+  --theme-tag-active-bg: var(--theme-surface-container-high);
+  --theme-tag-active-text: var(--theme-on-surface);
+  --theme-tag-active-border: transparent;
+
+  /* Input fields */
+  --theme-input-bg: #ffffff;
+  --theme-input-border: rgba(0, 0, 0, 0.06);
+  --theme-input-focus-border: rgba(0, 114, 245, 0.4);
+  --theme-input-focus-ring: rgba(0, 114, 245, 0.15);
+
+  /* Status */
+  --theme-status-dot-loaded: #22c55e;
+  --theme-status-dot-unloaded: #ba1a1a;
+  --theme-status-ping: #4ade80;
+
+  /* Toast */
+  --theme-toast-bg: #ffffff;
+  --theme-toast-border: rgba(0, 0, 0, 0.08);
+  --theme-toast-text: #1a1c1c;
+  --theme-toast-icon: #22c55e;
+  --theme-toast-error-border: rgba(186, 26, 26, 0.2);
+  --theme-toast-error-text: #ba1a1a;
+
+
+  /* Test result */
+  --theme-result-success-bg: var(--theme-surface-container-low);
+  --theme-result-success-text: var(--theme-on-surface-variant);
+  --theme-result-success-border: transparent;
+  --theme-result-error-bg: #ffdad6;
+  --theme-result-error-text: #ba1a1a;
+  --theme-result-error-border: rgba(186, 26, 26, 0.15);
+
+  /* Recommendation banner */
+  --theme-reco-bg: var(--theme-surface-container-low);
+  --theme-reco-border: transparent;
+  --theme-reco-icon: #888888;
+
+  /* Kbd — Landing Page: bg-surface-container-low, border-outline-variant/20 */
+  --theme-kbd-bg: transparent;
+  --theme-kbd-border: var(--theme-outline-variant);
+  --theme-kbd-text: var(--theme-on-surface-variant);
+
+  /* Progress bar */
+  --theme-progress-track: rgba(0, 0, 0, 0.04);
+  --theme-progress-fill: #171717;
+
+  /* Code block */
+  --theme-code-bg: var(--theme-surface-container-low);
+  --theme-code-border: rgba(198, 198, 198, 0.2);
+
+  /* Divider */
+  --theme-divider: rgba(0, 0, 0, 0.04);
+
+  /* Spinner */
+  --theme-spinner: #888888;
+
+  /* Overlay warning */
+  --theme-warning-bg: rgba(255, 255, 255, 0.9);
+  --theme-warning-border: rgba(0, 0, 0, 0.05);
+  --theme-warning-icon: #888888;
+  --theme-warning-text: #5e5e5e;
+
+  /* Sidebar */
+  --theme-sidebar-bg: #f9f9f9;
+  --theme-sidebar-border: rgba(0, 0, 0, 0.04);
+  --theme-sidebar-item-hover: rgba(0, 0, 0, 0.03);
+  --theme-sidebar-item-active: rgba(0, 0, 0, 0.05);
+  --theme-sidebar-item-active-text: #1a1c1c;
+  --theme-sidebar-text: #5e5e5e;
+  --theme-sidebar-text-muted: #999999;
+
+  /* Content area */
+  --theme-content-bg: #ffffff;
+  --theme-content-radius: 12px;
+}
+
+/* ===== Dark Theme ===== */
+[data-theme="dark"] {
+  /* Surface hierarchy (dark) */
+  --theme-surface: #121212;
+  --theme-surface-dim: #0e0e0e;
+  --theme-surface-bright: #1e1e1e;
+  --theme-surface-container-lowest: #0a0a0a;
+  --theme-surface-container-low: #1a1a1a;
+  --theme-surface-container: #1e1e1e;
+  --theme-surface-container-high: #252525;
+  --theme-surface-container-highest: #2f2f2f;
+
+  /* On-surface (dark) */
+  --theme-on-surface: #e6e6e6;
+  --theme-on-surface-variant: #a0a0a0;
+  --theme-inverse-surface: #e6e6e6;
+  --theme-inverse-on-surface: #2f3131;
+
+  /* Primary (dark) */
+  --theme-primary: #e5e5e5;
+  --theme-primary-container: #3c3b3b;
+  --theme-on-primary: #1a1a1a;
+  --theme-on-primary-container: #e5e5e5;
+  --theme-inverse-primary: #474746;
+
+  /* Secondary (dark) */
+  --theme-secondary: #acabab;
+  --theme-secondary-container: #3b3b3b;
+  --theme-on-secondary: #1b1c1c;
+  --theme-on-secondary-container: #d6d4d4;
+
+  /* Outline (dark) */
+  --theme-outline: #5e5e5e;
+  --theme-outline-variant: rgba(255, 255, 255, 0.06);
+
+  /* Error (dark) */
+  --theme-error-container: rgba(186, 26, 26, 0.2);
+  --theme-on-error-container: #ffdad6;
+
+  /* --- Component-level tokens (Dark) --- */
+
+  /* Milled button (dark — inverted) */
+  --theme-btn-primary-from: #e5e5e5;
+  --theme-btn-primary-to: #ffffff;
+  --theme-btn-primary-text: #1a1a1a;
+  --theme-btn-primary-hover-from: #d6d4d4;
+  --theme-btn-primary-hover-to: #e5e5e5;
+
+  /* Secondary button (dark) */
+  --theme-btn-secondary-bg: rgba(255, 255, 255, 0.06);
+  --theme-btn-secondary-text: #e6e6e6;
+  --theme-btn-secondary-border: rgba(255, 255, 255, 0.06);
+  --theme-btn-secondary-hover-bg: rgba(255, 255, 255, 0.1);
+
+  /* Tags (dark) */
+  --theme-tag-bg: rgba(255, 255, 255, 0.06);
+  --theme-tag-text: #a0a0a0;
+  --theme-tag-border: rgba(255, 255, 255, 0.05);
+  --theme-tag-active-bg: rgba(255, 255, 255, 0.1);
+  --theme-tag-active-text: #e5e5e5;
+  --theme-tag-active-border: rgba(255, 255, 255, 0.1);
+
+  /* Input fields (dark) */
+  --theme-input-bg: rgba(255, 255, 255, 0.06);
+  --theme-input-border: rgba(255, 255, 255, 0.06);
+  --theme-input-focus-border: rgba(10, 132, 255, 0.6);
+  --theme-input-focus-ring: rgba(10, 132, 255, 0.2);
+
+  /* Status (dark) */
+  --theme-status-dot-loaded: #22c55e;
+  --theme-status-dot-unloaded: #f87171;
+  --theme-status-ping: #4ade80;
+
+  /* Toast (dark) */
+  --theme-toast-bg: #2a2a2a;
+  --theme-toast-border: rgba(255, 255, 255, 0.08);
+  --theme-toast-text: #e6e6e6;
+  --theme-toast-icon: #4ade80;
+  --theme-toast-error-border: rgba(248, 113, 113, 0.2);
+  --theme-toast-error-text: #f87171;
+
+
+  /* Test result (dark) */
+  --theme-result-success-bg: rgba(255, 255, 255, 0.04);
+  --theme-result-success-text: #a0a0a0;
+  --theme-result-success-border: rgba(255, 255, 255, 0.05);
+  --theme-result-error-bg: rgba(186, 26, 26, 0.15);
+  --theme-result-error-text: #f87171;
+  --theme-result-error-border: rgba(248, 113, 113, 0.15);
+
+  /* Recommendation (dark) */
+  --theme-reco-bg: rgba(255, 255, 255, 0.04);
+  --theme-reco-border: rgba(255, 255, 255, 0.05);
+  --theme-reco-icon: #a0a0a0;
+
+  /* Kbd (dark) */
+  --theme-kbd-bg: transparent;
+  --theme-kbd-border: var(--theme-outline-variant);
+  --theme-kbd-text: #a0a0a0;
+
+  /* Progress (dark) */
+  --theme-progress-track: rgba(255, 255, 255, 0.05);
+  --theme-progress-fill: #e5e5e5;
+
+  /* Code block (dark) */
+  --theme-code-bg: rgba(255, 255, 255, 0.03);
+  --theme-code-border: rgba(255, 255, 255, 0.04);
+
+  /* Divider (dark) */
+  --theme-divider: rgba(255, 255, 255, 0.04);
+
+  /* Spinner (dark) */
+  --theme-spinner: #5e5e5e;
+
+  /* Overlay warning (dark) */
+  --theme-warning-bg: rgba(30, 30, 30, 0.9);
+  --theme-warning-border: rgba(255, 255, 255, 0.05);
+  --theme-warning-icon: #a0a0a0;
+  --theme-warning-text: #a0a0a0;
+
+  /* Sidebar (dark) */
+  --theme-sidebar-bg: #121212;
+  --theme-sidebar-border: rgba(255, 255, 255, 0.04);
+  --theme-sidebar-item-hover: rgba(255, 255, 255, 0.04);
+  --theme-sidebar-item-active: rgba(255, 255, 255, 0.06);
+  --theme-sidebar-item-active-text: #e6e6e6;
+  --theme-sidebar-text: #a0a0a0;
+  --theme-sidebar-text-muted: #5e5e5e;
+
+  /* Content area (dark) */
+  --theme-content-bg: #0a0a0a;
+  --theme-content-radius: 12px;
+}
+
+/* ===== Base styles ===== */
+html, body {
+  background-color: var(--theme-surface);
+  color: var(--theme-on-surface);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+/* ===== Milled Button (Landing Page signature) ===== */
+.milled-button {
+  background: radial-gradient(circle at center, var(--theme-btn-primary-from) 0%, var(--theme-btn-primary-to) 100%);
+  color: var(--theme-btn-primary-text);
+  transition: all 200ms ease;
+}
+.milled-button:hover:not(:disabled) {
+  background: radial-gradient(circle at center, var(--theme-btn-primary-hover-from) 0%, var(--theme-btn-primary-hover-to) 100%);
+}
+.milled-button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.milled-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== Glass Panel (Landing Page style) ===== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+[data-theme="dark"] .glass-panel {
+  background: rgba(30, 30, 30, 0.8);
+}
+
+/* ===== Feature Card hover (Landing Page interaction) ===== */
+.feature-card {
+  transition: all 300ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+.feature-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+[data-theme="dark"] .feature-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Scrollbar styling ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-outline-variant);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-outline);
+}
+
+/* ===== Input autofill override ===== */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px var(--theme-surface-container-low) inset !important;
+  -webkit-text-fill-color: var(--theme-on-surface) !important;
+  caret-color: var(--theme-on-surface);
+}
+
+/* ===== Custom select arrow ===== */
+select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23737373' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card:hover {
+    transform: none !important;
+  }
+}
