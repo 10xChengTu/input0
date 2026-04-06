@@ -60,6 +60,9 @@ jobs:
       - name: Install frontend dependencies
         run: pnpm install
 
+      - name: Configure cmake overrides
+        run: echo 'set(GGML_NATIVE OFF CACHE BOOL "" FORCE)' > /tmp/cmake-overrides.cmake
+
       - name: Build and create release
         uses: tauri-apps/tauri-action@v0
         env:
@@ -68,8 +71,7 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
           MACOSX_DEPLOYMENT_TARGET: "11.0"
           CMAKE_OSX_DEPLOYMENT_TARGET: "11.0"
-          CFLAGS: "-mcpu=apple-m1"
-          CXXFLAGS: "-mcpu=apple-m1"
+          CMAKE_PROJECT_INCLUDE: "/tmp/cmake-overrides.cmake"
         with:
           tagName: v__VERSION__
           releaseName: "Input0 v__VERSION__"
