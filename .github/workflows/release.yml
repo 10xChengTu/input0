@@ -29,15 +29,7 @@ jobs:
 
   release:
     needs: changelog
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - runner: macos-latest
-            target: aarch64-apple-darwin
-          - runner: macos-13
-            target: x86_64-apple-darwin
-    runs-on: ${{ matrix.runner }}
+    runs-on: macos-latest
     permissions:
       contents: write
 
@@ -59,7 +51,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - name: Install system dependencies
@@ -82,4 +74,3 @@ jobs:
           releaseBody: ${{ needs.changelog.outputs.body }}
           releaseDraft: false
           prerelease: false
-          args: --target ${{ matrix.target }}

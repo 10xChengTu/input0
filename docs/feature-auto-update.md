@@ -111,19 +111,14 @@ Tauri Updater 要求对更新包进行签名验证：
 
 `.github/workflows/release.yml` — 推送到 `release` 分支时自动触发。
 
-**构建矩阵**：双架构并行构建，覆盖所有 Mac 用户：
-
-| Runner | Target | 说明 |
-|--------|--------|------|
-| `macos-latest` (Apple Silicon) | `aarch64-apple-darwin` | ARM64 原生构建 |
-| `macos-13` (Intel) | `x86_64-apple-darwin` | x86_64 原生构建 |
+**构建平台**：`macos-latest`（Apple Silicon），Intel Mac 用户可通过 Rosetta 2 运行。
 
 **流程**：
 1. `changelog` job（ubuntu）：`git-cliff` 解析 Conventional Commits，生成分类 Release Notes
-2. 两个 `release` job（macOS）并行执行：安装 Rust + Node.js + pnpm + cmake
+2. `release` job（macOS ARM64）：安装 Rust + Node.js 22 + pnpm + cmake
 3. `tauri-apps/tauri-action@v0` 自动构建、签名、创建 GitHub Release（使用生成的 changelog 作为 Release Notes）
 4. 产物自动上传：`.dmg`、`.app.tar.gz`、`.app.tar.gz.sig`、`latest.json`
-5. `latest.json` 包含双架构平台入口，供 updater 插件检查更新
+5. `latest.json` 供 updater 插件检查更新
 
 **Release 命名**：`v{version}`（version 自动读取自 `tauri.conf.json`）
 
@@ -181,7 +176,7 @@ master (开发) ──push/merge──▸ release (发布) ──auto──▸ G
 1. 在 `master` 分支完成开发、测试
 2. 更新 `tauri.conf.json` 中的 `version` 字段（如 `0.1.0` → `0.2.0`）
 3. 将 `master` 合并/推送到 `release` 分支
-4. GitHub Actions 自动触发双架构构建
+4. GitHub Actions 自动触发构建
 5. 构建成功后自动创建 GitHub Release（tag: `v0.2.0`），上传所有产物
 6. 已安装用户的 updater 插件检测到 `latest.json` 更新，提示升级
 
@@ -192,18 +187,17 @@ master (开发) ──push/merge──▸ release (发布) ──auto──▸ G
 | 文件 | 用途 |
 |------|------|
 | `Input0_x.y.z_aarch64.dmg` | Apple Silicon Mac 安装包 |
-| `Input0_x.y.z_x64.dmg` | Intel Mac 安装包 |
-| `Input0.app.tar.gz` (aarch64) | Apple Silicon updater 更新包 |
-| `Input0.app.tar.gz` (x64) | Intel updater 更新包 |
+| `Input0.app.tar.gz` | Updater 更新包 |
 | `Input0.app.tar.gz.sig` | 更新包签名文件 |
 | `latest.json` | Updater 版本检查 endpoint |
+
+> Intel Mac 用户可通过 macOS 内置的 Rosetta 2 运行 ARM 版本。
 
 ### 注意事项
 
 - 每次发布前**必须**更新 `tauri.conf.json` 的 `version`，否则 Release tag 冲突会导致构建失败
-- `fail-fast: false`：一个架构构建失败不影响另一个架构
 - `concurrency: release`：重复推送会取消进行中的构建，只保留最新的
-- `macos-13` runner 将来会被 GitHub 弃用，届时可切换为交叉编译或 Universal Binary 方案
+- 仅构建 Apple Silicon（aarch64），Intel Mac 通过 Rosetta 2 兼容运行
 
 ## 文件清单
 
