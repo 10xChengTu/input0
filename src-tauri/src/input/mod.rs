@@ -77,6 +77,41 @@ mod accessibility {
 }
 
 #[cfg(target_os = "macos")]
+mod microphone {
+    use cocoa::base::id;
+
+    pub fn check_permission() -> String {
+        unsafe {
+            let media_type: id = msg_send![
+                class!(NSString),
+                stringWithUTF8String: b"soun\0".as_ptr()
+            ];
+            let status: i64 = msg_send![
+                class!(AVCaptureDevice),
+                authorizationStatusForMediaType: media_type
+            ];
+            match status {
+                0 => "not_determined".to_string(),
+                1 => "restricted".to_string(),
+                2 => "denied".to_string(),
+                3 => "authorized".to_string(),
+                _ => "unknown".to_string(),
+            }
+        }
+    }
+
+    pub fn request_permission() {
+        open_settings();
+    }
+
+    pub fn open_settings() {
+        let _ = std::process::Command::new("open")
+            .arg("x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone")
+            .spawn();
+    }
+}
+
+#[cfg(target_os = "macos")]
 pub fn check_accessibility() -> bool {
     accessibility::is_trusted()
 }
@@ -91,6 +126,21 @@ pub fn open_accessibility_settings() {
     accessibility::open_settings();
 }
 
+#[cfg(target_os = "macos")]
+pub fn check_microphone_permission() -> String {
+    microphone::check_permission()
+}
+
+#[cfg(target_os = "macos")]
+pub fn request_microphone_permission() {
+    microphone::request_permission()
+}
+
+#[cfg(target_os = "macos")]
+pub fn open_microphone_settings() {
+    microphone::open_settings()
+}
+
 #[cfg(not(target_os = "macos"))]
 pub fn check_accessibility() -> bool {
     true
@@ -103,3 +153,14 @@ pub fn request_accessibility() -> bool {
 
 #[cfg(not(target_os = "macos"))]
 pub fn open_accessibility_settings() {}
+
+#[cfg(not(target_os = "macos"))]
+pub fn check_microphone_permission() -> String {
+    "authorized".to_string()
+}
+
+#[cfg(not(target_os = "macos"))]
+pub fn request_microphone_permission() {}
+
+#[cfg(not(target_os = "macos"))]
+pub fn open_microphone_settings() {}

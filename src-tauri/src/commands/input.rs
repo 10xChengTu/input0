@@ -99,3 +99,18 @@ pub fn request_accessibility_permission() -> bool {
 pub fn open_accessibility_settings() {
     input::open_accessibility_settings();
 }
+
+#[command]
+pub fn check_microphone_permission() -> String {
+    input::check_microphone_permission()
+}
+
+#[command]
+pub fn request_microphone_permission() {
+    input::request_microphone_permission()
+}
+
+#[command]
+pub fn open_microphone_settings() {
+    input::open_microphone_settings()
+}

@@ -154,6 +154,10 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
     updateHotkey,
     userTags,
     setUserTags,
+    inputDevice,
+    inputDevices,
+    loadInputDevices,
+    setInputDevice,
   } = useSettingsStore();
 
   const { t } = useLocaleStore();
@@ -162,6 +166,7 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
   const [isRecordingHotkey, setIsRecordingHotkey] = useState(false);
   const focusValueRef = useRef<string>("");
   const [accessibilityGranted, setAccessibilityGranted] = useState<boolean | null>(null);
+  const [micPermission, setMicPermission] = useState<string | null>(null);
 
   const {
     updateAvailable,
@@ -185,6 +190,11 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
   useEffect(() => {
     invoke<boolean>("check_accessibility_permission").then(setAccessibilityGranted).catch(() => {});
   }, []);
+
+  useEffect(() => {
+    invoke<string>("check_microphone_permission").then(setMicPermission).catch(() => {});
+    loadInputDevices();
+  }, [loadInputDevices]);
 
   const sectionToTab = (section: string | null | undefined): SettingsTab => {
     if (section === "stt-model") return "models";
@@ -354,7 +364,7 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
 
               <section>
                 <h2 className="text-xs font-semibold text-[var(--theme-on-surface-variant)] uppercase tracking-wider mb-4">{t.settings.permissionsTitle}</h2>
-                <div className="bg-[var(--theme-surface-container-lowest)] rounded-xl border border-[var(--theme-outline-variant)] overflow-hidden">
+                <div className="bg-[var(--theme-surface-container-lowest)] rounded-xl border border-[var(--theme-outline-variant)] overflow-hidden divide-y divide-[var(--theme-divider)]">
                   <div className="p-4 sm:p-5 flex items-center justify-between">
                     <div>
                       <h3 className="text-sm font-medium text-[var(--theme-on-surface)]">{t.settings.accessibilityLabel}</h3>
@@ -388,6 +398,75 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
                         </>
                       )}
                     </div>
+                  </div>
+
+                  <div className="p-4 sm:p-5 flex items-center justify-between">
+                    <div>
+                      <h3 className="text-sm font-medium text-[var(--theme-on-surface)]">{t.settings.microphoneLabel}</h3>
+                      <p className="mt-1 text-xs text-[var(--theme-on-surface-variant)]">{t.settings.microphoneHint}</p>
+                    </div>
+                    <div className="ml-4 flex-shrink-0 flex items-center gap-3">
+                      {micPermission !== null && (
+                        <span className={`text-xs font-medium ${micPermission === "authorized" ? "text-[var(--theme-status-dot-loaded)]" : "text-[var(--color-error)]"}`}>
+                          {micPermission === "authorized" ? t.settings.microphoneGranted : micPermission === "not_determined" ? t.settings.microphoneNotDetermined : t.settings.microphoneNotGranted}
+                        </span>
+                      )}
+                      {micPermission !== null && micPermission !== "authorized" && (
+                        <>
+                          {micPermission === "not_determined" && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                invoke("request_microphone_permission");
+                                // Re-check after a short delay (macOS shows system dialog)
+                                setTimeout(() => {
+                                  invoke<string>("check_microphone_permission").then(setMicPermission).catch(() => {});
+                                }, 2000);
+                              }}
+                              className="milled-button text-xs font-medium px-3 py-1.5 rounded-lg whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-[var(--theme-input-focus-border)]"
+                            >
+                              {t.settings.microphoneGrant}
+                            </button>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => invoke("open_microphone_settings")}
+                            className="text-xs font-medium text-[var(--theme-primary)] hover:text-[var(--theme-primary-hover)] transition-colors whitespace-nowrap"
+                          >
+                            {t.settings.microphoneOpenSettings}
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="p-4 sm:p-5">
+                    <label htmlFor="inputDevice" className="block text-sm font-medium text-[var(--theme-on-surface)] mb-1">
+                      {t.settings.inputDeviceLabel}
+                    </label>
+                    <select
+                      id="inputDevice"
+                      value={inputDevice}
+                      onChange={async (e) => {
+                        try {
+                          await setInputDevice(e.target.value);
+                          onToast(t.settings.settingsSaved, "success");
+                        } catch {
+                          onToast(t.settings.settingsSaveFailed, "error");
+                        }
+                      }}
+                      className="block w-full rounded-md border border-[var(--theme-outline-variant)] bg-[var(--theme-input-bg)] py-2 pl-3 pr-10 text-[var(--theme-on-surface)] focus:border-[var(--theme-input-focus-border)] focus:ring-2 focus:ring-[var(--theme-input-focus-border)] outline-none transition-shadow sm:text-sm sm:leading-6"
+                    >
+                      <option value="" className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">{t.settings.inputDeviceDefault}</option>
+                      {inputDevices.map((device) => (
+                        <option key={device.name} value={device.name} className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">
+                          {device.name}{device.is_default ? ` (${t.settings.inputDeviceDefault})` : ""}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="mt-2 text-xs text-[var(--theme-on-surface-variant)]">
+                      {t.settings.inputDeviceHint}
+                    </p>
                   </div>
                 </div>
               </section>

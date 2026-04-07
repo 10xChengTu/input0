@@ -2,6 +2,11 @@ import { create } from "zustand";
 import { invoke } from "@tauri-apps/api/core";
 import { listen, type UnlistenFn } from "@tauri-apps/api/event";
 
+export interface AudioDeviceInfo {
+  name: string;
+  is_default: boolean;
+}
+
 export interface SttModelInfo {
   id: string;
   display_name: string;
@@ -58,6 +63,9 @@ export interface SettingsState {
 
   userTags: string[];
 
+  inputDevice: string;
+  inputDevices: AudioDeviceInfo[];
+
   onboardingCompleted: boolean;
 
   setApiKey: (key: string) => void;
@@ -68,6 +76,8 @@ export interface SettingsState {
   setTextStructuring: (enabled: boolean) => void;
   setUserTags: (tags: string[]) => void;
   setOnboardingCompleted: (completed: boolean) => void;
+  loadInputDevices: () => Promise<void>;
+  setInputDevice: (deviceName: string) => Promise<void>;
   completeOnboarding: () => Promise<void>;
   loadConfig: () => Promise<void>;
   saveConfig: () => Promise<void>;
@@ -93,6 +103,7 @@ interface AppConfig {
   text_structuring: boolean;
   user_tags: string[];
   onboarding_completed: boolean;
+  input_device: string;
 }
 
 export const useSettingsStore = create<SettingsState>((set, get) => ({
@@ -115,6 +126,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   modelRecommendation: null,
   textStructuring: false,
   userTags: [],
+  inputDevice: "",
+  inputDevices: [],
   onboardingCompleted: false,
   
   setApiKey: (apiKey) => set({ apiKey }),
@@ -134,6 +147,27 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       set({ onboardingCompleted: false });
     }
   },
+
+  loadInputDevices: async () => {
+    try {
+      const devices = await invoke<AudioDeviceInfo[]>("list_input_devices");
+      set({ inputDevices: devices });
+    } catch (error) {
+      console.error("Failed to load input devices:", error);
+    }
+  },
+
+  setInputDevice: async (deviceName: string) => {
+    const prev = get().inputDevice;
+    set({ inputDevice: deviceName });
+    try {
+      await invoke("set_input_device", { deviceName });
+    } catch (error) {
+      console.error("Failed to set input device:", error);
+      set({ inputDevice: prev });
+      throw error;
+    }
+  },
   
   loadConfig: async () => {
     set({ isLoading: true });
@@ -149,6 +183,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         textStructuring: config.text_structuring ?? true,
         userTags: config.user_tags ?? [],
         onboardingCompleted: config.onboarding_completed ?? false,
+        inputDevice: config.input_device || "",
       });
     } catch (error) {
       console.error("Failed to load config:", error);
@@ -171,6 +206,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         text_structuring: state.textStructuring,
         user_tags: state.userTags,
         onboarding_completed: state.onboardingCompleted,
+        input_device: state.inputDevice,
       };
       await invoke("save_config", { config });
     } catch (error) {
@@ -281,6 +317,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         textStructuring: config.text_structuring ?? true,
         userTags: config.user_tags ?? [],
         onboardingCompleted: config.onboarding_completed ?? false,
+        inputDevice: config.input_device || "",
       });
       await get().checkModelRecommendation(get().language);
     } catch (error) {

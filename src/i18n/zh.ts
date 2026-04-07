@@ -127,6 +127,16 @@ export const zh: Translations = {
     accessibilityNotGranted: "未授权",
     accessibilityGrant: "授权",
     accessibilityOpenSettings: "打开设置",
+    microphoneLabel: "麦克风",
+    microphoneHint: "语音录制所需权限",
+    microphoneGranted: "已授权",
+    microphoneNotGranted: "未授权",
+    microphoneNotDetermined: "未请求",
+    microphoneGrant: "授权",
+    microphoneOpenSettings: "打开设置",
+    inputDeviceLabel: "输入设备",
+    inputDeviceHint: "选择用于录音的麦克风设备",
+    inputDeviceDefault: "系统默认",
     tagLabels: {
       // Identity & Domain
       "Developer": "开发者",

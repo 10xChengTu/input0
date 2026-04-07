@@ -128,6 +128,16 @@ export const en: Translations = {
     accessibilityNotGranted: "Not Granted",
     accessibilityGrant: "Grant",
     accessibilityOpenSettings: "Open Settings",
+    microphoneLabel: "Microphone",
+    microphoneHint: "Required for voice recording",
+    microphoneGranted: "Granted",
+    microphoneNotGranted: "Not Granted",
+    microphoneNotDetermined: "Not Determined",
+    microphoneGrant: "Grant",
+    microphoneOpenSettings: "Open Settings",
+    inputDeviceLabel: "Input Device",
+    inputDeviceHint: "Select the microphone to use for recording",
+    inputDeviceDefault: "System Default",
   },
 
   vocabulary: {

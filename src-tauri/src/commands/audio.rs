@@ -82,3 +82,14 @@ pub async fn cancel_pipeline(
     }
     Ok(())
 }
+
+#[command]
+pub fn list_input_devices() -> Vec<crate::audio::capture::AudioDeviceInfo> {
+    crate::audio::capture::list_input_devices()
+}
+
+#[command]
+pub async fn set_input_device(device_name: String) -> Result<(), AppError> {
+    crate::config::update_field("input_device", &device_name)?;
+    Ok(())
+}

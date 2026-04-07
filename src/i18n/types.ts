@@ -133,6 +133,16 @@ export interface Translations {
     accessibilityNotGranted: string;
     accessibilityGrant: string;
     accessibilityOpenSettings: string;
+    microphoneLabel: string;
+    microphoneHint: string;
+    microphoneGranted: string;
+    microphoneNotGranted: string;
+    microphoneNotDetermined: string;
+    microphoneGrant: string;
+    microphoneOpenSettings: string;
+    inputDeviceLabel: string;
+    inputDeviceHint: string;
+    inputDeviceDefault: string;
   };
 
   // VocabularyPage

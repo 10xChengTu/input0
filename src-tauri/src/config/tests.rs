@@ -203,6 +203,7 @@ another_unknown = 42
             text_structuring: false,
             user_tags: Vec::new(),
             onboarding_completed: false,
+            input_device: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save config");
         let loaded = load_from_dir(tmp.path()).expect("Load config");
@@ -285,6 +286,7 @@ another_unknown = 42
             text_structuring: false,
             user_tags: Vec::new(),
             onboarding_completed: false,
+            input_device: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Initial save");
         let updated =
@@ -317,6 +319,7 @@ another_unknown = 42
             text_structuring: false,
             user_tags: Vec::new(),
             onboarding_completed: false,
+            input_device: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save");
         let loaded = load_from_dir(tmp.path()).expect("Load");
@@ -366,6 +369,7 @@ another_unknown = 42
             text_structuring: false,
             user_tags: Vec::new(),
             onboarding_completed: false,
+            input_device: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save unicode config");
         let loaded = load_from_dir(tmp.path()).expect("Load unicode config");
@@ -388,6 +392,7 @@ another_unknown = 42
             text_structuring: false,
             user_tags: Vec::new(),
             onboarding_completed: false,
+            input_device: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save empty config");
         let loaded = load_from_dir(tmp.path()).expect("Load empty config");
@@ -414,6 +419,7 @@ another_unknown = 42
             text_structuring: false,
             user_tags: Vec::new(),
             onboarding_completed: false,
+            input_device: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save large config");
         let loaded = load_from_dir(tmp.path()).expect("Load large config");

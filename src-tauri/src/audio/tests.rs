@@ -12,8 +12,16 @@ mod tests {
         let input = vec![0.0f32, 1.0, 0.5, 0.5];
         let output = stereo_to_mono(&input);
         assert_eq!(output.len(), 2);
-        assert!((output[0] - 0.5).abs() < 1e-6, "Expected 0.5, got {}", output[0]);
-        assert!((output[1] - 0.5).abs() < 1e-6, "Expected 0.5, got {}", output[1]);
+        assert!(
+            (output[0] - 0.5).abs() < 1e-6,
+            "Expected 0.5, got {}",
+            output[0]
+        );
+        assert!(
+            (output[1] - 0.5).abs() < 1e-6,
+            "Expected 0.5, got {}",
+            output[1]
+        );
     }
 
     #[test]
@@ -28,7 +36,11 @@ mod tests {
         let input = vec![0.2f32, 0.8];
         let output = stereo_to_mono(&input);
         assert_eq!(output.len(), 1);
-        assert!((output[0] - 0.5).abs() < 1e-6, "Expected 0.5, got {}", output[0]);
+        assert!(
+            (output[0] - 0.5).abs() < 1e-6,
+            "Expected 0.5, got {}",
+            output[0]
+        );
     }
 
     #[test]
@@ -71,9 +83,17 @@ mod tests {
         let output = i16_to_f32(&input);
         assert_eq!(output.len(), 2);
         // 16384 / 32768.0 = 0.5
-        assert!((output[0] - 0.5).abs() < 1e-4, "Expected ~0.5, got {}", output[0]);
+        assert!(
+            (output[0] - 0.5).abs() < 1e-4,
+            "Expected ~0.5, got {}",
+            output[0]
+        );
         // -16384 / 32768.0 = -0.5
-        assert!((output[1] - (-0.5)).abs() < 1e-4, "Expected ~-0.5, got {}", output[1]);
+        assert!(
+            (output[1] - (-0.5)).abs() < 1e-4,
+            "Expected ~-0.5, got {}",
+            output[1]
+        );
     }
 
     #[test]
@@ -92,7 +112,11 @@ mod tests {
         let output = i16_to_f32(&input);
         assert_eq!(output.len(), 1);
         // i16::MIN (-32768) / 32768.0 = -1.0
-        assert!(output[0] >= -1.0, "Should not go below -1.0, got {}", output[0]);
+        assert!(
+            output[0] >= -1.0,
+            "Should not go below -1.0, got {}",
+            output[0]
+        );
         assert!(output[0] < -0.99, "Expected ~-1.0, got {}", output[0]);
     }
 
@@ -101,7 +125,11 @@ mod tests {
         let input = vec![0i16];
         let output = i16_to_f32(&input);
         assert_eq!(output.len(), 1);
-        assert!((output[0] - 0.0).abs() < 1e-6, "Expected 0.0, got {}", output[0]);
+        assert!(
+            (output[0] - 0.0).abs() < 1e-6,
+            "Expected 0.0, got {}",
+            output[0]
+        );
     }
 
     #[test]
@@ -263,7 +291,9 @@ mod tests {
     fn test_prepare_mono_48k() {
         // Mono 48kHz → resample only to 16kHz
         let num_samples = 4800usize;
-        let input: Vec<f32> = (0..num_samples).map(|i| (i as f32) / num_samples as f32).collect();
+        let input: Vec<f32> = (0..num_samples)
+            .map(|i| (i as f32) / num_samples as f32)
+            .collect();
         let result = prepare_for_whisper(&input, 1, 48000);
         assert!(result.is_ok(), "mono 48kHz should succeed");
         let output = result.unwrap();
@@ -316,15 +346,21 @@ mod tests {
     #[ignore]
     fn test_audio_recorder_new() {
         use crate::audio::capture::AudioRecorder;
-        let result = AudioRecorder::new();
-        assert!(result.is_ok(), "AudioRecorder::new() should succeed when an audio device is available");
+        let result = AudioRecorder::new(None);
+        assert!(
+            result.is_ok(),
+            "AudioRecorder::new() should succeed when an audio device is available"
+        );
     }
 
     #[test]
     #[ignore]
     fn test_audio_recorder_not_recording_initially() {
         use crate::audio::capture::AudioRecorder;
-        let recorder = AudioRecorder::new().expect("AudioRecorder::new() failed");
-        assert!(!recorder.is_recording(), "Recorder should not be recording initially");
+        let recorder = AudioRecorder::new(None).expect("AudioRecorder::new() failed");
+        assert!(
+            !recorder.is_recording(),
+            "Recorder should not be recording initially"
+        );
     }
 }

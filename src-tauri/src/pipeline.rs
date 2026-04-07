@@ -174,7 +174,8 @@ impl Pipeline {
             ));
         }
 
-        let mut recorder = AudioRecorder::new()?;
+        let device_name = config::load().ok().map(|c| c.input_device).filter(|s| !s.is_empty());
+        let mut recorder = AudioRecorder::new(device_name.as_deref())?;
         recorder.start()?;
         let samples_ref = recorder.samples_ref();
         self.recorder = Some(recorder);

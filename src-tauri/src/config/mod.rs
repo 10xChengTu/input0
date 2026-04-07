@@ -26,6 +26,8 @@ pub struct AppConfig {
     pub user_tags: Vec<String>,
     #[serde(default)]
     pub onboarding_completed: bool,
+    #[serde(default)]
+    pub input_device: String,
 }
 
 fn default_stt_model() -> String {
@@ -45,6 +47,7 @@ impl Default for AppConfig {
             text_structuring: true,
             user_tags: Vec::new(),
             onboarding_completed: false,
+            input_device: String::new(),
         }
     }
 }
@@ -118,6 +121,7 @@ pub(crate) fn update_field_in_dir(
         "onboarding_completed" => {
             config.onboarding_completed = value.eq_ignore_ascii_case("true");
         }
+        "input_device" => config.input_device = value.to_string(),
         other => {
             return Err(AppError::Config(format!(
                 "Unknown config field: '{}'",
