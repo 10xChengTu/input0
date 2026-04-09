@@ -143,6 +143,9 @@ export interface Translations {
     inputDeviceLabel: string;
     inputDeviceHint: string;
     inputDeviceDefault: string;
+    hfEndpointLabel: string;
+    hfEndpointHint: string;
+    hfEndpointPlaceholder: string;
   };
 
   // VocabularyPage

@@ -19,6 +19,7 @@ mod tests {
         assert_eq!(config.model_path, "");
         assert_eq!(config.stt_model, "whisper-base");
         assert_eq!(config.text_structuring, true);
+        assert_eq!(config.hf_endpoint, "https://huggingface.co");
     }
 
     #[test]
@@ -204,6 +205,7 @@ another_unknown = 42
             user_tags: Vec::new(),
             onboarding_completed: false,
             input_device: String::new(),
+            hf_endpoint: default_hf_endpoint(),
         };
         save_to_dir(&config, tmp.path()).expect("Save config");
         let loaded = load_from_dir(tmp.path()).expect("Load config");
@@ -287,6 +289,7 @@ another_unknown = 42
             user_tags: Vec::new(),
             onboarding_completed: false,
             input_device: String::new(),
+            hf_endpoint: default_hf_endpoint(),
         };
         save_to_dir(&config, tmp.path()).expect("Initial save");
         let updated =
@@ -320,6 +323,7 @@ another_unknown = 42
             user_tags: Vec::new(),
             onboarding_completed: false,
             input_device: String::new(),
+            hf_endpoint: default_hf_endpoint(),
         };
         save_to_dir(&config, tmp.path()).expect("Save");
         let loaded = load_from_dir(tmp.path()).expect("Load");
@@ -370,6 +374,7 @@ another_unknown = 42
             user_tags: Vec::new(),
             onboarding_completed: false,
             input_device: String::new(),
+            hf_endpoint: default_hf_endpoint(),
         };
         save_to_dir(&config, tmp.path()).expect("Save unicode config");
         let loaded = load_from_dir(tmp.path()).expect("Load unicode config");
@@ -393,6 +398,7 @@ another_unknown = 42
             user_tags: Vec::new(),
             onboarding_completed: false,
             input_device: String::new(),
+            hf_endpoint: default_hf_endpoint(),
         };
         save_to_dir(&config, tmp.path()).expect("Save empty config");
         let loaded = load_from_dir(tmp.path()).expect("Load empty config");
@@ -420,6 +426,7 @@ another_unknown = 42
             user_tags: Vec::new(),
             onboarding_completed: false,
             input_device: String::new(),
+            hf_endpoint: default_hf_endpoint(),
         };
         save_to_dir(&config, tmp.path()).expect("Save large config");
         let loaded = load_from_dir(tmp.path()).expect("Load large config");
@@ -515,5 +522,18 @@ text_structuring = true
         // Verify persistence
         let loaded = load_from_dir(tmp.path()).expect("Load after update");
         assert_eq!(loaded.user_tags, vec!["Developer", "AI", "Frontend"]);
+    }
+
+    #[test]
+    fn test_update_field_hf_endpoint() {
+        let tmp = TempDir::new().unwrap();
+        save_to_dir(&AppConfig::default(), tmp.path()).expect("Initial save");
+        let updated = update_field_in_dir("hf_endpoint", "https://hf-mirror.com", tmp.path())
+            .expect("Update hf_endpoint");
+        assert_eq!(updated.hf_endpoint, "https://hf-mirror.com");
+
+        // Verify persistence
+        let loaded = load_from_dir(tmp.path()).expect("Load after update");
+        assert_eq!(loaded.hf_endpoint, "https://hf-mirror.com");
     }
 }

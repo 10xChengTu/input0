@@ -138,6 +138,9 @@ export const en: Translations = {
     inputDeviceLabel: "Input Device",
     inputDeviceHint: "Select the microphone to use for recording",
     inputDeviceDefault: "System Default",
+    hfEndpointLabel: "Model Download Mirror",
+    hfEndpointHint: "Use a HuggingFace mirror (e.g. hf-mirror.com) for faster downloads in restricted regions",
+    hfEndpointPlaceholder: "https://huggingface.co",
   },
 
   vocabulary: {

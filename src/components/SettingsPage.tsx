@@ -158,6 +158,8 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
     inputDevices,
     loadInputDevices,
     setInputDevice,
+    hfEndpoint,
+    setHfEndpoint,
   } = useSettingsStore();
 
   const { t } = useLocaleStore();
@@ -776,6 +778,68 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
                       </p>
                     </div>
                   )}
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-xs font-semibold text-[var(--theme-on-surface-variant)] uppercase tracking-wider mb-4">{t.settings.hfEndpointLabel}</h2>
+                <div className="bg-[var(--theme-surface-container-lowest)] rounded-xl border border-[var(--theme-outline-variant)] overflow-hidden">
+                  <div className="p-4 sm:p-5">
+                    <label htmlFor="hfEndpoint" className="block text-sm font-medium text-[var(--theme-on-surface)] mb-1">
+                      {t.settings.hfEndpointLabel}
+                    </label>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        id="hfEndpoint"
+                        value={hfEndpoint}
+                        onChange={(e) => setHfEndpoint(e.target.value)}
+                        onFocus={() => handleFocusCapture(hfEndpoint)}
+                        onBlur={() => handleBlurSave("hf_endpoint", hfEndpoint)}
+                        className="block w-full rounded-md border border-[var(--theme-outline-variant)] bg-[var(--theme-input-bg)] py-2 px-3 text-[var(--theme-on-surface)] focus:border-[var(--theme-input-focus-border)] focus:ring-2 focus:ring-[var(--theme-input-focus-border)] outline-none transition-shadow sm:text-sm sm:leading-6"
+                        placeholder={t.settings.hfEndpointPlaceholder}
+                      />
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setHfEndpoint("https://hf-mirror.com");
+                          try {
+                            await saveField("hf_endpoint", "https://hf-mirror.com");
+                            onToast(t.settings.settingsSaved, "success");
+                          } catch {
+                            onToast(t.settings.settingsSaveFailed, "error");
+                          }
+                        }}
+                        className={`flex-shrink-0 px-3 py-2 rounded-md text-xs font-medium border transition-colors whitespace-nowrap ${
+                          hfEndpoint === "https://hf-mirror.com"
+                            ? "bg-[var(--theme-primary)] text-[var(--theme-on-primary)] border-[var(--theme-primary)]"
+                            : "bg-[var(--theme-btn-secondary-bg)] text-[var(--theme-on-surface)] border-[var(--theme-btn-secondary-border)] hover:bg-[var(--theme-btn-secondary-hover-bg)]"
+                        }`}
+                      >
+                        hf-mirror.com
+                      </button>
+                      {hfEndpoint !== "https://huggingface.co" && (
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            setHfEndpoint("https://huggingface.co");
+                            try {
+                              await saveField("hf_endpoint", "https://huggingface.co");
+                              onToast(t.settings.settingsSaved, "success");
+                            } catch {
+                              onToast(t.settings.settingsSaveFailed, "error");
+                            }
+                          }}
+                          className="flex-shrink-0 px-3 py-2 rounded-md text-xs font-medium border bg-[var(--theme-btn-secondary-bg)] text-[var(--theme-on-surface)] border-[var(--theme-btn-secondary-border)] hover:bg-[var(--theme-btn-secondary-hover-bg)] transition-colors whitespace-nowrap"
+                        >
+                          Reset
+                        </button>
+                      )}
+                    </div>
+                    <p className="mt-2 text-xs text-[var(--theme-on-surface-variant)]">
+                      {t.settings.hfEndpointHint}
+                    </p>
+                  </div>
                 </div>
               </section>
 

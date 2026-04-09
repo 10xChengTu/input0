@@ -28,6 +28,12 @@ pub struct AppConfig {
     pub onboarding_completed: bool,
     #[serde(default)]
     pub input_device: String,
+    #[serde(default = "default_hf_endpoint")]
+    pub hf_endpoint: String,
+}
+
+fn default_hf_endpoint() -> String {
+    "https://huggingface.co".to_string()
 }
 
 fn default_stt_model() -> String {
@@ -52,6 +58,7 @@ impl Default for AppConfig {
             user_tags: Vec::new(),
             onboarding_completed: false,
             input_device: String::new(),
+            hf_endpoint: default_hf_endpoint(),
         }
     }
 }
@@ -126,6 +133,7 @@ pub(crate) fn update_field_in_dir(
             config.onboarding_completed = value.eq_ignore_ascii_case("true");
         }
         "input_device" => config.input_device = value.to_string(),
+        "hf_endpoint" => config.hf_endpoint = value.to_string(),
         other => {
             return Err(AppError::Config(format!(
                 "Unknown config field: '{}'",

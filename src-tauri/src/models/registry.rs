@@ -325,3 +325,15 @@ pub fn suggest_model_switch(
             .collect(),
     )
 }
+
+const DEFAULT_HF_ENDPOINT: &str = "https://huggingface.co";
+
+/// Replace the default HuggingFace endpoint in a model file URL with a custom one.
+/// If `hf_endpoint` is empty or equals the default, the original URL is returned unchanged.
+pub fn resolve_url(original_url: &str, hf_endpoint: &str) -> String {
+    if hf_endpoint.is_empty() || hf_endpoint == DEFAULT_HF_ENDPOINT {
+        return original_url.to_string();
+    }
+    let endpoint = hf_endpoint.trim_end_matches('/');
+    original_url.replacen(DEFAULT_HF_ENDPOINT, endpoint, 1)
+}

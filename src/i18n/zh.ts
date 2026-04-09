@@ -137,6 +137,9 @@ export const zh: Translations = {
     inputDeviceLabel: "输入设备",
     inputDeviceHint: "选择用于录音的麦克风设备",
     inputDeviceDefault: "系统默认",
+    hfEndpointLabel: "模型下载镜像",
+    hfEndpointHint: "国内用户建议切换为 hf-mirror.com 以加速模型下载",
+    hfEndpointPlaceholder: "https://huggingface.co",
     tagLabels: {
       // Identity & Domain
       "Developer": "开发者",

@@ -68,6 +68,8 @@ export interface SettingsState {
 
   onboardingCompleted: boolean;
 
+  hfEndpoint: string;
+
   setApiKey: (key: string) => void;
   setApiBaseUrl: (url: string) => void;
   setModel: (model: string) => void;
@@ -75,6 +77,7 @@ export interface SettingsState {
   setHotkey: (hotkey: string) => void;
   setTextStructuring: (enabled: boolean) => void;
   setUserTags: (tags: string[]) => void;
+  setHfEndpoint: (endpoint: string) => void;
   setOnboardingCompleted: (completed: boolean) => void;
   loadInputDevices: () => Promise<void>;
   setInputDevice: (deviceName: string) => Promise<void>;
@@ -104,6 +107,7 @@ interface AppConfig {
   user_tags: string[];
   onboarding_completed: boolean;
   input_device: string;
+  hf_endpoint: string;
 }
 
 export const useSettingsStore = create<SettingsState>((set, get) => ({
@@ -129,6 +133,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   inputDevice: "",
   inputDevices: [],
   onboardingCompleted: false,
+  hfEndpoint: "https://huggingface.co",
   
   setApiKey: (apiKey) => set({ apiKey }),
   setApiBaseUrl: (apiBaseUrl) => set({ apiBaseUrl }),
@@ -137,6 +142,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   setHotkey: (hotkey) => set({ hotkey }),
   setTextStructuring: (textStructuring) => set({ textStructuring }),
   setUserTags: (userTags) => set({ userTags }),
+  setHfEndpoint: (hfEndpoint) => set({ hfEndpoint }),
   setOnboardingCompleted: (onboardingCompleted) => set({ onboardingCompleted }),
   completeOnboarding: async () => {
     set({ onboardingCompleted: true });
@@ -184,6 +190,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         userTags: config.user_tags ?? [],
         onboardingCompleted: config.onboarding_completed ?? false,
         inputDevice: config.input_device || "",
+        hfEndpoint: config.hf_endpoint || "https://huggingface.co",
       });
     } catch (error) {
       console.error("Failed to load config:", error);
@@ -207,6 +214,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         user_tags: state.userTags,
         onboarding_completed: state.onboardingCompleted,
         input_device: state.inputDevice,
+        hf_endpoint: state.hfEndpoint,
       };
       await invoke("save_config", { config });
     } catch (error) {
@@ -318,6 +326,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         userTags: config.user_tags ?? [],
         onboardingCompleted: config.onboarding_completed ?? false,
         inputDevice: config.input_device || "",
+        hfEndpoint: config.hf_endpoint || "https://huggingface.co",
       });
       await get().checkModelRecommendation(get().language);
     } catch (error) {
