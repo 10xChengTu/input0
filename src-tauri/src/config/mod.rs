@@ -20,7 +20,7 @@ pub struct AppConfig {
     pub model_path: String,
     #[serde(default = "default_stt_model")]
     pub stt_model: String,
-    #[serde(default)]
+    #[serde(default = "default_text_structuring")]
     pub text_structuring: bool,
     #[serde(default)]
     pub user_tags: Vec<String>,
@@ -32,6 +32,10 @@ pub struct AppConfig {
 
 fn default_stt_model() -> String {
     "whisper-base".to_string()
+}
+
+fn default_text_structuring() -> bool {
+    true
 }
 
 impl Default for AppConfig {
