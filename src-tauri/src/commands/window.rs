@@ -64,6 +64,41 @@ where
     gcd::run_on_main_async(f);
 }
 
+/// Pre-warm the overlay window during app setup so the first show is instant.
+/// Performs swizzle (NSWindow → NSPanel), transparency, and panel configuration
+/// synchronously on the main thread but does NOT make the window visible.
+///
+/// This eliminates the first-show flash caused by swizzle + AppKit state refresh
+/// happening at display time.
+#[cfg(target_os = "macos")]
+pub fn prewarm_overlay(app: &AppHandle) {
+    if let Some(window) = app.get_webview_window("overlay") {
+        let ns_window = match window.ns_window() {
+            Ok(ptr) => ptr as usize,
+            Err(e) => {
+                log::error!("prewarm_overlay: failed to get NSWindow: {}", e);
+                return;
+            }
+        };
+
+        // setup runs on the main thread, so gcd::run_on_main_sync will inline-execute.
+        gcd::run_on_main_sync(move || {
+            unsafe {
+                let ns_window = ns_window as cocoa::base::id;
+
+                if !PANEL_SWIZZLED.load(std::sync::atomic::Ordering::SeqCst) {
+                    swizzle_to_nspanel(ns_window);
+                    PANEL_SWIZZLED.store(true, std::sync::atomic::Ordering::SeqCst);
+                }
+
+                configure_panel_for_fullscreen(ns_window);
+                ensure_window_transparency(ns_window);
+                // Deliberately NOT calling orderFrontRegardless — window stays hidden.
+            }
+        });
+    }
+}
+
 pub fn position_and_show_overlay(app: &AppHandle) {
     if let Some(window) = app.get_webview_window("overlay") {
         #[cfg(target_os = "macos")]

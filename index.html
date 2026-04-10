@@ -8,6 +8,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <title>Input0</title>
+    <script>
+      // Overlay window MUST be transparent from the very first frame to prevent
+      // a flash of the opaque theme background on first show.  This runs before
+      // any framework JS and before CSS transitions can kick in.
+      if (window.location.pathname === '/overlay') {
+        var s = document.createElement('style');
+        s.textContent = 'html,body{background:transparent!important;transition:none!important}';
+        document.head.appendChild(s);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

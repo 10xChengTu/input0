@@ -56,12 +56,6 @@ pub fn register_pipeline_shortcut(
                         }
                         overlay_gen.fetch_add(1, Ordering::SeqCst);
                         let source_app = crate::input::get_frontmost_app();
-                        let _ = app_handle2.emit(
-                            "pipeline-state",
-                            pipeline::PipelineEvent {
-                                state: pipeline::PipelineState::Recording,
-                            },
-                        );
                         let pa = Arc::clone(&pipeline_arc2);
                         let ah = app_handle2.clone();
                         let ah_overlay = app_handle2.clone();
@@ -69,6 +63,13 @@ pub fn register_pipeline_shortcut(
                         let ep = Arc::clone(&error_pending);
                         tauri::async_runtime::spawn(async move {
                             commands::window::position_and_show_overlay(&ah_overlay);
+
+                            let _ = ah_overlay.emit(
+                                "pipeline-state",
+                                pipeline::PipelineEvent {
+                                    state: pipeline::PipelineState::Recording,
+                                },
+                            );
 
                             let start_result = tokio::time::timeout(
                                 std::time::Duration::from_secs(10),
@@ -401,6 +402,9 @@ pub fn run() {
                     }
                 }
             }
+
+            #[cfg(target_os = "macos")]
+            commands::window::prewarm_overlay(app.handle());
 
             let config = config::load().unwrap_or_default();
 
