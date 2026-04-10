@@ -154,7 +154,6 @@
         }
         .feature-card:hover {
             transform: scale(1.02);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
         
         .typing-cursor::after {
@@ -239,7 +238,7 @@
 </head>
 <body class="selection:bg-primary/10 bg-[#f5f5f5] dark:bg-[#121212] text-[#171717] dark:text-[#e6e6e6]">
 <!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl shadow-sm shadow-black/5">
+<nav class="fixed top-0 w-full z-50 bg-[#f5f5f5] dark:bg-[#121212]">
 <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
 <div class="flex items-center gap-2">
 <img src="logo.png" alt="Input 0" class="w-6 h-6 rounded-sm">
@@ -508,35 +507,18 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinks.classList.toggle('left-0');
             navLinks.classList.toggle('w-full');
             if (isDark) {
-                navLinks.classList.toggle('bg-neutral-900');
+                navLinks.classList.toggle('bg-[#121212]');
             } else {
-                navLinks.classList.toggle('bg-white');
+                navLinks.classList.toggle('bg-[#f5f5f5]');
             }
             navLinks.classList.toggle('p-6');
-            navLinks.classList.toggle('shadow-lg');
             navLinks.classList.toggle('gap-4');
             navLinks.classList.toggle('items-start');
         });
     }
 
-    // Nav Scroll Behavior
-    const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-        const isDark = document.documentElement.classList.contains('dark');
-        if (window.scrollY > 50) {
-            nav.classList.add('shadow-md');
-            if (isDark) {
-                nav.classList.replace('dark:bg-neutral-900/80', 'dark:bg-neutral-900/95');
-            }
-            nav.classList.replace('bg-white/80', 'bg-white/95');
-        } else {
-            nav.classList.remove('shadow-md');
-            if (isDark) {
-                nav.classList.replace('dark:bg-neutral-900/95', 'dark:bg-neutral-900/80');
-            }
-            nav.classList.replace('bg-white/95', 'bg-white/80');
-        }
-    });
+    // Nav Scroll Behavior (flat style — no shadow/opacity changes)
+    // Intentionally kept empty for future use if needed
 
     // Intersection Observer for Animations
     const observerOptions = {
