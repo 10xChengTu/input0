@@ -14,6 +14,7 @@
 - **可选开关**：在 Settings 中提供 toggle，用户可按需控制是否启用文本结构化。默认关闭。
   - 理由：语音输入场景多样 — 聊天框中不需要结构化换行，文档/笔记中则很有价值。
 - **实现方式**：纯 prompt 工程，在 `build_system_prompt()` 中条件注入结构化指令块，无需改动 LLM 调用逻辑。
+- **信号驱动策略（v2 调整）**：仅当用户表达中包含明确结构化信号（序数词、列举词、数字编号等）时才应用格式化，对普通叙述保持自然文本流，避免过度结构化导致表达失真。
 
 ## 技术方案
 
@@ -27,11 +28,12 @@
 
 - `build_system_prompt(language, text_structuring)` 签名新增 `text_structuring: bool` 参数
 - 当 `text_structuring = true` 时，在 Core Rules 之后、Technical Term Correction 之前插入 Text Structuring 指令块：
-  - 语义分段：根据话题转换插入换行
-  - 列表格式化：说话者列举并列项时自动生成编号列表
+  - **信号驱动**：仅在检测到明确列举信号（序数词、列举词、数字编号、平行标记）时才应用列表格式化
+  - 列表格式化：检测到列举信号时自动生成编号列表
   - 标点修正：引号配对、中英文标点正确使用
   - 中英文间距：英文单词与中文之间加空格
   - 空白清理：去除多余空格，段落间合理空行
+  - **反面约束**：无列举信号的普通叙述保持自然文本流，不做强制结构化
 - 当 `text_structuring = false` 时，保持现有行为（单段纯文本输出）
 
 ### Pipeline 层
@@ -62,5 +64,5 @@
 
 ## 验证计划
 
-- `cargo test --lib`: 所有测试通过 ✅ (134 passed, 0 failed)
+- `cargo test --lib`: 所有测试通过 ✅ (147 passed, 0 failed)
 - `pnpm build`: TypeScript 类型检查 + Vite 构建成功 ✅

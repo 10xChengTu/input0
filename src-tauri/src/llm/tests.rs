@@ -687,9 +687,11 @@ mod tests {
     }
 
     #[test]
-    fn test_system_prompt_with_structuring_allows_format_restructuring() {
+    fn test_system_prompt_with_structuring_is_signal_driven() {
         let prompt = build_system_prompt("zh", true, &[], &[]);
-        assert!(prompt.contains("MAY restructure"), "structuring prompt should allow format restructuring");
+        assert!(prompt.contains("Signal-Driven"), "structuring prompt should be signal-driven");
+        assert!(prompt.contains("enumeration signals"), "structuring prompt should require enumeration signals");
+        assert!(prompt.contains("WITHOUT enumeration signals"), "structuring prompt should have negative examples for plain narration");
         assert!(!prompt.contains("do NOT add, remove, or rewrite"), "structuring prompt should NOT have strict no-rewrite constraint");
     }
 
