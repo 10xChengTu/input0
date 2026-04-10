@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { getVersion } from "@tauri-apps/api/app";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useSettingsStore } from "../stores/settings-store";
 import { useUpdateStore } from "../stores/update-store";
 import { motion, AnimatePresence } from "framer-motion";
@@ -191,17 +192,22 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
 
   useEffect(() => {
     invoke<boolean>("check_accessibility_permission").then(setAccessibilityGranted).catch(() => {});
-
-    const onFocus = () => {
-      invoke<boolean>("check_accessibility_permission").then(setAccessibilityGranted).catch(() => {});
-    };
-    window.addEventListener("focus", onFocus);
-    return () => window.removeEventListener("focus", onFocus);
-  }, []);
-
-  useEffect(() => {
     invoke<string>("check_microphone_permission").then(setMicPermission).catch(() => {});
     loadInputDevices();
+
+    const recheckPermissions = () => {
+      invoke<boolean>("check_accessibility_permission").then(setAccessibilityGranted).catch(() => {});
+      invoke<string>("check_microphone_permission").then(setMicPermission).catch(() => {});
+    };
+
+    // Use Tauri native window focus event — more reliable than DOM window.focus
+    // when the user switches back from macOS System Settings.
+    let unlistenFn: (() => void) | null = null;
+    getCurrentWindow().onFocusChanged(({ payload: focused }) => {
+      if (focused) recheckPermissions();
+    }).then((fn) => { unlistenFn = fn; });
+
+    return () => { unlistenFn?.(); };
   }, [loadInputDevices]);
 
   const sectionToTab = (section: string | null | undefined): SettingsTab => {
@@ -399,6 +405,20 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
                             onClick={async () => {
                               const granted = await invoke<boolean>("request_accessibility_permission");
                               setAccessibilityGranted(granted);
+                              if (!granted) {
+                                let attempts = 0;
+                                const poll = setInterval(() => {
+                                  attempts++;
+                                  invoke<boolean>("check_accessibility_permission").then((status) => {
+                                    setAccessibilityGranted(status);
+                                    if (status || attempts >= 15) {
+                                      clearInterval(poll);
+                                    }
+                                  }).catch(() => {
+                                    clearInterval(poll);
+                                  });
+                                }, 1000);
+                              }
                             }}
                             className="milled-button text-xs font-medium px-3 py-1.5 rounded-lg whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-[var(--theme-input-focus-border)]"
                           >
@@ -434,10 +454,19 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
                               type="button"
                               onClick={() => {
                                 invoke("request_microphone_permission");
-                                // Re-check after a short delay (macOS shows system dialog)
-                                setTimeout(() => {
-                                  invoke<string>("check_microphone_permission").then(setMicPermission).catch(() => {});
-                                }, 2000);
+                                // Poll permission status after macOS system dialog / settings
+                                let attempts = 0;
+                                const poll = setInterval(() => {
+                                  attempts++;
+                                  invoke<string>("check_microphone_permission").then((status) => {
+                                    setMicPermission(status);
+                                    if (status !== "not_determined" || attempts >= 15) {
+                                      clearInterval(poll);
+                                    }
+                                  }).catch(() => {
+                                    clearInterval(poll);
+                                  });
+                                }, 1000);
                               }}
                               className="milled-button text-xs font-medium px-3 py-1.5 rounded-lg whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-[var(--theme-input-focus-border)]"
                             >
