@@ -53,10 +53,11 @@ mod tests {
         assert!(prompt.contains("瑞嗯特"), "zh prompt should contain phonetic example");
         assert!(prompt.contains("Tauri"), "zh prompt should contain project-specific term Tauri");
         assert!(prompt.contains("Vite"), "zh prompt should contain project-specific term Vite");
+        assert!(prompt.contains("Preserve Original Intent"), "zh prompt should emphasize preserving original intent");
     }
 
     #[test]
-    fn test_system_prompt_en_includes_phonetic_table() {
+    fn test_system_prompt_en_includes_phonetic_examples() {
         let prompt = build_system_prompt("en", false, &[], &[]);
         assert!(prompt.contains("瑞嗯特"), "en prompt should contain Chinese phonetic examples for code-switching");
         assert!(prompt.contains("React"), "en prompt should contain React");
@@ -136,6 +137,7 @@ mod tests {
         assert!(msg.content.contains("STT:"), "Should label original text as STT");
         assert!(msg.content.contains("Corrected:"), "Should label corrected text");
         assert!(msg.content.contains("Prior conversation context"), "Should have context header");
+        assert!(msg.content.contains("reference only"), "Should mark context as reference only");
     }
 
     #[test]
@@ -189,6 +191,7 @@ mod tests {
     fn test_system_prompt_contains_active_app_instructions() {
         let prompt = build_system_prompt("zh", false, &[], &[]);
         assert!(prompt.contains("active application"), "System prompt should mention active application usage");
+        assert!(prompt.contains("Reference Only"), "System prompt should mark context as reference only");
     }
 
     // --- optimize_text Success Tests ---
@@ -667,10 +670,9 @@ mod tests {
     #[test]
     fn test_system_prompt_with_structuring_contains_few_shot_examples() {
         let prompt = build_system_prompt("zh", true, &[], &[]);
-        assert!(prompt.contains("1. 把 API 接口设计好"), "structuring prompt should contain numbered list few-shot example");
-        assert!(prompt.contains("CI/CD"), "structuring prompt should contain CI/CD in few-shot example");
-        assert!(prompt.contains("1. 把游戏打好"), "structuring prompt should contain punctuated enumeration few-shot example");
-        assert!(prompt.contains("1. 保证代码质量"), "structuring prompt should contain direct numbered few-shot example");
+        assert!(prompt.contains("1. 把游戏打好"), "structuring prompt should contain enumerated list few-shot example");
+        assert!(prompt.contains("WITHOUT enumeration signals"), "structuring prompt should have negative example section");
+        assert!(prompt.contains("我今天去了趟超市"), "structuring prompt should contain prose few-shot example");
     }
 
     #[test]

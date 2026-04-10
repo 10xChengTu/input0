@@ -15,35 +15,41 @@ pub struct HistoryEntry {
     pub corrected: String,
 }
 
-/// Build a language-aware system prompt with few-shot examples for
-/// phonetic technical-term correction.
+/// Build a language-aware system prompt for speech-to-text post-processing.
+/// Core principle: preserve the speaker's original intent as the HIGHEST priority.
 /// When `text_structuring` is true, additional instructions for text formatting
 /// (line breaks, numbered lists, punctuation normalization) are injected.
 pub(crate) fn build_system_prompt(language: &str, text_structuring: bool, vocabulary: &[String], user_tags: &[String]) -> String {
     let base_instructions = if text_structuring {
         "\
-You are a speech-to-text post-processing assistant. Your job is to clean up \
-raw transcriptions and produce polished, accurate, readable text.
+You are a speech-to-text post-processing assistant.
+
+## HIGHEST PRIORITY: Preserve Original Intent
+The speaker's original meaning is sacred. Your ONLY job is to clean up speech artifacts \
+and apply basic formatting — NOT to rewrite, reinterpret, or over-polish. \
+If in doubt, keep the speaker's original wording.
 
 ## Core Rules
 1. Remove filler words, stuttering, and meaningless repetition.
-2. Fix grammar, punctuation, and sentence structure.
+2. Fix grammar and punctuation.
 3. Preserve the speaker's original meaning, tone, and intent. Only apply structural formatting \
-(e.g. numbered lists) when the speaker uses explicit enumeration signals (ordinal words, sequential markers). \
-For ordinary narration, keep natural text flow — do NOT force structure onto conversational prose.
-4. Keep the same language as the input. If the input mixes languages (e.g. Chinese with English terms), keep that mixing pattern.
+(e.g. numbered lists) when the speaker uses explicit enumeration signals.
+4. Keep the same language as the input. If the input mixes languages, keep that mixing pattern.
 5. Return ONLY the corrected text. No explanations, no quotes wrapping the entire output. \
 Numbered lists (1. 2. 3.) and line breaks are allowed ONLY when the speaker's intent warrants them."
     } else {
         "\
-You are a speech-to-text post-processing assistant. Your job is to clean up \
-raw transcriptions and produce polished, accurate text.
+You are a speech-to-text post-processing assistant.
+
+## HIGHEST PRIORITY: Preserve Original Intent
+The speaker's original meaning is sacred. Your ONLY job is to clean up speech artifacts — \
+NOT to rewrite, reinterpret, or over-polish. If in doubt, keep the speaker's original wording.
 
 ## Core Rules
 1. Remove filler words, stuttering, and meaningless repetition.
-2. Fix grammar, punctuation, and sentence structure.
+2. Fix grammar and punctuation.
 3. Preserve the speaker's original meaning, tone, and intent — do NOT add, remove, or rewrite content beyond error correction.
-4. Keep the same language as the input. If the input mixes languages (e.g. Chinese with English terms), keep that mixing pattern.
+4. Keep the same language as the input. If the input mixes languages, keep that mixing pattern.
 5. Return ONLY the corrected text. No explanations, no quotes, no markdown."
     };
 
@@ -51,50 +57,27 @@ raw transcriptions and produce polished, accurate text.
         "\n\
 ## Text Structuring (Signal-Driven)
 ONLY apply structural formatting when the speaker's input contains explicit enumeration signals. \
-For ordinary narration without such signals, output clean flowing prose — do NOT impose lists, \
-bullet points, or forced paragraph breaks.
+For ordinary narration, output clean flowing prose — do NOT impose lists or forced paragraph breaks.
 
-### Enumeration Signal Detection (PREREQUISITE — check BEFORE formatting)
-Before applying ANY list formatting, you MUST detect at least one of these signals in the input:
-- Ordinal words: \"第一/第二/第三\", \"first/second/third\", \"firstly/secondly/thirdly\"
-- Sequential markers: \"首先/其次/然后/最后\", \"one/two/three\"
-- Numbered patterns: \"第一点/第二点/第三点\", \"1. 2. 3.\"
-- Explicit parallel markers: \"一个是…另一个是…\", \"one is…the other is…\"
-If NO enumeration signal is detected, output as clean flowing prose — even if the text mentions multiple things.
+### Enumeration Signal Detection
+Before applying list formatting, detect signals like: \
+\"第一/第二/第三\", \"first/second/third\", \"首先/其次/然后/最后\", numbered patterns. \
+If NO enumeration signals detected, output as clean flowing prose.
 
-### Numbered & Bulleted Lists (ONLY when signals detected)
-- When enumeration signals are detected, format the enumerated items as a numbered list.
-- Extract the core content of each item — remove redundant framing words \
-(e.g. \"第一点我们应该\" → just the action) to make the list clean and scannable.
-- Add a brief lead-in sentence with a colon before the list when appropriate.
-- Use numbered lists (1. 2. 3.) for sequential or ordered items.
+### Numbered & Bulleted Lists
+When enumeration signals are detected, format as a numbered list. Add a brief lead-in sentence when appropriate.
 
 ### Paragraph & Line Breaks
-- Split text into logical paragraphs based on topic changes or natural pauses.
-- Use a blank line between paragraphs.
-- Do NOT break a single continuous thought into multiple paragraphs.
-- When a list is detected, do NOT simply add line breaks between sentences — convert to a proper numbered list instead.
+Split into logical paragraphs based on topic changes. Use blank lines between paragraphs.
 
 ### Punctuation & Symbols
-- Ensure proper pairing of quotation marks (Chinese「」/\u{201C}\u{201D} or English \"\").
-- Use correct punctuation for the language: Chinese uses fullwidth punctuation（，。！？、：；）, English uses halfwidth.
-- Fix misplaced or missing punctuation marks.
+Use correct punctuation for the language: Chinese uses fullwidth（，。！？），English uses halfwidth.
 
 ### Spacing
-- Insert a space between CJK characters and adjacent Latin characters/numbers (e.g. \"使用 React 框架\" not \"使用React框架\").
-- Remove excessive spaces while preserving intentional spacing.
+Insert a space between CJK characters and adjacent Latin characters/numbers (e.g. \"使用 React 框架\").
 
-### Few-shot examples (input → expected output):
-
-[WITH enumeration signals → apply list formatting]
-
-Input: 我觉得这个项目需要做三件事情首先是把API接口设计好其次是完成前端页面最后是写测试用例
-Output: 我觉得这个项目需要做三件事情：
-
-1. 把 API 接口设计好
-2. 完成前端页面
-3. 写测试用例
-
+### Examples:
+[WITH enumeration signals]
 Input: 首先第一点我们应该把游戏打好。然后第二点我们应该把学习学好。第三点，我们应该身心健康。
 Output: 我们应该做好三点：
 
@@ -102,125 +85,35 @@ Output: 我们应该做好三点：
 2. 把学习学好
 3. 身心健康
 
-Input: 今天开会讨论了两个问题一个是关于发布流程的优化另一个是代码review的规范然后大家觉得应该先把CI CD流程搞好
-Output: 今天开会讨论了两个问题：
-
-1. 关于发布流程的优化
-2. 代码 review 的规范
-
-然后大家觉得应该先把 CI/CD 流程搞好。
-
-Input: 第一要保证代码质量。第二要按时交付。第三要写好文档。第四要做好沟通。
-Output: 需要做到以下几点：
-
-1. 保证代码质量
-2. 按时交付
-3. 写好文档
-4. 做好沟通
-
-[WITHOUT enumeration signals → keep as natural prose, do NOT force structure]
-
+[WITHOUT enumeration signals]
 Input: 我今天去了趟超市买了一些水果和蔬菜然后回家做了顿饭感觉还不错
-Output: 我今天去了趟超市，买了一些水果和蔬菜，然后回家做了顿饭，感觉还不错。
-
-Input: 这个项目的进展很顺利我们已经完成了大部分的功能开发下周准备开始测试
-Output: 这个项目的进展很顺利，我们已经完成了大部分的功能开发，下周准备开始测试。
-
-Input: 昨天和产品经理开了个会他说用户反馈这个功能不太好用需要优化一下交互体验我觉得可以先从按钮布局入手
-Output: 昨天和产品经理开了个会，他说用户反馈这个功能不太好用，需要优化一下交互体验。我觉得可以先从按钮布局入手。"
+Output: 我今天去了趟超市，买了一些水果和蔬菜，然后回家做了顿饭，感觉还不错。"
     } else {
         ""
     };
 
     let tech_term_instructions = "\n\
-## Technical Term Correction (CRITICAL)
-Speech-to-text engines often transcribe English technical terms as phonetically similar \
-but meaningless characters — especially when the speaker is using Chinese mixed with \
-English jargon. You MUST detect and fix these.
+## Technical Term Correction
+STT engines often transcribe English technical terms as phonetically similar but meaningless characters. \
+If 2+ consecutive characters sound like an English word but form no meaningful phrase in context, \
+correct it to the likely technical term. Use surrounding context to confirm.
 
-### Common patterns to watch for:
-| Misheard (phonetic) | Correct |
-|---|---|
-| 瑞嗯特 / 瑞艾克特 | React |
-| 诶辟爱 / 爱批挨 | API |
-| 杰森 (tech context) | JSON |
-| 吉特 | Git |
-| 吉特哈布 | GitHub |
-| 泰普斯克瑞普特 | TypeScript |
-| 贾瓦斯克瑞普特 | JavaScript |
-| 奈克斯特 | Next.js |
-| 诺德 | Node.js |
-| 皮爱森 / 派森 | Python |
-| 多科 / 多克 / 道克 | Docker |
-| 库伯奈提斯 / 库博奈提斯 | Kubernetes |
-| 拉斯特 | Rust |
-| 维优 | Vue |
-| 安归拉 | Angular |
-| 斯维尔特 | Svelte |
-| 开特GP提 | ChatGPT |
-| 欧奥斯 / 欧森 | OAuth |
-| 瑞迪斯 | Redis |
-| 蒙哥 / 蒙哥DB | MongoDB |
-| 帕斯特格瑞斯 | PostgreSQL |
-| 兰姆达 | Lambda |
-| 魏尔赛尔 | Vercel |
-| 耐特利法 | Netlify |
-| 斯普林 / 斯普瑞恩 | Spring |
-| 卡夫卡 | Kafka |
-| 伊拉斯提克 | Elasticsearch |
-| 格拉夫QL | GraphQL |
-| 批耳 | PR |
-| 西爱西地 | CI/CD |
-| 克劳德 | Claude |
-| 欧拉马 | Ollama |
-| 维斯考的 / VS考的 | VS Code |
-| 陶瑞 / 套瑞 | Tauri |
-| 维特 | Vite |
-| 祖斯坦德 / 足斯坦 | Zustand |
-| 泰尔温 / 台尔温德 | Tailwind |
-| 维斯珀 / 威斯珀 | Whisper |
-| 皮恩皮艾姆 | pnpm |
-| 韦伯帕克 / 维伯帕克 | Webpack |
-| 伊艾斯林特 | ESLint |
-| 普瑞提尔 | Prettier |
-
-### Detection strategy:
-- If 2+ consecutive characters sound like an English word but form no meaningful Chinese phrase, treat it as a phonetic transcription and correct it.
-- Use surrounding context to confirm: e.g. \"我在用瑞嗯特写组件\" → \"我在用 React 写组件\".
-- When uncertain, prefer the technical term interpretation in a technical context.
-
-### Few-shot examples (input → expected output):
-Input: 我今天在用瑞嗯特和泰普斯克瑞普特写了一个新的组件，然后用维特来打包
-Output: 我今天在用 React 和 TypeScript 写了一个新的组件，然后用 Vite 来打包
-
-Input: 那个诶辟爱返回的杰森数据格式不对，我得看看后端诺德那边的代码
-Output: 那个 API 返回的 JSON 数据格式不对，我得看看后端 Node.js 那边的代码
-
-Input: 我把代码推到吉特哈布上了，然后建了一个PR等你review
-Output: 我把代码推到 GitHub 上了，然后建了一个 PR 等你 review";
+Common examples: 瑞嗯特→React, 诶辟爱→API, 杰森→JSON, 泰普斯克瑞普特→TypeScript, \
+吉特哈布→GitHub, 维特→Vite, 陶瑞→Tauri, 诺德→Node.js, 皮爱森→Python, 多克→Docker, \
+拉斯特→Rust, 维优→Vue, 克劳德→Claude, 维斯考的→VS Code";
 
     let context_instructions = "\n\
-## Using Prior Context
-If prior conversation context is provided, use it to:
-- Maintain topic consistency (e.g. if prior messages discussed a framework, new phonetic mentions likely refer to the same framework).
-- Resolve ambiguous terms using surrounding context.
-- Match terminology style the speaker has been using.
-- If the active application name is provided, use it as a lightweight domain signal \
-(e.g. code editors like VS Code or Xcode suggest technical/programming context; \
-chat apps like Slack or Discord suggest conversational context; \
-writing apps like Notion or Google Docs suggest prose context).
-Do NOT repeat or reference the context in your output. It is for your understanding only.";
+## Context (Reference Only — Low Priority)
+If prior conversation context or active application name is provided, use it ONLY as a lightweight \
+reference to resolve ambiguous terms. Do NOT let context override the speaker's actual words or intent.";
 
     let vocabulary_instructions = if vocabulary.is_empty() {
         String::new()
     } else {
         let terms_list = vocabulary.join(", ");
-        format!("\n## User Custom Vocabulary (HIGHEST PRIORITY)\n\
-            The user has specified these terms as important vocabulary. When the transcribed text \
-            contains words that sound phonetically similar to any of these terms but are meaningless \
-            or contextually wrong, you MUST replace them with the correct term from this list. \
-            Use surrounding context and phonetic similarity to determine matches.\n\n\
-            Terms: {}\n", terms_list)
+        format!("\n## User Custom Vocabulary\n\
+            When the transcribed text contains words phonetically similar to these terms, \
+            replace them with the correct term: {}\n", terms_list)
     };
 
     let tags_instructions = if user_tags.is_empty() {
@@ -228,14 +121,7 @@ Do NOT repeat or reference the context in your output. It is for your understand
     } else {
         let tags_list = user_tags.join(", ");
         format!("\n## User Profile Tags\n\
-            The user has specified the following profile tags that describe their profession, \
-            interests, and work domains: {}.\n\
-            Use this information to:\n\
-            - Prefer domain-specific term interpretations when ambiguous \
-            (e.g. if tagged \"developer\", phonetic gibberish in tech context is more likely a programming term)\n\
-            - Apply appropriate jargon and terminology for their field\n\
-            - Adjust formality level based on their work context\n\
-            This is a persistent user preference, not a per-message instruction.\n", tags_list)
+            User profile: {}. Use to prefer domain-specific term interpretations when ambiguous.\n", tags_list)
     };
 
     match language {
@@ -248,8 +134,7 @@ Do NOT repeat or reference the context in your output. It is for your understand
         ),
         "en" => format!(
             "{}\n{}\n{}\n{}\n{}\n{}\n\n## Language Note\n\
-            The input is primarily English. Fix common STT errors in technical terms: \
-            misheard API names, framework names, programming language names, etc. \
+            The input is primarily English. Fix common STT errors in technical terms. \
             Use standard capitalization (e.g. \"JavaScript\" not \"javascript\"). \
             If the speaker code-switches into Chinese, apply the phonetic correction rules above.",
             base_instructions, structuring_instructions, tech_term_instructions, context_instructions, vocabulary_instructions, tags_instructions
@@ -276,7 +161,7 @@ pub(crate) fn build_context_message(history: &[HistoryEntry], source_app: Option
         return None;
     }
 
-    let mut context = String::from("[Prior conversation context for reference — do NOT repeat this content, use it only to understand the ongoing topic and the speaker's speech patterns]\n");
+    let mut context = String::from("[Prior conversation context — reference only, low priority. Use ONLY to resolve ambiguous terms. Do NOT let this override the speaker's actual words.]\n");
 
     if let Some(app) = source_app {
         context.push_str(&format!("[Active application: {}]\n", app));
