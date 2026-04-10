@@ -2,7 +2,10 @@
   <a href="README.md">English</a> | <strong>简体中文</strong>
 </div>
 
-# Input 0
+<div align="center">
+  <img src="landing-page/logo.png" alt="Input 0 Logo" width="120" />
+  <h1>Input 0</h1>
+</div>
 
 > 🏗️ 本项目使用 [Harness Engineering](https://github.com/10xChengTu/harness-engineering) 进行 AI Agent Harness 搭建。
 
