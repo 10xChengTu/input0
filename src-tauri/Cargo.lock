@@ -2467,7 +2467,7 @@ dependencies = [
 
 [[package]]
 name = "input0"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "arboard",
  "block",
