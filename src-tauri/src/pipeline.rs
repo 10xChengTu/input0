@@ -299,15 +299,14 @@ pub async fn process_audio(recorded: RecordedAudio, app: AppHandle, cancel: Canc
         return Err(AppError::Audio("Cancelled".to_string()));
     }
 
-    let final_text = if !config.api_key.is_empty() {
+    let final_text = if !config.api_key.is_empty() && !config.model.is_empty() {
         let _ = app.emit(
             "pipeline-state",
             PipelineEvent {
                 state: PipelineState::Optimizing,
             },
         );
-        let model = if config.model.is_empty() { None } else { Some(config.model.clone()) };
-        let client = LlmClient::new(config.api_key, config.api_base_url, model)?;
+        let client = LlmClient::new(config.api_key, config.api_base_url, Some(config.model.clone()))?;
 
         let history = history::load_history();
         let vocabulary = crate::vocabulary::load_vocabulary();

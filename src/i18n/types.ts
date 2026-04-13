@@ -75,6 +75,16 @@ export interface Translations {
     modelLabel: string;
     modelPlaceholder: string;
     modelHint: string;
+    modelDisabledOption: string;
+    modelHintDisabled: string;
+    modelAddCustom: string;
+    modelAddCustomPrompt: string;
+    modelAddCustomConfirm: string;
+    modelAddCustomCancel: string;
+    modelRemoveCustom: string;
+    modelRemoveCustomLabel: string;
+    modelCustomGroup: string;
+    modelPresetGroup: string;
     testConnection: string;
     testConnectionHint: string;
     testing: string;

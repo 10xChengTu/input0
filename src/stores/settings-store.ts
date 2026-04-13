@@ -63,6 +63,8 @@ export interface SettingsState {
 
   userTags: string[];
 
+  customModels: string[];
+
   inputDevice: string;
   inputDevices: AudioDeviceInfo[];
 
@@ -77,6 +79,7 @@ export interface SettingsState {
   setHotkey: (hotkey: string) => void;
   setTextStructuring: (enabled: boolean) => void;
   setUserTags: (tags: string[]) => void;
+  setCustomModels: (models: string[]) => Promise<void>;
   setHfEndpoint: (endpoint: string) => void;
   setOnboardingCompleted: (completed: boolean) => void;
   loadInputDevices: () => Promise<void>;
@@ -105,6 +108,7 @@ interface AppConfig {
   model_path: string;
   text_structuring: boolean;
   user_tags: string[];
+  custom_models: string[];
   onboarding_completed: boolean;
   input_device: string;
   hf_endpoint: string;
@@ -130,6 +134,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   modelRecommendation: null,
   textStructuring: false,
   userTags: [],
+  customModels: [],
   inputDevice: "",
   inputDevices: [],
   onboardingCompleted: false,
@@ -142,6 +147,20 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   setHotkey: (hotkey) => set({ hotkey }),
   setTextStructuring: (textStructuring) => set({ textStructuring }),
   setUserTags: (userTags) => set({ userTags }),
+  setCustomModels: async (customModels) => {
+    const prev = get().customModels;
+    set({ customModels });
+    try {
+      await invoke("update_config_field", {
+        field: "custom_models",
+        value: JSON.stringify(customModels),
+      });
+    } catch (error) {
+      console.error("Failed to save custom_models:", error);
+      set({ customModels: prev });
+      throw error;
+    }
+  },
   setHfEndpoint: (hfEndpoint) => set({ hfEndpoint }),
   setOnboardingCompleted: (onboardingCompleted) => set({ onboardingCompleted }),
   completeOnboarding: async () => {
@@ -188,6 +207,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         modelPath: config.model_path || "",
         textStructuring: config.text_structuring ?? true,
         userTags: config.user_tags ?? [],
+        customModels: config.custom_models ?? [],
         onboardingCompleted: config.onboarding_completed ?? false,
         inputDevice: config.input_device || "",
         hfEndpoint: config.hf_endpoint || "https://huggingface.co",
@@ -212,6 +232,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         model_path: state.modelPath,
         text_structuring: state.textStructuring,
         user_tags: state.userTags,
+        custom_models: state.customModels,
         onboarding_completed: state.onboardingCompleted,
         input_device: state.inputDevice,
         hf_endpoint: state.hfEndpoint,
@@ -324,6 +345,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         modelPath: config.model_path || "",
         textStructuring: config.text_structuring ?? true,
         userTags: config.user_tags ?? [],
+        customModels: config.custom_models ?? [],
         onboardingCompleted: config.onboarding_completed ?? false,
         inputDevice: config.input_device || "",
         hfEndpoint: config.hf_endpoint || "https://huggingface.co",

@@ -25,6 +25,8 @@ pub struct AppConfig {
     #[serde(default)]
     pub user_tags: Vec<String>,
     #[serde(default)]
+    pub custom_models: Vec<String>,
+    #[serde(default)]
     pub onboarding_completed: bool,
     #[serde(default)]
     pub input_device: String,
@@ -56,6 +58,7 @@ impl Default for AppConfig {
             stt_model: default_stt_model(),
             text_structuring: true,
             user_tags: Vec::new(),
+            custom_models: Vec::new(),
             onboarding_completed: false,
             input_device: String::new(),
             hf_endpoint: default_hf_endpoint(),
@@ -128,6 +131,10 @@ pub(crate) fn update_field_in_dir(
         "user_tags" => {
             config.user_tags = serde_json::from_str(value)
                 .map_err(|e| AppError::Config(format!("Invalid JSON for user_tags: {}", e)))?;
+        }
+        "custom_models" => {
+            config.custom_models = serde_json::from_str(value)
+                .map_err(|e| AppError::Config(format!("Invalid JSON for custom_models: {}", e)))?;
         }
         "onboarding_completed" => {
             config.onboarding_completed = value.eq_ignore_ascii_case("true");

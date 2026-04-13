@@ -116,6 +116,17 @@ function HotkeyRecorder({ onCapture, onCancel, recordingText }: HotkeyRecorderPr
   );
 }
 
+const PRESET_LLM_MODELS = [
+  "gpt-5.4-nano",
+  "gpt-5.4-mini",
+  "gpt-5.4",
+  "gpt-4o-mini",
+  "gpt-4o",
+] as const;
+
+const LLM_DISABLED_VALUE = "__disabled__";
+const LLM_ADD_CUSTOM_VALUE = "__add_custom__";
+
 type SettingsTab = "general" | "api" | "models";
 
 interface SettingsPageProps {
@@ -155,6 +166,8 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
     updateHotkey,
     userTags,
     setUserTags,
+    customModels,
+    setCustomModels,
     inputDevice,
     inputDevices,
     loadInputDevices,
@@ -166,6 +179,8 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
   const { t } = useLocaleStore();
   const activeModel = sttModels.find((m) => m.is_active);
   const [showApiKey, setShowApiKey] = useState(false);
+  const [isAddingCustomModel, setIsAddingCustomModel] = useState(false);
+  const [customModelDraft, setCustomModelDraft] = useState("");
   const [isRecordingHotkey, setIsRecordingHotkey] = useState(false);
   const isPresetHotkey = (h: string) => h === "Option+Space" || h === "Fn";
   const [lastCustomHotkey, setLastCustomHotkey] = useState<string>(() =>
@@ -761,18 +776,138 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
                     <label htmlFor="model" className="block text-sm font-medium text-[var(--theme-on-surface)] mb-1">
                       {t.settings.modelLabel}
                     </label>
-                    <input
-                      type="text"
-                      id="model"
-                      value={model}
-                      onChange={(e) => setModel(e.target.value)}
-                      onFocus={() => handleFocusCapture(model)}
-                      onBlur={() => handleBlurSave("model", model)}
-                      className="block w-full rounded-md border border-[var(--theme-outline-variant)] bg-[var(--theme-input-bg)] py-2 px-3 text-[var(--theme-on-surface)] focus:border-[var(--theme-input-focus-border)] focus:ring-2 focus:ring-[var(--theme-input-focus-border)] outline-none transition-shadow sm:text-sm sm:leading-6"
-                      placeholder={t.settings.modelPlaceholder}
-                    />
+                    <div className="flex gap-2">
+                      <select
+                        id="model"
+                        value={model === "" ? LLM_DISABLED_VALUE : model}
+                        onChange={async (e) => {
+                          const v = e.target.value;
+                          if (v === LLM_ADD_CUSTOM_VALUE) {
+                            setCustomModelDraft("");
+                            setIsAddingCustomModel(true);
+                            return;
+                          }
+                          const next = v === LLM_DISABLED_VALUE ? "" : v;
+                          setModel(next);
+                          try {
+                            await saveField("model", next);
+                            onToast(t.settings.settingsSaved, "success");
+                          } catch {
+                            onToast(t.settings.settingsSaveFailed, "error");
+                          }
+                        }}
+                        className="block w-full rounded-md border border-[var(--theme-outline-variant)] bg-[var(--theme-input-bg)] py-2 px-3 text-[var(--theme-on-surface)] focus:border-[var(--theme-input-focus-border)] focus:ring-2 focus:ring-[var(--theme-input-focus-border)] outline-none transition-shadow sm:text-sm sm:leading-6"
+                      >
+                        <option value={LLM_DISABLED_VALUE}>{t.settings.modelDisabledOption}</option>
+                        <optgroup label={t.settings.modelPresetGroup}>
+                          {PRESET_LLM_MODELS.map((m) => (
+                            <option key={m} value={m}>{m}</option>
+                          ))}
+                        </optgroup>
+                        {customModels.length > 0 && (
+                          <optgroup label={t.settings.modelCustomGroup}>
+                            {customModels.map((m) => (
+                              <option key={m} value={m}>{m}</option>
+                            ))}
+                          </optgroup>
+                        )}
+                        {model &&
+                          model !== "" &&
+                          !PRESET_LLM_MODELS.includes(model as typeof PRESET_LLM_MODELS[number]) &&
+                          !customModels.includes(model) && (
+                            <option value={model}>{model}</option>
+                          )}
+                        <option value={LLM_ADD_CUSTOM_VALUE}>＋ {t.settings.modelAddCustom}</option>
+                      </select>
+                      {customModels.includes(model) && (
+                        <button
+                          type="button"
+                          title={t.settings.modelRemoveCustom}
+                          onClick={async () => {
+                            const next = customModels.filter((m) => m !== model);
+                            try {
+                              await setCustomModels(next);
+                              setModel("");
+                              await saveField("model", "");
+                              onToast(t.settings.settingsSaved, "success");
+                            } catch {
+                              onToast(t.settings.settingsSaveFailed, "error");
+                            }
+                          }}
+                          className="shrink-0 inline-flex items-center text-sm font-medium text-[var(--color-error)] hover:text-[var(--theme-result-error-text)] px-2 py-2 transition-colors"
+                        >
+                          {t.settings.modelRemoveCustomLabel}
+                        </button>
+                      )}
+                    </div>
+                    {isAddingCustomModel && (() => {
+                      const trimmedDraft = customModelDraft.trim();
+                      const confirmAdd = async () => {
+                        if (!trimmedDraft) return;
+                        if (
+                          !PRESET_LLM_MODELS.includes(trimmedDraft as typeof PRESET_LLM_MODELS[number]) &&
+                          !customModels.includes(trimmedDraft)
+                        ) {
+                          try {
+                            await setCustomModels([...customModels, trimmedDraft]);
+                          } catch {
+                            onToast(t.settings.settingsSaveFailed, "error");
+                            return;
+                          }
+                        }
+                        setModel(trimmedDraft);
+                        try {
+                          await saveField("model", trimmedDraft);
+                          onToast(t.settings.settingsSaved, "success");
+                        } catch {
+                          onToast(t.settings.settingsSaveFailed, "error");
+                        }
+                        setIsAddingCustomModel(false);
+                        setCustomModelDraft("");
+                      };
+                      const cancelAdd = () => {
+                        setIsAddingCustomModel(false);
+                        setCustomModelDraft("");
+                      };
+                      return (
+                        <div className="mt-2 flex gap-2">
+                          <input
+                            type="text"
+                            autoFocus
+                            value={customModelDraft}
+                            placeholder={t.settings.modelAddCustomPrompt}
+                            onChange={(e) => setCustomModelDraft(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                confirmAdd();
+                              } else if (e.key === "Escape") {
+                                e.preventDefault();
+                                cancelAdd();
+                              }
+                            }}
+                            className="block w-full rounded-md border border-[var(--theme-outline-variant)] bg-[var(--theme-input-bg)] py-2 px-3 text-[var(--theme-on-surface)] focus:border-[var(--theme-input-focus-border)] focus:ring-2 focus:ring-[var(--theme-input-focus-border)] outline-none transition-shadow sm:text-sm sm:leading-6"
+                          />
+                          <button
+                            type="button"
+                            onClick={confirmAdd}
+                            disabled={!trimmedDraft}
+                            className="shrink-0 inline-flex items-center px-4 py-2 border border-[var(--theme-btn-secondary-border)] rounded-md text-sm font-medium text-[var(--theme-on-surface)] bg-[var(--theme-btn-secondary-bg)] hover:bg-[var(--theme-btn-secondary-hover-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-input-focus-border)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            {t.settings.modelAddCustomConfirm}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={cancelAdd}
+                            className="shrink-0 inline-flex items-center px-4 py-2 border border-[var(--theme-btn-secondary-border)] rounded-md text-sm font-medium text-[var(--theme-on-surface-variant)] bg-[var(--theme-btn-secondary-bg)] hover:bg-[var(--theme-btn-secondary-hover-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-input-focus-border)] transition-colors"
+                          >
+                            {t.settings.modelAddCustomCancel}
+                          </button>
+                        </div>
+                      );
+                    })()}
                     <p className="mt-2 text-xs text-[var(--theme-on-surface-variant)]">
-                      {t.settings.modelHint}
+                      {model === "" ? t.settings.modelHintDisabled : t.settings.modelHint}
                     </p>
                   </div>
 
@@ -785,7 +920,7 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
                       <button
                         type="button"
                         onClick={testApiConnection}
-                        disabled={isTesting || !apiKey}
+                        disabled={isTesting || !apiKey || !model}
                         className="ml-4 inline-flex items-center px-4 py-2 border border-[var(--theme-btn-secondary-border)] rounded-lg text-sm font-medium text-[var(--theme-on-surface)] bg-[var(--theme-btn-secondary-bg)] hover:bg-[var(--theme-btn-secondary-hover-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-input-focus-border)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isTesting ? (
