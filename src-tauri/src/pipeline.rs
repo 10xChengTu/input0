@@ -27,16 +27,7 @@ pub fn hide_overlay_if_current(app: &AppHandle, gen: &OverlayGeneration, expecte
     if gen.load(Ordering::SeqCst) != expected {
         return false;
     }
-    #[cfg(target_os = "macos")]
-    {
-        crate::commands::window::hide_overlay_async(app);
-    }
-    #[cfg(not(target_os = "macos"))]
-    {
-        if let Some(window) = app.get_webview_window("overlay") {
-            let _ = window.hide();
-        }
-    }
+    crate::commands::window::hide_overlay_async(app);
     true
 }
 

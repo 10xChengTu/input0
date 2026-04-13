@@ -73,13 +73,7 @@ pub async fn cancel_pipeline(
         .lock()
         .map_err(|e| AppError::Audio(e.to_string()))?;
     pipeline.cancel(&app);
-    #[cfg(target_os = "macos")]
     super::window::hide_overlay_async(&app);
-
-    #[cfg(not(target_os = "macos"))]
-    if let Some(window) = app.get_webview_window("overlay") {
-        let _ = window.hide();
-    }
     Ok(())
 }
 

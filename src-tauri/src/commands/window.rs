@@ -109,6 +109,8 @@ pub fn prewarm_overlay(app: &AppHandle) {
 }
 
 pub fn position_and_show_overlay(app: &AppHandle) {
+    crate::register_escape_shortcut(app);
+
     if let Some(window) = app.get_webview_window("overlay") {
         #[cfg(target_os = "macos")]
         {
@@ -244,8 +246,10 @@ unsafe fn ensure_window_transparency(ns_window: cocoa::base::id) {
     let _: () = msg_send![ns_window, setHasShadow: false];
 }
 
-#[cfg(target_os = "macos")]
 pub fn hide_overlay_async(app: &AppHandle) {
+    crate::unregister_escape_shortcut(app);
+
+    #[cfg(target_os = "macos")]
     if let Some(window) = app.get_webview_window("overlay") {
         if let Ok(ns_window) = window.ns_window() {
             let ptr = ns_window as usize;
@@ -257,6 +261,11 @@ pub fn hide_overlay_async(app: &AppHandle) {
             });
         }
     }
+
+    #[cfg(not(target_os = "macos"))]
+    if let Some(window) = app.get_webview_window("overlay") {
+        let _ = window.hide();
+    }
 }
 
 #[command]
@@ -267,14 +276,7 @@ pub async fn show_overlay(app: AppHandle) -> Result<(), AppError> {
 
 #[command]
 pub async fn hide_overlay(app: AppHandle) -> Result<(), AppError> {
-    #[cfg(target_os = "macos")]
     hide_overlay_async(&app);
-
-    #[cfg(not(target_os = "macos"))]
-    if let Some(window) = app.get_webview_window("overlay") {
-        window.hide().map_err(|e| AppError::Input(e.to_string()))?;
-    }
-
     Ok(())
 }
 

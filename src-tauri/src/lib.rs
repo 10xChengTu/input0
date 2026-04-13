@@ -33,6 +33,12 @@ use crate::stt::{SharedTranscriber, whisper_backend::WhisperBackend, sensevoice_
 /// plugin vs. native Fn monitor).
 pub type CurrentShortcut = Arc<Mutex<String>>;
 
+/// Whether the global Escape shortcut is currently registered. Used to
+/// make register/unregister idempotent and to keep ESC only captured while
+/// the overlay is visible — otherwise it would steal ESC from every other
+/// app in the system.
+static ESCAPE_REGISTERED: AtomicBool = AtomicBool::new(false);
+
 /// Managed state: set to true when a pipeline start failed between Pressed
 /// and Released, so the Released handler knows to schedule the error toast
 /// hide instead of calling stop_recording.
@@ -234,6 +240,82 @@ pub fn trigger_pipeline_released(app: &tauri::AppHandle) {
                 .or_else(|| e.downcast_ref::<&str>().copied())
                 .unwrap_or("unknown panic")
         );
+    }
+}
+
+/// Register the global Escape shortcut used to cancel the active pipeline
+/// and hide the overlay. This must only be called while the overlay is
+/// visible — otherwise ESC gets captured from every other app on the system.
+/// Idempotent: safe to call when already registered.
+pub fn register_escape_shortcut(app: &tauri::AppHandle) {
+    if ESCAPE_REGISTERED.swap(true, Ordering::SeqCst) {
+        return;
+    }
+
+    let esc_pipeline_arc = app.state::<Arc<Mutex<pipeline::Pipeline>>>().inner().clone();
+    let esc_app_handle = app.clone();
+
+    let res = app.global_shortcut().on_shortcut(
+        "Escape",
+        move |_app_handle, _shortcut, event| {
+            if event.state != ShortcutState::Pressed {
+                return;
+            }
+
+            let pa = Arc::clone(&esc_pipeline_arc);
+            let ah = esc_app_handle.clone();
+
+            let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                tauri::async_runtime::spawn(async move {
+                    commands::window::hide_overlay_async(&ah);
+
+                    let ah_cancel = ah.clone();
+                    let cancel_result = tokio::time::timeout(
+                        std::time::Duration::from_secs(5),
+                        tokio::task::spawn_blocking(move || {
+                            match pa.lock() {
+                                Ok(mut p) => {
+                                    p.cancel(&ah_cancel);
+                                }
+                                Err(e) => {
+                                    log::error!("Mutex poisoned (cancel): {}", e);
+                                }
+                            }
+                        }),
+                    )
+                    .await;
+
+                    if let Err(_) = cancel_result {
+                        log::error!("cancel pipeline timed out (5s)");
+                    }
+                });
+            }));
+
+            if let Err(e) = result {
+                log::error!(
+                    "CRITICAL: panic in ESC handler caught: {:?}",
+                    e.downcast_ref::<String>()
+                        .map(|s| s.as_str())
+                        .or_else(|| e.downcast_ref::<&str>().copied())
+                        .unwrap_or("unknown panic")
+                );
+            }
+        },
+    );
+
+    if let Err(e) = res {
+        ESCAPE_REGISTERED.store(false, Ordering::SeqCst);
+        log::error!("Failed to register Escape shortcut: {}", e);
+    }
+}
+
+/// Unregister the global Escape shortcut. Idempotent.
+pub fn unregister_escape_shortcut(app: &tauri::AppHandle) {
+    if !ESCAPE_REGISTERED.swap(false, Ordering::SeqCst) {
+        return;
+    }
+    if let Err(e) = app.global_shortcut().unregister("Escape") {
+        log::warn!("Failed to unregister Escape shortcut: {}", e);
     }
 }
 
@@ -577,65 +659,6 @@ pub fn run() {
 
             if let Err(e) = register_pipeline_shortcut(&app_handle, &raw_hotkey) {
                 log::error!("Failed to register activation hotkey '{}': {}", raw_hotkey, e);
-            }
-
-            let esc_pipeline_arc = app.state::<Arc<Mutex<pipeline::Pipeline>>>().inner().clone();
-            let esc_app_handle = app.handle().clone();
-
-            if let Err(e) = app.global_shortcut().on_shortcut(
-                "Escape",
-                move |_app_handle, _shortcut, event| {
-                    if event.state != ShortcutState::Pressed {
-                        return;
-                    }
-
-                    let pa = Arc::clone(&esc_pipeline_arc);
-                    let ah = esc_app_handle.clone();
-
-                    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-                        tauri::async_runtime::spawn(async move {
-                            #[cfg(target_os = "macos")]
-                            commands::window::hide_overlay_async(&ah);
-
-                            #[cfg(not(target_os = "macos"))]
-                            if let Some(window) = ah.get_webview_window("overlay") {
-                                let _ = window.hide();
-                            }
-
-                            let ah_cancel = ah.clone();
-                            let cancel_result = tokio::time::timeout(
-                                std::time::Duration::from_secs(5),
-                                tokio::task::spawn_blocking(move || {
-                                    match pa.lock() {
-                                        Ok(mut p) => {
-                                            p.cancel(&ah_cancel);
-                                        }
-                                        Err(e) => {
-                                            log::error!("Mutex poisoned (cancel): {}", e);
-                                        }
-                                    }
-                                }),
-                            )
-                            .await;
-
-                            if let Err(_) = cancel_result {
-                                log::error!("cancel pipeline timed out (5s)");
-                            }
-                        });
-                    }));
-
-                    if let Err(e) = result {
-                        log::error!(
-                            "CRITICAL: panic in ESC handler caught: {:?}",
-                            e.downcast_ref::<String>()
-                                .map(|s| s.as_str())
-                                .or_else(|| e.downcast_ref::<&str>().copied())
-                                .unwrap_or("unknown panic")
-                        );
-                    }
-                },
-            ) {
-                log::error!("Failed to register Escape shortcut: {}", e);
             }
 
             let settings_item = MenuItem::with_id(app, "settings", "Show Settings", true, None::<&str>)?;
