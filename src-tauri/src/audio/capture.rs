@@ -112,9 +112,17 @@ impl AudioRecorder {
                 .ok_or_else(|| AppError::Audio("No default input device found".to_string()))?
         };
 
-        let config = device
+        let supported_config = device
             .default_input_config()
             .map_err(|e| AppError::Audio(format!("Failed to get default input config: {}", e)))?;
+
+        // Capture device channel count before consuming the config. The callback
+        // downmixes to mono inline so the stored buffer is ~1/device_channels the
+        // size of the raw device stream — this is the main memory win for stereo
+        // inputs (48 kHz stereo f32 = 384 KB/s → 192 KB/s after downmix).
+        let device_channels = supported_config.channels() as usize;
+        let sample_format = supported_config.sample_format();
+        let stream_config: cpal::StreamConfig = supported_config.into();
 
         let samples_clone = Arc::clone(&self.samples);
         let is_recording_clone = Arc::clone(&self.is_recording);
@@ -123,14 +131,26 @@ impl AudioRecorder {
             eprintln!("Audio stream error: {}", err);
         };
 
-        let stream = match config.sample_format() {
+        let stream = match sample_format {
             cpal::SampleFormat::F32 => device
                 .build_input_stream(
-                    &config.into(),
+                    &stream_config,
                     move |data: &[f32], _: &cpal::InputCallbackInfo| {
                         if is_recording_clone.load(Ordering::SeqCst) {
                             if let Ok(mut buf) = samples_clone.lock() {
-                                buf.extend_from_slice(data);
+                                if device_channels <= 1 {
+                                    buf.extend_from_slice(data);
+                                } else {
+                                    buf.reserve(data.len() / device_channels);
+                                    let inv_n = 1.0_f32 / device_channels as f32;
+                                    for frame in data.chunks_exact(device_channels) {
+                                        let mut sum = 0.0_f32;
+                                        for &s in frame {
+                                            sum += s;
+                                        }
+                                        buf.push(sum * inv_n);
+                                    }
+                                }
                             }
                         }
                     },
@@ -140,12 +160,25 @@ impl AudioRecorder {
                 .map_err(|e| AppError::Audio(format!("Failed to build f32 stream: {}", e)))?,
             cpal::SampleFormat::I16 => device
                 .build_input_stream(
-                    &config.into(),
+                    &stream_config,
                     move |data: &[i16], _: &cpal::InputCallbackInfo| {
                         if is_recording_clone.load(Ordering::SeqCst) {
                             if let Ok(mut buf) = samples_clone.lock() {
-                                for &s in data {
-                                    buf.push(s as f32 / 32768.0);
+                                if device_channels <= 1 {
+                                    buf.reserve(data.len());
+                                    for &s in data {
+                                        buf.push(s as f32 / 32768.0);
+                                    }
+                                } else {
+                                    buf.reserve(data.len() / device_channels);
+                                    let inv_n = 1.0_f32 / (device_channels as f32 * 32768.0);
+                                    for frame in data.chunks_exact(device_channels) {
+                                        let mut sum = 0.0_f32;
+                                        for &s in frame {
+                                            sum += s as f32;
+                                        }
+                                        buf.push(sum * inv_n);
+                                    }
                                 }
                             }
                         }
@@ -167,6 +200,8 @@ impl AudioRecorder {
             .map_err(|e| AppError::Audio(format!("Failed to start audio stream: {}", e)))?;
 
         self.stream = Some(stream);
+        // Stored buffer is mono regardless of device channel count.
+        self.channels = 1;
 
         Ok(())
     }
@@ -178,12 +213,14 @@ impl AudioRecorder {
             drop(stream);
         }
 
-        let samples = self
+        let mut samples = self
             .samples
             .lock()
             .map_err(|e| AppError::Audio(format!("Lock poisoned: {}", e)))?;
 
-        Ok(samples.clone())
+        // Move the buffer out instead of cloning to avoid briefly doubling RAM
+        // for long recordings (a 30-min mono 48 kHz capture is ~345 MB).
+        Ok(std::mem::take(&mut *samples))
     }
 
     /// Returns a clone of the shared samples buffer for real-time level metering.

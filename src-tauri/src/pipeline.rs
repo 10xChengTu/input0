@@ -248,7 +248,18 @@ pub async fn process_audio(recorded: RecordedAudio, app: AppHandle, cancel: Canc
             state: PipelineState::Transcribing,
         },
     );
-    let audio = converter::prepare_for_whisper(&recorded.samples, recorded.channels, recorded.sample_rate)?;
+
+    // Destructure so the raw sample Vec can be dropped the moment it's no
+    // longer needed. Otherwise `recorded` lives until the end of this async
+    // fn and pins the raw buffer in memory while STT runs on the resampled copy.
+    let RecordedAudio {
+        samples,
+        channels,
+        sample_rate,
+        source_app,
+    } = recorded;
+    let audio = converter::prepare_for_whisper(&samples, channels, sample_rate)?;
+    drop(samples);
 
     if cancel.is_cancelled() {
         return Err(AppError::Audio("Cancelled".to_string()));
@@ -311,7 +322,7 @@ pub async fn process_audio(recorded: RecordedAudio, app: AppHandle, cancel: Canc
         let history = history::load_history();
         let vocabulary = crate::vocabulary::load_vocabulary();
 
-        match client.optimize_text(&text, &config.language, &history, config.text_structuring, &vocabulary, recorded.source_app.as_deref(), &config.user_tags).await {
+        match client.optimize_text(&text, &config.language, &history, config.text_structuring, &vocabulary, source_app.as_deref(), &config.user_tags).await {
             Ok(optimized) => {
                 if cancel.is_cancelled() {
                     return Err(AppError::Audio("Cancelled".to_string()));
