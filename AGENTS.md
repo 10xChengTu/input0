@@ -105,6 +105,7 @@ docs/                         # 设计文档与需求记录
 6. **状态管理**: 前端用 Zustand (一个 store per domain)，后端用 `Arc<Mutex<T>>` 通过 Tauri managed state 共享。
 7. **STT 架构**: 通过 `TranscriberBackend` trait 抽象多后端，新增 STT 引擎只需实现该 trait。
 8. **类型安全**: TypeScript `strict: true`，Rust 默认 warnings。禁止 `as any` / `@ts-ignore` / `@ts-expect-error`。
+9. **Commit message 必须英文**: 所有 git commit message（包括 subject 和 body）使用英文书写，遵循 Conventional Commits 风格（`feat:` / `fix:` / `docs:` / `chore:` 等）。`docs` 和 `chore` 类型不会出现在 GitHub Release 页面（由 `cliff.toml` 过滤）。
 
 详见 → [docs/conventions.md](docs/conventions.md)
 

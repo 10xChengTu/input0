@@ -16,7 +16,7 @@ commit_parsers = [
   { message = "^feat", group = "Features" },
   { message = "^fix", group = "Bug Fixes" },
   { message = "^improvement", group = "Feature Improvements" },
-  { message = "^docs", group = "Docs" },
+  { message = "^docs", group = "Docs", skip = true },
   { message = "^style", group = "Styling" },
   { message = "^refactor", group = "Code Refactoring" },
   { message = "^perf", group = "Performance Improvements" },
@@ -25,5 +25,5 @@ commit_parsers = [
   { message = "^ci", group = "CI" },
   { message = "^revert", group = "Reverts" },
   { message = "^types", group = "Types" },
-  { message = "^chore", group = "Chores" },
+  { message = "^chore", group = "Chores", skip = true },
 ]
