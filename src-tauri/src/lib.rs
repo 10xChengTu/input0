@@ -25,7 +25,7 @@ use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
 use crate::models::registry::{self, BackendKind};
 use crate::models::manager as model_manager;
 use crate::pipeline::OverlayGeneration;
-use crate::stt::{SharedTranscriber, whisper_backend::WhisperBackend, sensevoice_backend::SenseVoiceBackend, paraformer_backend::ParaformerBackend, moonshine_backend::MoonshineBackend, fire_red_asr_backend::FireRedAsrBackend};
+use crate::stt::{SharedTranscriber, whisper_backend::WhisperBackend, sensevoice_backend::SenseVoiceBackend, paraformer_backend::ParaformerBackend, moonshine_backend::MoonshineBackend, fire_red_asr_backend::FireRedAsrBackend, zipformer_ctc_backend::ZipformerCtcBackend};
 
 /// Managed state: the raw hotkey string currently registered.
 /// Stores the user-facing format (e.g. "Option+Space" or "Fn") so we can
@@ -429,9 +429,8 @@ fn load_stt_model(transcriber: &SharedTranscriber, model_id: &str) -> Result<(),
             Box::new(FireRedAsrBackend::new(&encoder, &decoder, &tokens, model_id)?)
         }
         BackendKind::ZipformerCtc => {
-            return Err(errors::AppError::Whisper(
-                "ZipformerCtc backend not yet wired up".to_string(),
-            ));
+            let (model, tokens) = model_manager::zipformer_ctc_model_paths(model_id)?;
+            Box::new(ZipformerCtcBackend::new(&model, &tokens, model_id)?)
         }
     };
 

@@ -90,9 +90,10 @@ pub async fn switch_model(
             )?)
         }
         registry::BackendKind::ZipformerCtc => {
-            return Err(AppError::Whisper(
-                "ZipformerCtc backend not yet wired up".to_string(),
-            ));
+            let (model, tokens) = manager::zipformer_ctc_model_paths(&model_id)?;
+            Box::new(crate::stt::zipformer_ctc_backend::ZipformerCtcBackend::new(
+                &model, &tokens, &model_id,
+            )?)
         }
     };
 

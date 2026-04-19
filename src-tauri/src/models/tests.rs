@@ -130,3 +130,32 @@ fn test_fire_red_asr_model_paths() {
     assert!(dec.ends_with(std::path::Path::new("decoder.int8.onnx")));
     assert!(tokens.ends_with(std::path::Path::new("tokens.txt")));
 }
+
+#[test]
+fn test_zipformer_ctc_zh_registered() {
+    let model = registry::get_model("zipformer-ctc-zh")
+        .expect("zipformer-ctc-zh must be registered");
+    assert_eq!(model.backend, registry::BackendKind::ZipformerCtc);
+    assert_eq!(model.files.len(), 2, "should have model + tokens (bbpe.model not downloaded)");
+    let paths: Vec<&str> = model.files.iter().map(|f| f.relative_path).collect();
+    assert!(paths.contains(&"model.int8.onnx"));
+    assert!(paths.contains(&"tokens.txt"));
+}
+
+#[test]
+fn test_zipformer_ctc_zh_not_in_recommendation_pool() {
+    for lang in ["zh", "en", "ja", "ko", "yue", "auto"] {
+        let recs = registry::recommended_models_for_language(lang);
+        let ids: Vec<&str> = recs.iter().map(|m| m.id).collect();
+        assert!(!ids.contains(&"zipformer-ctc-zh"),
+            "zipformer-ctc-zh should NOT be in recommendation pool for {}", lang);
+    }
+}
+
+#[test]
+fn test_zipformer_ctc_model_paths() {
+    let (model, tokens) = manager::zipformer_ctc_model_paths("zipformer-ctc-zh")
+        .expect("paths should resolve");
+    assert!(model.ends_with(std::path::Path::new("model.int8.onnx")));
+    assert!(tokens.ends_with(std::path::Path::new("tokens.txt")));
+}

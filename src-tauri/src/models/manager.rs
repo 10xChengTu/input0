@@ -114,6 +114,13 @@ pub fn fire_red_asr_model_paths(model_id: &str) -> Result<(PathBuf, PathBuf, Pat
     Ok((encoder, decoder, tokens))
 }
 
+pub fn zipformer_ctc_model_paths(model_id: &str) -> Result<(PathBuf, PathBuf), AppError> {
+    let dir = model_dir(model_id)?;
+    let model = dir.join("model.int8.onnx");
+    let tokens = dir.join("tokens.txt");
+    Ok((model, tokens))
+}
+
 fn build_http_client() -> Result<reqwest::Client, AppError> {
     reqwest::Client::builder()
         .connect_timeout(std::time::Duration::from_secs(CONNECT_TIMEOUT_SECS))

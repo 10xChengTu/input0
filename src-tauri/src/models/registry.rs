@@ -218,6 +218,23 @@ const MOONSHINE_BASE_EN_FILES: &[ModelFile] = &[
     },
 ];
 
+// ── Zipformer CTC models ────────────────────────────────────────────────────
+
+const ZIPFORMER_CTC_ZH_FILES: &[ModelFile] = &[
+    ModelFile {
+        relative_path: "model.int8.onnx",
+        url: "https://huggingface.co/csukuangfj/sherpa-onnx-zipformer-ctc-zh-int8-2025-07-03/resolve/main/model.int8.onnx",
+        size_bytes: 367_000_000,
+        sha1: None,
+    },
+    ModelFile {
+        relative_path: "tokens.txt",
+        url: "https://huggingface.co/csukuangfj/sherpa-onnx-zipformer-ctc-zh-int8-2025-07-03/resolve/main/tokens.txt",
+        size_bytes: 13_400,
+        sha1: None,
+    },
+];
+
 // ── ALL_MODELS registry ─────────────────────────────────────────────────────
 
 pub static ALL_MODELS: &[ModelInfo] = &[
@@ -346,6 +363,18 @@ pub static ALL_MODELS: &[ModelInfo] = &[
         files: MOONSHINE_BASE_EN_FILES,
         best_for_languages: &["en"],
         recommendation_reason: "英文专用，推理速度约为 Whisper 的 5 倍",
+    },
+    // --- Zipformer CTC family ---
+    ModelInfo {
+        id: "zipformer-ctc-zh",
+        display_name: "Zipformer 中文 CTC",
+        description: "优点：新一代 Kaldi 架构，离线中文专用，体积适中且推理快\n缺点：仅支持中文，精度略低于 SenseVoice / FireRedASR，作为轻量备选",
+        backend: BackendKind::ZipformerCtc,
+        total_size_bytes: 367_013_400,
+        size_display: "350 MB",
+        files: ZIPFORMER_CTC_ZH_FILES,
+        best_for_languages: &[],
+        recommendation_reason: "",
     },
 ];
 
