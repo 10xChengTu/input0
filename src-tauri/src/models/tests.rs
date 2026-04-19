@@ -80,3 +80,22 @@ fn test_list_models_marks_active() {
     assert_eq!(active_count, 1);
     assert!(models.iter().any(|m| m.id == "whisper-base" && m.is_active));
 }
+
+#[test]
+fn test_paraformer_trilingual_registered() {
+    let model = registry::get_model("paraformer-trilingual")
+        .expect("paraformer-trilingual must be registered");
+    assert_eq!(model.backend, registry::BackendKind::Paraformer);
+    assert_eq!(model.files.len(), 2, "should have model + tokens");
+    let paths: Vec<&str> = model.files.iter().map(|f| f.relative_path).collect();
+    assert!(paths.contains(&"model.int8.onnx"));
+    assert!(paths.contains(&"tokens.txt"));
+}
+
+#[test]
+fn test_paraformer_trilingual_recommended_for_cantonese() {
+    let recs = registry::recommended_models_for_language("yue");
+    let ids: Vec<&str> = recs.iter().map(|m| m.id).collect();
+    assert!(ids.contains(&"paraformer-trilingual"),
+        "paraformer-trilingual should be recommended for Cantonese, got: {:?}", ids);
+}

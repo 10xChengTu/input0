@@ -145,6 +145,21 @@ const PARAFORMER_ZH_FILES: &[ModelFile] = &[
     },
 ];
 
+const PARAFORMER_TRILINGUAL_FILES: &[ModelFile] = &[
+    ModelFile {
+        relative_path: "model.int8.onnx",
+        url: "https://huggingface.co/csukuangfj/sherpa-onnx-paraformer-trilingual-zh-cantonese-en/resolve/main/model.int8.onnx",
+        size_bytes: 245_000_000,
+        sha1: None,
+    },
+    ModelFile {
+        relative_path: "tokens.txt",
+        url: "https://huggingface.co/csukuangfj/sherpa-onnx-paraformer-trilingual-zh-cantonese-en/resolve/main/tokens.txt",
+        size_bytes: 119_000,
+        sha1: None,
+    },
+];
+
 // ── Moonshine models ────────────────────────────────────────────────────────
 
 const MOONSHINE_BASE_EN_FILES: &[ModelFile] = &[
@@ -273,6 +288,17 @@ pub static ALL_MODELS: &[ModelInfo] = &[
         files: PARAFORMER_ZH_FILES,
         best_for_languages: &["zh"],
         recommendation_reason: "中文专用，推理速度极快（RTF<0.07），精度高",
+    },
+    ModelInfo {
+        id: "paraformer-trilingual",
+        display_name: "Paraformer 中英粤",
+        description: "优点：支持中英粤 3 语言，中英代码切换无障碍，阿里出品，推理快\n缺点：体积比 Paraformer 中文版大 15%，纯中文场景精度与其接近，无优势",
+        backend: BackendKind::Paraformer,
+        total_size_bytes: 245_119_000,
+        size_display: "234 MB",
+        files: PARAFORMER_TRILINGUAL_FILES,
+        best_for_languages: &["yue"],
+        recommendation_reason: "粤语识别唯一可用模型，同时支持中英混合",
     },
     // --- Moonshine family ---
     ModelInfo {
