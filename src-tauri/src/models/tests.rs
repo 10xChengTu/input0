@@ -93,11 +93,19 @@ fn test_paraformer_trilingual_registered() {
 }
 
 #[test]
-fn test_paraformer_trilingual_recommended_for_cantonese() {
-    let recs = registry::recommended_models_for_language("yue");
-    let ids: Vec<&str> = recs.iter().map(|m| m.id).collect();
-    assert!(ids.contains(&"paraformer-trilingual"),
-        "paraformer-trilingual should be recommended for Cantonese, got: {:?}", ids);
+fn test_paraformer_trilingual_recommended_languages() {
+    for lang in ["zh", "en", "yue"] {
+        let recs = registry::recommended_models_for_language(lang);
+        let ids: Vec<&str> = recs.iter().map(|m| m.id).collect();
+        assert!(ids.contains(&"paraformer-trilingual"),
+            "paraformer-trilingual should be recommended for {}, got: {:?}", lang, ids);
+    }
+    for lang in ["ja", "ko", "auto"] {
+        let recs = registry::recommended_models_for_language(lang);
+        let ids: Vec<&str> = recs.iter().map(|m| m.id).collect();
+        assert!(!ids.contains(&"paraformer-trilingual"),
+            "paraformer-trilingual should NOT be recommended for {}, got: {:?}", lang, ids);
+    }
 }
 
 #[test]
@@ -113,12 +121,16 @@ fn test_fire_red_asr_v1_registered() {
 }
 
 #[test]
-fn test_fire_red_asr_v1_not_in_recommendation_pool() {
-    for lang in ["zh", "en", "ja", "ko", "yue", "auto"] {
+fn test_fire_red_asr_v1_recommended_for_chinese_only() {
+    let recs = registry::recommended_models_for_language("zh");
+    let ids: Vec<&str> = recs.iter().map(|m| m.id).collect();
+    assert!(ids.contains(&"fire-red-asr-v1"),
+        "fire-red-asr-v1 should be recommended for zh, got: {:?}", ids);
+    for lang in ["en", "ja", "ko", "yue", "auto"] {
         let recs = registry::recommended_models_for_language(lang);
         let ids: Vec<&str> = recs.iter().map(|m| m.id).collect();
         assert!(!ids.contains(&"fire-red-asr-v1"),
-            "fire-red-asr-v1 should NOT be recommended for {} (too large, manual only)", lang);
+            "fire-red-asr-v1 should NOT be recommended for {}, got: {:?}", lang, ids);
     }
 }
 
@@ -143,12 +155,16 @@ fn test_zipformer_ctc_zh_registered() {
 }
 
 #[test]
-fn test_zipformer_ctc_zh_not_in_recommendation_pool() {
-    for lang in ["zh", "en", "ja", "ko", "yue", "auto"] {
+fn test_zipformer_ctc_zh_recommended_for_chinese_only() {
+    let recs = registry::recommended_models_for_language("zh");
+    let ids: Vec<&str> = recs.iter().map(|m| m.id).collect();
+    assert!(ids.contains(&"zipformer-ctc-zh"),
+        "zipformer-ctc-zh should be recommended for zh, got: {:?}", ids);
+    for lang in ["en", "ja", "ko", "yue", "auto"] {
         let recs = registry::recommended_models_for_language(lang);
         let ids: Vec<&str> = recs.iter().map(|m| m.id).collect();
         assert!(!ids.contains(&"zipformer-ctc-zh"),
-            "zipformer-ctc-zh should NOT be in recommendation pool for {}", lang);
+            "zipformer-ctc-zh should NOT be recommended for {}, got: {:?}", lang, ids);
     }
 }
 

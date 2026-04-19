@@ -337,8 +337,8 @@ pub static ALL_MODELS: &[ModelInfo] = &[
         total_size_bytes: 245_119_000,
         size_display: "234 MB",
         files: PARAFORMER_TRILINGUAL_FILES,
-        best_for_languages: &["yue"],
-        recommendation_reason: "粤语识别唯一可用模型，同时支持中英混合",
+        best_for_languages: &["zh", "en", "yue"],
+        recommendation_reason: "中英粤三语通用，粤语当前唯一可用模型，中英代码切换场景友好",
     },
     // --- FireRedASR family ---
     ModelInfo {
@@ -349,8 +349,8 @@ pub static ALL_MODELS: &[ModelInfo] = &[
         total_size_bytes: 1_735_071_400,
         size_display: "1.74 GB",
         files: FIRE_RED_ASR_V1_FILES,
-        best_for_languages: &[],
-        recommendation_reason: "",
+        best_for_languages: &["zh"],
+        recommendation_reason: "中文 ASR SOTA（CER ≈ 2%），追求极致精度可选，但体积 1.74 GB",
     },
     // --- Moonshine family ---
     ModelInfo {
@@ -373,8 +373,8 @@ pub static ALL_MODELS: &[ModelInfo] = &[
         total_size_bytes: 367_013_400,
         size_display: "350 MB",
         files: ZIPFORMER_CTC_ZH_FILES,
-        best_for_languages: &[],
-        recommendation_reason: "",
+        best_for_languages: &["zh"],
+        recommendation_reason: "中文离线 CTC，新一代 Kaldi 架构，体积适中、推理快",
     },
 ];
 
