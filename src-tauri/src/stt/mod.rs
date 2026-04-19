@@ -3,6 +3,7 @@ pub mod moonshine_backend;
 pub mod paraformer_backend;
 pub mod sensevoice_backend;
 pub mod whisper_backend;
+pub mod zipformer_ctc_backend;
 
 use std::sync::{Arc, Mutex};
 
