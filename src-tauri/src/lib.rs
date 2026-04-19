@@ -423,6 +423,16 @@ fn load_stt_model(transcriber: &SharedTranscriber, model_id: &str) -> Result<(),
                 &preprocessor, &encoder, &uncached_decoder, &cached_decoder, &tokens, model_id,
             )?)
         }
+        BackendKind::FireRedAsr => {
+            return Err(errors::AppError::Whisper(
+                "FireRedAsr backend not yet wired up".to_string(),
+            ));
+        }
+        BackendKind::ZipformerCtc => {
+            return Err(errors::AppError::Whisper(
+                "ZipformerCtc backend not yet wired up".to_string(),
+            ));
+        }
     };
 
     let mut guard = transcriber.lock().map_err(|e| {

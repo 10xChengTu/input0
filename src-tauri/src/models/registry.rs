@@ -8,6 +8,8 @@ pub enum BackendKind {
     SenseVoice,
     Paraformer,
     Moonshine,
+    FireRedAsr,
+    ZipformerCtc,
 }
 
 /// A single file that must be downloaded for a model.

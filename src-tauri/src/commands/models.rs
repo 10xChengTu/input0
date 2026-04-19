@@ -83,6 +83,16 @@ pub async fn switch_model(
                 &preprocessor, &encoder, &uncached_decoder, &cached_decoder, &tokens, &model_id,
             )?)
         }
+        registry::BackendKind::FireRedAsr => {
+            return Err(AppError::Whisper(
+                "FireRedAsr backend not yet wired up".to_string(),
+            ));
+        }
+        registry::BackendKind::ZipformerCtc => {
+            return Err(AppError::Whisper(
+                "ZipformerCtc backend not yet wired up".to_string(),
+            ));
+        }
     };
 
     let mut guard = transcriber
