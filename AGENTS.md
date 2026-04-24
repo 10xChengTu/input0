@@ -133,6 +133,7 @@ docs/                         # 设计文档与需求记录
 | [docs/feature-active-app-context.md](docs/feature-active-app-context.md) | 活跃应用名称作为 LLM 轻量级领域信号 | 2026-04-06 |
 | [docs/feature-user-tags.md](docs/feature-user-tags.md) | 用户偏好标签：职业/领域/工作空间标签注入 LLM system prompt | 2026-04-06 |
 | [docs/feature-auto-update.md](docs/feature-auto-update.md) | 应用内自动更新：tauri-plugin-updater + UI 通知 | 2026-04-06 |
+| [docs/feature-single-key-hotkey.md](docs/feature-single-key-hotkey.md) | 单键长按触发录音：CGEventTap 支持左右分离修饰键 | 2026-04-25 |
 
 > 新需求 → 新建 `docs/feature-xxx.md` → 更新此表（含最后校验日期）。
 
