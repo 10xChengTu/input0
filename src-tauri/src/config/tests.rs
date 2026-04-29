@@ -207,6 +207,8 @@ another_unknown = 42
             onboarding_completed: false,
             input_device: String::new(),
             hf_endpoint: default_hf_endpoint(),
+            custom_prompt_enabled: false,
+            custom_prompt: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save config");
         let loaded = load_from_dir(tmp.path()).expect("Load config");
@@ -292,6 +294,8 @@ another_unknown = 42
             onboarding_completed: false,
             input_device: String::new(),
             hf_endpoint: default_hf_endpoint(),
+            custom_prompt_enabled: false,
+            custom_prompt: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Initial save");
         let updated =
@@ -327,6 +331,8 @@ another_unknown = 42
             onboarding_completed: false,
             input_device: String::new(),
             hf_endpoint: default_hf_endpoint(),
+            custom_prompt_enabled: false,
+            custom_prompt: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save");
         let loaded = load_from_dir(tmp.path()).expect("Load");
@@ -379,6 +385,8 @@ another_unknown = 42
             onboarding_completed: false,
             input_device: String::new(),
             hf_endpoint: default_hf_endpoint(),
+            custom_prompt_enabled: false,
+            custom_prompt: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save unicode config");
         let loaded = load_from_dir(tmp.path()).expect("Load unicode config");
@@ -404,6 +412,8 @@ another_unknown = 42
             onboarding_completed: false,
             input_device: String::new(),
             hf_endpoint: default_hf_endpoint(),
+            custom_prompt_enabled: false,
+            custom_prompt: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save empty config");
         let loaded = load_from_dir(tmp.path()).expect("Load empty config");
@@ -433,6 +443,8 @@ another_unknown = 42
             onboarding_completed: false,
             input_device: String::new(),
             hf_endpoint: default_hf_endpoint(),
+            custom_prompt_enabled: false,
+            custom_prompt: String::new(),
         };
         save_to_dir(&config, tmp.path()).expect("Save large config");
         let loaded = load_from_dir(tmp.path()).expect("Load large config");
@@ -541,5 +553,37 @@ text_structuring = true
         // Verify persistence
         let loaded = load_from_dir(tmp.path()).expect("Load after update");
         assert_eq!(loaded.hf_endpoint, "https://hf-mirror.com");
+    }
+
+    // =========================================================
+    // Custom Prompt Tests
+    // =========================================================
+
+    #[test]
+    fn test_default_custom_prompt_fields() {
+        let config = AppConfig::default();
+        assert!(!config.custom_prompt_enabled, "custom_prompt_enabled should default to false");
+        assert_eq!(config.custom_prompt, "", "custom_prompt should default to empty string");
+    }
+
+    #[test]
+    fn test_update_custom_prompt_enabled() {
+        let tmp = tempfile::tempdir().expect("Create tmp");
+        let updated = update_field_in_dir("custom_prompt_enabled", "true", tmp.path()).expect("Update");
+        assert!(updated.custom_prompt_enabled);
+        let again = update_field_in_dir("custom_prompt_enabled", "false", tmp.path()).expect("Update");
+        assert!(!again.custom_prompt_enabled);
+    }
+
+    #[test]
+    fn test_update_custom_prompt_text() {
+        let tmp = tempfile::tempdir().expect("Create tmp");
+        let updated = update_field_in_dir(
+            "custom_prompt",
+            "You are a helper. {{vocabulary}}",
+            tmp.path(),
+        )
+        .expect("Update");
+        assert_eq!(updated.custom_prompt, "You are a helper. {{vocabulary}}");
     }
 }

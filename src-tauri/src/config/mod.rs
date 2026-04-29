@@ -32,6 +32,10 @@ pub struct AppConfig {
     pub input_device: String,
     #[serde(default = "default_hf_endpoint")]
     pub hf_endpoint: String,
+    #[serde(default)]
+    pub custom_prompt_enabled: bool,
+    #[serde(default)]
+    pub custom_prompt: String,
 }
 
 fn default_hf_endpoint() -> String {
@@ -62,6 +66,8 @@ impl Default for AppConfig {
             onboarding_completed: false,
             input_device: String::new(),
             hf_endpoint: default_hf_endpoint(),
+            custom_prompt_enabled: false,
+            custom_prompt: String::new(),
         }
     }
 }
@@ -141,6 +147,10 @@ pub(crate) fn update_field_in_dir(
         }
         "input_device" => config.input_device = value.to_string(),
         "hf_endpoint" => config.hf_endpoint = value.to_string(),
+        "custom_prompt_enabled" => {
+            config.custom_prompt_enabled = value.eq_ignore_ascii_case("true");
+        }
+        "custom_prompt" => config.custom_prompt = value.to_string(),
         other => {
             return Err(AppError::Config(format!(
                 "Unknown config field: '{}'",
