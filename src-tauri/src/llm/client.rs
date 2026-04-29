@@ -4,7 +4,7 @@ use std::time::Duration;
 
 const DEFAULT_MODEL: &str = "gpt-4o-mini";
 const REQUEST_TIMEOUT_SECS: u64 = 30;
-const MAX_HISTORY_CONTEXT: usize = 10;
+pub(crate) const MAX_HISTORY_CONTEXT: usize = 10;
 
 /// A completed transcription entry used as conversation context.
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -1,4 +1,5 @@
 use crate::llm::client::HistoryEntry;
+use std::sync::OnceLock;
 
 pub struct TemplateContext<'a> {
     pub clipboard: Option<&'a str>,
@@ -10,11 +11,15 @@ pub struct TemplateContext<'a> {
 }
 
 const CLIPBOARD_LIMIT: usize = 500;
-const HISTORY_LIMIT: usize = 10;
+
+static TEMPLATE_RE: OnceLock<regex::Regex> = OnceLock::new();
+
+fn template_re() -> &'static regex::Regex {
+    TEMPLATE_RE.get_or_init(|| regex::Regex::new(r"\{\{(\w+)\}\}").expect("hardcoded regex compiles"))
+}
 
 pub fn render_template(template: &str, ctx: &TemplateContext) -> String {
-    use regex::Regex;
-    let re = Regex::new(r"\{\{(\w+)\}\}").expect("hardcoded regex compiles");
+    let re = template_re();
     re.replace_all(template, |caps: &regex::Captures| {
         let name = &caps[1];
         match name {
@@ -56,7 +61,7 @@ fn render_history(history: &[HistoryEntry]) -> String {
     if history.is_empty() {
         return String::new();
     }
-    let skip = history.len().saturating_sub(HISTORY_LIMIT);
+    let skip = history.len().saturating_sub(crate::llm::client::MAX_HISTORY_CONTEXT);
     history
         .iter()
         .skip(skip)
