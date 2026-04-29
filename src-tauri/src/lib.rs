@@ -715,6 +715,8 @@ pub fn run() {
             commands::config::update_config_field,
             commands::llm::optimize_text,
             commands::llm::test_api_connection,
+            commands::llm::get_default_prompt_template,
+            commands::llm::preview_custom_prompt,
             commands::whisper::transcribe_audio,
             commands::whisper::init_whisper_model,
             commands::whisper::is_whisper_model_loaded,
