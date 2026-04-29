@@ -236,7 +236,16 @@ fn extract_api_error(status: reqwest::StatusCode, body: &str) -> String {
     format!("API request failed (HTTP {})", status.as_u16())
 }
 
-pub struct OptimizeOptions<'a> {
+/// Options for `LlmClient::optimize_text_with_options`.
+///
+/// The custom-prompt branch activates only when both `custom_prompt_enabled` is
+/// true AND `custom_prompt.trim()` is non-empty. In that mode, `text_structuring`
+/// is intentionally ignored — the user's template owns formatting rules.
+///
+/// `clipboard` is sourced by the caller (pipeline / IPC) only when the rendered
+/// template references `{{clipboard}}`; pass `None` otherwise to skip the
+/// clipboard read.
+pub(crate) struct OptimizeOptions<'a> {
     pub language: &'a str,
     pub history: &'a [HistoryEntry],
     pub text_structuring: bool,
