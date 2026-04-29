@@ -108,6 +108,13 @@ You are a speech-to-text post-processor. Your job: clean the transcript into the
 /// When `custom_enabled && !custom_prompt.trim().is_empty()`, the user's template
 /// is rendered and the safety footer is appended; otherwise the built-in prompt
 /// is returned unchanged.
+///
+/// Note: in custom mode, `text_structuring` is intentionally ignored — the user's
+/// template fully owns formatting rules. The `safety_footer(language)` is the only
+/// thing the system unconditionally appends.
+///
+/// `safety_footer` dispatches `"zh"` to Chinese; all other language codes (including
+/// `"en"`, `"auto"`, `"ja"`, etc.) fall back to English.
 pub(crate) fn build_system_prompt_with_custom(
     language: &str,
     text_structuring: bool,
