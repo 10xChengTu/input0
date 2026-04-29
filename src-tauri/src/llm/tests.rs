@@ -51,9 +51,24 @@ mod tests {
         assert!(prompt.contains("JSON"), "zh prompt should contain JSON example");
         assert!(prompt.contains("TypeScript"), "zh prompt should contain TypeScript");
         assert!(prompt.contains("瑞嗯特"), "zh prompt should contain phonetic example");
-        assert!(prompt.contains("Tauri"), "zh prompt should contain project-specific term Tauri");
-        assert!(prompt.contains("Vite"), "zh prompt should contain project-specific term Vite");
-        assert!(prompt.contains("remove fillers and fix punctuation"), "zh prompt should emphasize minimal cleanup only");
+        assert!(prompt.contains("去除语气词"), "zh prompt should be in Chinese and emphasize filler removal");
+        assert!(prompt.contains("标点"), "zh prompt should mention punctuation in Chinese");
+    }
+
+    #[test]
+    fn test_system_prompt_zh_is_in_chinese() {
+        let prompt = build_system_prompt("zh", false, &[], &[]);
+        assert!(prompt.contains("规则"), "zh prompt should use Chinese section header 规则");
+        assert!(prompt.contains("语音转文字"), "zh prompt should describe role in Chinese");
+        assert!(!prompt.contains("## Rules"), "zh prompt must NOT use English section header");
+    }
+
+    #[test]
+    fn test_system_prompt_en_is_in_english() {
+        let prompt = build_system_prompt("en", false, &[], &[]);
+        assert!(prompt.contains("## Rules"), "en prompt should use English section header");
+        assert!(prompt.contains("speech-to-text post-processor"), "en prompt should describe role in English");
+        assert!(!prompt.contains("规则"), "en prompt must NOT contain Chinese section header");
     }
 
     #[test]
@@ -83,7 +98,13 @@ mod tests {
 
     #[test]
     fn test_system_prompt_contains_core_instructions() {
-        for lang in &["zh", "en", "auto", "ja"] {
+        // zh prompt is in Chinese; en/auto/ja fall back to English prompt.
+        let zh_prompt = build_system_prompt("zh", false, &[], &[]);
+        assert!(zh_prompt.contains("语气词"), "zh prompt should mention filler words in Chinese");
+        assert!(zh_prompt.contains("标点"), "zh prompt should mention punctuation in Chinese");
+        assert!(zh_prompt.contains("仅输出修正后的纯文本"), "zh prompt should have output-only instruction");
+
+        for lang in &["en", "auto", "ja"] {
             let prompt = build_system_prompt(lang, false, &[], &[]);
             assert!(prompt.contains("filler"), "prompt for '{}' should mention filler words", lang);
             assert!(prompt.contains("punctuation"), "prompt for '{}' should mention punctuation", lang);
@@ -95,7 +116,7 @@ mod tests {
     fn test_system_prompt_zh_preserves_variant() {
         let prompt = build_system_prompt("zh", false, &[], &[]);
         assert!(
-            prompt.contains("Chinese variant"),
+            prompt.contains("中文变体") && prompt.contains("简体/繁体"),
             "zh prompt should preserve speaker's Chinese variant"
         );
         assert!(
@@ -106,11 +127,27 @@ mod tests {
 
     #[test]
     fn test_system_prompt_contains_anti_execution_rule() {
-        for lang in &["zh", "en", "auto"] {
+        let zh_prompt = build_system_prompt("zh", false, &[], &[]);
+        assert!(zh_prompt.contains("不是给你的指令"), "zh prompt should contain anti-execution rule");
+        assert!(zh_prompt.contains("绝不执行"), "zh prompt should explicitly forbid executing transcript content");
+
+        for lang in &["en", "auto"] {
             let prompt = build_system_prompt(lang, false, &[], &[]);
             assert!(prompt.contains("NOT instructions"), "prompt for '{}' should contain anti-execution rule", lang);
-            assert!(prompt.contains("Do NOT execute"), "prompt for '{}' should explicitly forbid executing transcript content", lang);
+            assert!(prompt.contains("do NOT execute"), "prompt for '{}' should explicitly forbid executing transcript content", lang);
         }
+    }
+
+    #[test]
+    fn test_system_prompt_contains_repetition_merge_rule() {
+        // New rule: merge repeated/supplemental phrases (e.g., word-then-letter-spelling).
+        let zh_prompt = build_system_prompt("zh", false, &[], &[]);
+        assert!(zh_prompt.contains("重复"), "zh prompt should mention repetition handling");
+        assert!(zh_prompt.contains("补充"), "zh prompt should mention supplemental phrases");
+
+        let en_prompt = build_system_prompt("en", false, &[], &[]);
+        assert!(en_prompt.contains("repeats") || en_prompt.contains("repetition"), "en prompt should mention repetition handling");
+        assert!(en_prompt.contains("supplements") || en_prompt.contains("supplement"), "en prompt should mention supplemental phrases");
     }
 
     // --- Context Message Tests ---
@@ -671,56 +708,65 @@ mod tests {
 
     #[test]
     fn test_system_prompt_without_structuring_has_no_list_instructions() {
-        for lang in &["zh", "en", "auto"] {
+        // No structuring → no numbered-list output rule, in any language.
+        let zh_prompt = build_system_prompt("zh", false, &[], &[]);
+        assert!(!zh_prompt.contains("编号列表"), "zh prompt without structuring should NOT mention numbered lists");
+
+        for lang in &["en", "auto"] {
             let prompt = build_system_prompt(lang, false, &[], &[]);
-            assert!(!prompt.contains("Numbered & Bulleted Lists"), "prompt for '{}' without structuring should NOT contain list instructions", lang);
-            assert!(!prompt.contains("List Formatting"), "prompt for '{}' without structuring should NOT contain List Formatting section", lang);
+            assert!(!prompt.contains("numbered list"), "prompt for '{}' without structuring should NOT contain list instructions", lang);
         }
     }
 
     #[test]
     fn test_system_prompt_with_structuring_contains_list_instructions() {
-        for lang in &["zh", "en", "auto"] {
+        let zh_prompt = build_system_prompt("zh", true, &[], &[]);
+        assert!(zh_prompt.contains("编号列表"), "zh prompt with structuring should mention numbered list output");
+        assert!(zh_prompt.contains("顺序词"), "zh prompt with structuring should require sequence markers");
+
+        for lang in &["en", "auto"] {
             let prompt = build_system_prompt(lang, true, &[], &[]);
-            assert!(prompt.contains("list"), "prompt for '{}' with structuring should contain list instructions", lang);
-            assert!(prompt.contains("List Formatting"), "prompt for '{}' with structuring should contain List Formatting section", lang);
-            assert!(prompt.contains("punctuation"), "prompt for '{}' with structuring should contain punctuation instructions", lang);
+            assert!(prompt.contains("numbered list"), "prompt for '{}' with structuring should mention numbered list output", lang);
+            assert!(prompt.contains("sequence markers"), "prompt for '{}' with structuring should require sequence markers", lang);
         }
     }
 
     #[test]
-    fn test_system_prompt_with_structuring_contains_few_shot_examples() {
-        let prompt = build_system_prompt("zh", true, &[], &[]);
-        assert!(prompt.contains("1. 把游戏打好"), "structuring prompt should contain enumerated list few-shot example");
-        assert!(prompt.contains("no markers"), "structuring prompt should have negative example section");
-        assert!(prompt.contains("我今天去了趟超市"), "structuring prompt should contain prose few-shot example");
+    fn test_system_prompt_with_structuring_includes_sequence_markers() {
+        // 首先/然后/接着 are now valid sequence markers when structuring is on.
+        let zh_prompt = build_system_prompt("zh", true, &[], &[]);
+        assert!(zh_prompt.contains("首先"), "zh structuring prompt should list 首先 as sequence marker");
+        assert!(zh_prompt.contains("然后"), "zh structuring prompt should list 然后 as sequence marker");
+        assert!(zh_prompt.contains("接着"), "zh structuring prompt should list 接着 as sequence marker");
+
+        let en_prompt = build_system_prompt("en", true, &[], &[]);
+        assert!(en_prompt.contains("首先") && en_prompt.contains("然后") && en_prompt.contains("接着"), "en structuring prompt should also list Chinese sequence markers");
+        assert!(en_prompt.contains("first") && en_prompt.contains("then"), "en structuring prompt should list English sequence markers");
     }
 
     #[test]
     fn test_system_prompt_with_structuring_still_contains_tech_terms() {
         let prompt = build_system_prompt("zh", true, &[], &[]);
-        assert!(prompt.contains("React"), "structuring prompt should still contain tech term table");
+        assert!(prompt.contains("React"), "structuring prompt should still contain tech term examples");
         assert!(prompt.contains("瑞嗯特"), "structuring prompt should still contain phonetic examples");
     }
 
     #[test]
     fn test_system_prompt_with_structuring_allows_markdown_output() {
-        let prompt = build_system_prompt("zh", true, &[], &[]);
-        assert!(!prompt.contains("no markdown"), "structuring prompt should NOT forbid markdown since lists use markdown formatting");
-    }
+        let zh_prompt = build_system_prompt("zh", true, &[], &[]);
+        assert!(!zh_prompt.contains("不要任何 markdown"), "zh structuring prompt should NOT forbid markdown since lists use markdown formatting");
 
-    #[test]
-    fn test_system_prompt_with_structuring_is_signal_driven() {
-        let prompt = build_system_prompt("zh", true, &[], &[]);
-        assert!(prompt.contains("enumerat"), "structuring prompt should require enumeration signals");
-        assert!(prompt.contains("no markers"), "structuring prompt should have negative examples for plain narration");
-        assert!(prompt.contains("NEVER add titles"), "structuring prompt should forbid adding titles/headings");
+        let en_prompt = build_system_prompt("en", true, &[], &[]);
+        assert!(!en_prompt.contains("no markdown"), "en structuring prompt should NOT forbid markdown since lists use markdown formatting");
     }
 
     #[test]
     fn test_system_prompt_without_structuring_forbids_markdown() {
-        let prompt = build_system_prompt("zh", false, &[], &[]);
-        assert!(prompt.contains("no markdown"), "non-structuring prompt should forbid markdown output");
+        let zh_prompt = build_system_prompt("zh", false, &[], &[]);
+        assert!(zh_prompt.contains("不要任何 markdown"), "zh non-structuring prompt should forbid markdown output");
+
+        let en_prompt = build_system_prompt("en", false, &[], &[]);
+        assert!(en_prompt.contains("no markdown"), "en non-structuring prompt should forbid markdown output");
     }
 
     #[tokio::test]
@@ -745,8 +791,8 @@ mod tests {
         let system_content = body["messages"][0]["content"].as_str().unwrap_or("");
 
         assert!(
-            system_content.contains("List Formatting"),
-            "With text_structuring=true, system prompt should contain list formatting instructions"
+            system_content.contains("编号列表"),
+            "With text_structuring=true, zh system prompt should mention numbered list output"
         );
     }
 
@@ -772,8 +818,8 @@ mod tests {
         let system_content = body["messages"][0]["content"].as_str().unwrap_or("");
 
          assert!(
-            !system_content.contains("List Formatting"),
-            "With text_structuring=false, system prompt should NOT contain list formatting instructions"
+            !system_content.contains("编号列表"),
+            "With text_structuring=false, zh system prompt should NOT mention numbered list output"
         );
     }
 
@@ -783,36 +829,47 @@ mod tests {
     fn test_system_prompt_with_user_tags() {
         let tags = vec!["Developer".to_string(), "Frontend".to_string(), "AI".to_string()];
         let prompt = build_system_prompt("zh", false, &[], &tags);
-        assert!(prompt.contains("User Tags"), "prompt with user_tags should contain User Tags section");
+        assert!(prompt.contains("用户领域"), "zh prompt with user_tags should contain 用户领域 section");
         assert!(prompt.contains("Developer"), "prompt should contain the tag 'Developer'");
         assert!(prompt.contains("Frontend"), "prompt should contain the tag 'Frontend'");
         assert!(prompt.contains("AI"), "prompt should contain the tag 'AI'");
-        assert!(prompt.contains("domain-specific"), "prompt should mention domain-specific interpretation");
+        assert!(prompt.contains("歧义"), "zh prompt should mention domain-specific interpretation");
     }
 
     #[test]
     fn test_system_prompt_without_user_tags() {
-        let prompt = build_system_prompt("zh", false, &[], &[]);
-        assert!(!prompt.contains("User Tags"), "prompt without user_tags should NOT contain User Tags section");
+        let zh_prompt = build_system_prompt("zh", false, &[], &[]);
+        assert!(!zh_prompt.contains("用户领域"), "zh prompt without user_tags should NOT contain 用户领域 section");
+        let en_prompt = build_system_prompt("en", false, &[], &[]);
+        assert!(!en_prompt.contains("User Profile"), "en prompt without user_tags should NOT contain User Profile section");
     }
 
     #[test]
     fn test_system_prompt_user_tags_with_vocabulary() {
         let vocab = vec!["Kubernetes".to_string()];
         let tags = vec!["DevOps".to_string()];
-        let prompt = build_system_prompt("zh", false, &vocab, &tags);
-        assert!(prompt.contains("Custom Vocabulary"), "should contain vocabulary section");
-        assert!(prompt.contains("User Tags"), "should contain tags section");
-        assert!(prompt.contains("Kubernetes"), "should contain vocabulary term");
-        assert!(prompt.contains("DevOps"), "should contain tag");
+        let zh_prompt = build_system_prompt("zh", false, &vocab, &tags);
+        assert!(zh_prompt.contains("自定义词汇"), "zh prompt should contain vocabulary section");
+        assert!(zh_prompt.contains("用户领域"), "zh prompt should contain tags section");
+        assert!(zh_prompt.contains("Kubernetes"), "zh prompt should contain vocabulary term");
+        assert!(zh_prompt.contains("DevOps"), "zh prompt should contain tag");
+
+        let en_prompt = build_system_prompt("en", false, &vocab, &tags);
+        assert!(en_prompt.contains("Custom Vocabulary"), "en prompt should contain vocabulary section");
+        assert!(en_prompt.contains("User Profile"), "en prompt should contain tags section");
     }
 
     #[test]
     fn test_system_prompt_user_tags_all_languages() {
         let tags = vec!["Designer".to_string()];
-        for lang in &["zh", "en", "auto", "ja"] {
+
+        let zh_prompt = build_system_prompt("zh", false, &[], &tags);
+        assert!(zh_prompt.contains("用户领域"), "zh prompt with tags should contain 用户领域 section");
+        assert!(zh_prompt.contains("Designer"), "zh prompt should contain the tag");
+
+        for lang in &["en", "auto", "ja"] {
             let prompt = build_system_prompt(lang, false, &[], &tags);
-            assert!(prompt.contains("User Tags"), "prompt for '{}' with tags should contain User Tags section", lang);
+            assert!(prompt.contains("User Profile"), "prompt for '{}' with tags should contain User Profile section", lang);
             assert!(prompt.contains("Designer"), "prompt for '{}' should contain the tag", lang);
         }
     }
@@ -840,8 +897,8 @@ mod tests {
         let system_content = body["messages"][0]["content"].as_str().unwrap_or("");
 
         assert!(
-            system_content.contains("User Tags"),
-            "With user_tags, system prompt should contain User Tags section"
+            system_content.contains("用户领域"),
+            "With user_tags, zh system prompt should contain 用户领域 section"
         );
         assert!(
             system_content.contains("Developer") && system_content.contains("Rust"),
