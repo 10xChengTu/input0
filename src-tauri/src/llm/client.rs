@@ -452,7 +452,7 @@ impl LlmClient {
         Ok(first_choice.message.content)
     }
 
-    pub async fn optimize_text_with_options(
+    pub(crate) async fn optimize_text_with_options(
         &self,
         raw_text: &str,
         opts: &OptimizeOptions<'_>,
