@@ -71,6 +71,8 @@ export interface SettingsState {
   onboardingCompleted: boolean;
 
   hfEndpoint: string;
+  customPromptEnabled: boolean;
+  customPrompt: string;
 
   setApiKey: (key: string) => void;
   setApiBaseUrl: (url: string) => void;
@@ -81,6 +83,8 @@ export interface SettingsState {
   setUserTags: (tags: string[]) => void;
   setCustomModels: (models: string[]) => Promise<void>;
   setHfEndpoint: (endpoint: string) => void;
+  setCustomPromptEnabled: (enabled: boolean) => void;
+  setCustomPrompt: (prompt: string) => void;
   setOnboardingCompleted: (completed: boolean) => void;
   loadInputDevices: () => Promise<void>;
   setInputDevice: (deviceName: string) => Promise<void>;
@@ -112,6 +116,8 @@ interface AppConfig {
   onboarding_completed: boolean;
   input_device: string;
   hf_endpoint: string;
+  custom_prompt_enabled: boolean;
+  custom_prompt: string;
 }
 
 export const useSettingsStore = create<SettingsState>((set, get) => ({
@@ -139,7 +145,9 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   inputDevices: [],
   onboardingCompleted: false,
   hfEndpoint: "https://huggingface.co",
-  
+  customPromptEnabled: false,
+  customPrompt: "",
+
   setApiKey: (apiKey) => set({ apiKey }),
   setApiBaseUrl: (apiBaseUrl) => set({ apiBaseUrl }),
   setModel: (model) => set({ model }),
@@ -162,6 +170,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     }
   },
   setHfEndpoint: (hfEndpoint) => set({ hfEndpoint }),
+  setCustomPromptEnabled: (customPromptEnabled) => set({ customPromptEnabled }),
+  setCustomPrompt: (customPrompt) => set({ customPrompt }),
   setOnboardingCompleted: (onboardingCompleted) => set({ onboardingCompleted }),
   completeOnboarding: async () => {
     set({ onboardingCompleted: true });
@@ -211,6 +221,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         onboardingCompleted: config.onboarding_completed ?? false,
         inputDevice: config.input_device || "",
         hfEndpoint: config.hf_endpoint || "https://huggingface.co",
+        customPromptEnabled: config.custom_prompt_enabled ?? false,
+        customPrompt: config.custom_prompt ?? "",
       });
     } catch (error) {
       console.error("Failed to load config:", error);
@@ -236,6 +248,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         onboarding_completed: state.onboardingCompleted,
         input_device: state.inputDevice,
         hf_endpoint: state.hfEndpoint,
+        custom_prompt_enabled: state.customPromptEnabled,
+        custom_prompt: state.customPrompt,
       };
       await invoke("save_config", { config });
     } catch (error) {
@@ -349,6 +363,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         onboardingCompleted: config.onboarding_completed ?? false,
         inputDevice: config.input_device || "",
         hfEndpoint: config.hf_endpoint || "https://huggingface.co",
+        customPromptEnabled: config.custom_prompt_enabled ?? false,
+        customPrompt: config.custom_prompt ?? "",
       });
       await get().checkModelRecommendation(get().language);
     } catch (error) {
