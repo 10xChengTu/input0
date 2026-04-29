@@ -70,6 +70,8 @@ export const en: Translations = {
     customPromptPreview: "Preview",
     customPromptPreviewModalTitle: "Prompt preview",
     customPromptResetConfirm: "This will clear your custom prompt and restore the built-in prompt for the current language. Continue?",
+    customPromptPreviewClose: "Close",
+    customPromptCharsLabel: "chars",
     customPromptTagDescriptions: {
       clipboard: "Current clipboard text (truncated to 500 characters)",
       vocabulary: "User custom vocabulary list",

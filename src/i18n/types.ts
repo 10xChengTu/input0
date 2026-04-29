@@ -74,6 +74,8 @@ export interface Translations {
     customPromptPreview: string;
     customPromptPreviewModalTitle: string;
     customPromptResetConfirm: string;
+    customPromptPreviewClose: string;
+    customPromptCharsLabel: string;
     customPromptTagDescriptions: {
       clipboard: string;
       vocabulary: string;

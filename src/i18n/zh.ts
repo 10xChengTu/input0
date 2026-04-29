@@ -70,6 +70,8 @@ export const zh: Translations = {
     customPromptPreview: "预览",
     customPromptPreviewModalTitle: "提示词预览",
     customPromptResetConfirm: "重置后将清空当前自定义内容，恢复为当前语言的内置提示词，确认继续？",
+    customPromptPreviewClose: "关闭",
+    customPromptCharsLabel: "字符",
     customPromptTagDescriptions: {
       clipboard: "当前剪贴板内容（截断到 500 字符）",
       vocabulary: "用户自定义词汇列表",

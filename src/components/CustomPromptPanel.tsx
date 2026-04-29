@@ -34,6 +34,15 @@ export function CustomPromptPanel({ onToast }: Props) {
       .catch((err) => console.error("Failed to load default prompt template:", err));
   }, [language]);
 
+  // Cancel any pending debounced save when the panel unmounts.
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current !== null) {
+        window.clearTimeout(debounceRef.current);
+      }
+    };
+  }, []);
+
   const persistEnabled = async (enabled: boolean) => {
     setCustomPromptEnabled(enabled);
     try {
@@ -136,7 +145,7 @@ export function CustomPromptPanel({ onToast }: Props) {
         spellCheck={false}
         className="w-full p-3 rounded-md bg-[var(--theme-surface-container)] text-[var(--theme-on-surface)] text-[13px] font-mono leading-relaxed outline-none focus:ring-2 focus:ring-[var(--theme-primary)]"
       />
-      <p className="text-[11px] text-[var(--theme-on-surface-variant)]">{displayValue.length} chars</p>
+      <p className="text-[11px] text-[var(--theme-on-surface-variant)]">{displayValue.length} {t.settings.customPromptCharsLabel}</p>
 
       <div className="flex items-center gap-2">
         <button
@@ -170,7 +179,7 @@ export function CustomPromptPanel({ onToast }: Props) {
               type="button"
               onClick={() => setPreviewOpen(false)}
               className="mt-4 px-3 py-1.5 text-xs rounded-md bg-[var(--theme-surface-container)] hover:bg-[var(--theme-btn-secondary-bg)] text-[var(--theme-on-surface)]"
-            >Close</button>
+            >{t.settings.customPromptPreviewClose}</button>
           </div>
         </div>
       )}
