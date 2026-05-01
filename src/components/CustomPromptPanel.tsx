@@ -16,30 +16,34 @@ export function CustomPromptPanel({ onToast }: Props) {
     customPromptEnabled,
     customPrompt,
     language,
+    textStructuring,
+    structuringPrompt,
     setCustomPromptEnabled,
     setCustomPrompt,
+    setTextStructuring,
+    setStructuringPrompt,
     saveField,
   } = useSettingsStore();
 
   const [defaultTemplate, setDefaultTemplate] = useState("");
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewContent, setPreviewContent] = useState("");
+  const [defaultStructuringModule, setDefaultStructuringModule] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const debounceRef = useRef<number | null>(null);
+  const customDebounceRef = useRef<number | null>(null);
+  const structuringDebounceRef = useRef<number | null>(null);
 
-  // Fetch language-aware default once when language changes (and on mount).
   useEffect(() => {
     invoke<string>("get_default_prompt_template", { language })
       .then(setDefaultTemplate)
       .catch((err) => console.error("Failed to load default prompt template:", err));
+    invoke<string>("get_default_structuring_module", { language })
+      .then(setDefaultStructuringModule)
+      .catch((err) => console.error("Failed to load default structuring module:", err));
   }, [language]);
 
-  // Cancel any pending debounced save when the panel unmounts.
   useEffect(() => {
     return () => {
-      if (debounceRef.current !== null) {
-        window.clearTimeout(debounceRef.current);
-      }
+      if (customDebounceRef.current !== null) window.clearTimeout(customDebounceRef.current);
+      if (structuringDebounceRef.current !== null) window.clearTimeout(structuringDebounceRef.current);
     };
   }, []);
 
@@ -52,15 +56,29 @@ export function CustomPromptPanel({ onToast }: Props) {
     }
   };
 
+  const persistStructuring = async (enabled: boolean) => {
+    setTextStructuring(enabled);
+    try {
+      await saveField("text_structuring", String(enabled));
+    } catch {
+      setTextStructuring(!enabled);
+      onToast(t.settings.settingsSaveFailed, "error");
+    }
+  };
+
   const persistPrompt = (next: string) => {
     setCustomPrompt(next);
-    if (debounceRef.current !== null) {
-      window.clearTimeout(debounceRef.current);
-    }
-    debounceRef.current = window.setTimeout(() => {
-      saveField("custom_prompt", next).catch(() => {
-        onToast(t.settings.settingsSaveFailed, "error");
-      });
+    if (customDebounceRef.current !== null) window.clearTimeout(customDebounceRef.current);
+    customDebounceRef.current = window.setTimeout(() => {
+      saveField("custom_prompt", next).catch(() => onToast(t.settings.settingsSaveFailed, "error"));
+    }, 500);
+  };
+
+  const persistStructuringPrompt = (next: string) => {
+    setStructuringPrompt(next);
+    if (structuringDebounceRef.current !== null) window.clearTimeout(structuringDebounceRef.current);
+    structuringDebounceRef.current = window.setTimeout(() => {
+      saveField("structuring_prompt", next).catch(() => onToast(t.settings.settingsSaveFailed, "error"));
     }, 500);
   };
 
@@ -87,21 +105,15 @@ export function CustomPromptPanel({ onToast }: Props) {
     onToast(t.settings.settingsSaved, "success");
   };
 
-  const handlePreview = async () => {
-    try {
-      const template = customPrompt.trim().length > 0 ? customPrompt : defaultTemplate;
-      const rendered = await invoke<string>("preview_custom_prompt", {
-        template,
-        enabled: customPromptEnabled,
-      });
-      setPreviewContent(rendered);
-      setPreviewOpen(true);
-    } catch (err) {
-      onToast(String(err), "error");
-    }
+  const handleStructuringReset = async () => {
+    const ok = window.confirm(t.settings.customPromptResetConfirm);
+    if (!ok) return;
+    persistStructuringPrompt("");
+    onToast(t.settings.settingsSaved, "success");
   };
 
   const displayValue = customPrompt.length > 0 ? customPrompt : defaultTemplate;
+  const structuringDisplayValue = structuringPrompt.length > 0 ? structuringPrompt : defaultStructuringModule;
   const tagDescriptions = t.settings.customPromptTagDescriptions;
 
   return (
@@ -148,9 +160,8 @@ export function CustomPromptPanel({ onToast }: Props) {
         spellCheck={false}
         className="w-full p-3 rounded-md bg-[var(--theme-surface-container)] text-[var(--theme-on-surface)] text-[13px] font-mono leading-relaxed outline-none focus:ring-2 focus:ring-[var(--theme-primary)]"
       />
-      <p className="text-[11px] text-[var(--theme-on-surface-variant)]">{displayValue.length} {t.settings.customPromptCharsLabel}</p>
-
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between">
+        <p className="text-[11px] text-[var(--theme-on-surface-variant)]">{displayValue.length} {t.settings.customPromptCharsLabel}</p>
         <button
           type="button"
           onClick={handleReset}
@@ -158,34 +169,46 @@ export function CustomPromptPanel({ onToast }: Props) {
         >
           {t.settings.customPromptResetToDefault}
         </button>
-        <button
-          type="button"
-          onClick={handlePreview}
-          className="px-3 py-1.5 text-xs rounded-md bg-[var(--theme-primary)] hover:opacity-90 text-white"
-        >
-          {t.settings.customPromptPreview}
-        </button>
       </div>
 
-      {previewOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-          onClick={() => setPreviewOpen(false)}
-        >
-          <div
-            className="bg-[var(--theme-surface)] rounded-xl p-5 max-w-[720px] w-[90vw] max-h-[80vh] overflow-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="text-sm font-medium text-[var(--theme-on-surface)] mb-3">{t.settings.customPromptPreviewModalTitle}</h3>
-            <pre className="whitespace-pre-wrap text-[12px] font-mono text-[var(--theme-on-surface-variant)]">{previewContent}</pre>
-            <button
-              type="button"
-              onClick={() => setPreviewOpen(false)}
-              className="mt-4 px-3 py-1.5 text-xs rounded-md bg-[var(--theme-surface-container)] hover:bg-[var(--theme-btn-secondary-bg)] text-[var(--theme-on-surface)]"
-            >{t.settings.customPromptPreviewClose}</button>
-          </div>
+      <hr className="border-[var(--theme-divider)]" />
+
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className="text-sm font-medium text-[var(--theme-on-surface)]">{t.settings.textStructuringLabel}</h3>
+          <p className="text-xs text-[var(--theme-on-surface-variant)] mt-1">{t.settings.textStructuringHint}</p>
         </div>
-      )}
+        <label className="inline-flex items-center cursor-pointer flex-shrink-0">
+          <input
+            type="checkbox"
+            className="sr-only peer"
+            checked={textStructuring}
+            onChange={(e) => persistStructuring(e.target.checked)}
+          />
+          <span className="relative w-10 h-6 bg-[var(--theme-surface-container)] rounded-full peer-checked:bg-[var(--theme-primary)] transition-colors">
+            <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${textStructuring ? "translate-x-4" : ""}`} />
+          </span>
+        </label>
+      </div>
+
+      <textarea
+        value={structuringDisplayValue}
+        onChange={(e) => persistStructuringPrompt(e.target.value)}
+        rows={12}
+        spellCheck={false}
+        disabled={!textStructuring}
+        className={`w-full p-3 rounded-md bg-[var(--theme-surface-container)] text-[var(--theme-on-surface)] text-[13px] font-mono leading-relaxed outline-none focus:ring-2 focus:ring-[var(--theme-primary)] ${textStructuring ? "" : "opacity-50"}`}
+      />
+      <div className="flex items-center justify-between">
+        <p className="text-[11px] text-[var(--theme-on-surface-variant)]">{structuringDisplayValue.length} {t.settings.customPromptCharsLabel}</p>
+        <button
+          type="button"
+          onClick={handleStructuringReset}
+          className="px-3 py-1.5 text-xs rounded-md bg-[var(--theme-surface-container)] hover:bg-[var(--theme-btn-secondary-bg)] text-[var(--theme-on-surface)]"
+        >
+          {t.settings.customPromptResetToDefault}
+        </button>
+      </div>
     </section>
   );
 }

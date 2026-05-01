@@ -716,7 +716,7 @@ pub fn run() {
             commands::llm::optimize_text,
             commands::llm::test_api_connection,
             commands::llm::get_default_prompt_template,
-            commands::llm::preview_custom_prompt,
+            commands::llm::get_default_structuring_module,
             commands::whisper::transcribe_audio,
             commands::whisper::init_whisper_model,
             commands::whisper::is_whisper_model_loaded,

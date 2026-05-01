@@ -36,6 +36,8 @@ pub struct AppConfig {
     pub custom_prompt_enabled: bool,
     #[serde(default)]
     pub custom_prompt: String,
+    #[serde(default)]
+    pub structuring_prompt: String,
 }
 
 fn default_hf_endpoint() -> String {
@@ -68,6 +70,7 @@ impl Default for AppConfig {
             hf_endpoint: default_hf_endpoint(),
             custom_prompt_enabled: false,
             custom_prompt: String::new(),
+            structuring_prompt: String::new(),
         }
     }
 }
@@ -102,8 +105,29 @@ pub(crate) fn load_from_dir(dir: &Path) -> Result<AppConfig, AppError> {
     }
     let contents = std::fs::read_to_string(&path)
         .map_err(|e| AppError::Config(format!("Failed to read config file: {}", e)))?;
-    let config: AppConfig = toml::from_str(&contents)
+    let mut config: AppConfig = toml::from_str(&contents)
         .map_err(|e| AppError::Config(format!("Failed to parse config file: {}", e)))?;
+
+    // One-time migration: an upgraded user may have `custom_prompt` saved as
+    // a verbatim pre-v2 default template (which the new prompt builder no
+    // longer produces). Treating it as a real custom prompt would silently
+    // pin them on stale rules. Clear it so the editor re-shows the current
+    // default and the runtime path collapses to built-in.
+    if !config.custom_prompt.is_empty()
+        && crate::llm::client::is_legacy_default_template(&config.custom_prompt)
+    {
+        log::info!(
+            "config migration: clearing custom_prompt that matched a legacy default template"
+        );
+        config.custom_prompt = String::new();
+        // Persist the cleanup so the on-disk state matches in-memory state.
+        // Best-effort: a write failure here only means we'll re-migrate next
+        // launch, which is harmless.
+        if let Err(e) = save_to_dir(&config, dir) {
+            log::warn!("config migration: failed to persist cleaned custom_prompt: {}", e);
+        }
+    }
+
     Ok(config)
 }
 
@@ -151,6 +175,7 @@ pub(crate) fn update_field_in_dir(
             config.custom_prompt_enabled = value.eq_ignore_ascii_case("true");
         }
         "custom_prompt" => config.custom_prompt = value.to_string(),
+        "structuring_prompt" => config.structuring_prompt = value.to_string(),
         other => {
             return Err(AppError::Config(format!(
                 "Unknown config field: '{}'",

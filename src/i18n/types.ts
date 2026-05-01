@@ -71,10 +71,7 @@ export interface Translations {
     customPromptEnableLabel: string;
     customPromptInsertTagLabel: string;
     customPromptResetToDefault: string;
-    customPromptPreview: string;
-    customPromptPreviewModalTitle: string;
     customPromptResetConfirm: string;
-    customPromptPreviewClose: string;
     customPromptCharsLabel: string;
     customPromptTagDescriptions: {
       clipboard: string;

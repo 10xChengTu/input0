@@ -162,8 +162,6 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
     switchModel,
     deleteModel,
     checkModelRecommendation,
-    textStructuring,
-    setTextStructuring,
     updateHotkey,
     userTags,
     setUserTags,
@@ -286,11 +284,11 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
     }
   };
 
-  const tabs: { id: SettingsTab; label: string }[] = [
+  const tabs: { id: SettingsTab; label: string; beta?: boolean }[] = [
     { id: "general", label: t.settings.tabGeneral },
     { id: "api", label: t.settings.tabApi },
     { id: "models", label: t.settings.tabModels },
-    { id: "custom", label: t.settings.tabCustom },
+    { id: "custom", label: t.settings.tabCustom, beta: true },
   ];
 
   return (
@@ -301,13 +299,21 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-1.5 rounded-[10px] text-sm font-medium transition-all ${
+            className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-[10px] text-sm font-medium transition-all ${
               activeTab === tab.id
                 ? "bg-[var(--theme-btn-secondary-bg)] text-[var(--theme-on-surface)] shadow-sm"
                 : "text-[var(--theme-on-surface-variant)] hover:text-[var(--theme-on-surface)]"
             }`}
           >
             {tab.label}
+            {tab.beta && (
+              <span
+                className="px-1 py-px text-[9px] font-semibold uppercase tracking-wider rounded-sm leading-none"
+                style={{ backgroundColor: "var(--theme-primary)", color: "white" }}
+              >
+                Beta
+              </span>
+            )}
           </button>
         ))}
       </div>
@@ -497,34 +503,6 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
                     )}
                   </div>
 
-                  <div className="p-4 sm:p-5 flex items-center justify-between">
-                    <div>
-                      <h3 className="text-sm font-medium text-[var(--theme-on-surface)]">{t.settings.textStructuringLabel}</h3>
-                      <p className="mt-1 text-xs text-[var(--theme-on-surface-variant)]">{t.settings.textStructuringHint}</p>
-                    </div>
-                    <div className="ml-4 flex-shrink-0">
-                      <button
-                        type="button"
-                        role="switch"
-                        aria-checked={textStructuring}
-                        onClick={async () => {
-                          const newValue = !textStructuring;
-                          setTextStructuring(newValue);
-                          try {
-                            await saveField("text_structuring", String(newValue));
-                          } catch {
-                            setTextStructuring(!newValue);
-                            onToast(t.settings.settingsSaveFailed, "error");
-                          }
-                        }}
-                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--theme-input-focus-border)] ${textStructuring ? "bg-[var(--theme-primary)]" : "bg-[var(--theme-outline-variant)]"}`}
-                      >
-                        <span
-                           className={`inline-block h-4 w-4 transform rounded-full shadow transition-all ${textStructuring ? "translate-x-6 bg-[var(--theme-on-primary)]" : "translate-x-1 bg-white"}`}
-                        />
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </section>
 

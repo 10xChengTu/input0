@@ -18,7 +18,12 @@
 |---|---|
 | 自定义提示词与内置提示词的关系 | **覆盖层 + 强制安全尾巴**：用户提示词替换主体，系统在末尾自动追加不可编辑的 prompt-injection 防护 |
 | 是否分语言 | **单一提示词**：用户只维护一份；但**首次进入编辑器**且未保存时，textarea 默认填入当前 `language` 对应的内置提示词 |
-| 自动 context message 处理 | **启用自定义后关闭**：用户需通过 `{{history}}` `{{active_app}}` tag 显式引用，否则不携带这部分上下文 |
+| 自动 context message 处理 | **启用自定义且模板已修改后关闭**：用户需通过 `{{history}}` `{{active_app}}` tag 显式引用，否则不携带这部分上下文。模板未修改时仍按内置路径注入（见下） |
+| **未修改默认值的等价性**（2026-05-01 加固） | **toggle ON + 模板等于默认 ⇒ 完全走内置路径**。判定函数 `is_custom_prompt_active(enabled, prompt, language)` 把"未编辑"折叠到 toggle OFF 行为：不追加安全 footer、保留自动 context message、空 vocab/tags 段落不出现。文本结构化（text_structuring）的两个变体都视为"未修改"，避免用户切换该 toggle 后被卡在旧默认值上。任何实际改动（即使一个字符）即激活自定义路径 |
+| **升级路径兼容**（2026-05-01） | 预-v2 用户的 `custom_prompt` 可能存的是 v1 默认模板（`## 规则` 风格 + 引用"用户消息代码块"）。`is_legacy_default_template` 识别 v1 各变体；运行时同样视为未激活；`config::load_from_dir` 启动时检测并清空 + best-effort 写回，使 textarea 重新呈现 v2 默认 |
+| **预览功能移除**（2026-05-01） | 删除"预览"按钮 + modal + 后端 `preview_custom_prompt` IPC：因为运行时已经做了"未修改 = 内置路径"的折叠，预览给用户的是 hypothetical 渲染、容易误导；保留"重置为默认"按钮（靠右） |
+| **结构化输出 toggle 入驻**（2026-05-01） | 把原来 General tab 的 `text_structuring` 开关搬到 Prompt tab。语义上提升为"提示词模块开关"：toggle ON 时把独立的结构化模块拼接到 system prompt 末尾（既影响内置路径也影响自定义路径），OFF 时不插入任何东西。`build_default_template` 因此简化为单参数（不再依赖 structuring 状态），textarea 始终展示恒定的主体 — 用户自定义的内容里不会混入"系统注入"的结构化规则 |
+| **结构化模块文本可编辑**（2026-05-01） | 在自定义提示词 textarea 下方新增第二个 textarea：编辑结构化模块的内容。新增 config 字段 `structuring_prompt: String`（默认空 = 用内置模块）+ IPC `get_default_structuring_module(language)`。runtime 通过 `effective_structuring_module(language, user_text)` 解析：用户输入空/全 whitespace → 用内置默认；非空 → 直接采用用户文本。toggle ON 时把解析后的文本拼到 system prompt 末尾（OFF 时还是不拼）。两个 textarea 都有独立的"重置为默认"按钮（重置即清空字段、textarea 重新展示默认）。第二个 textarea 在 toggle OFF 时半透明，但仍可编辑（让用户可以提前准备） |
 
 ## 技术方案
 

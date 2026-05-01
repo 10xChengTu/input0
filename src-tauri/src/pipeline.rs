@@ -322,7 +322,11 @@ pub async fn process_audio(recorded: RecordedAudio, app: AppHandle, cancel: Canc
         let history = history::load_history();
         let vocabulary = crate::vocabulary::load_vocabulary();
 
-        let custom_active = config.custom_prompt_enabled && !config.custom_prompt.trim().is_empty();
+        let custom_active = crate::llm::client::is_custom_prompt_active(
+            config.custom_prompt_enabled,
+            &config.custom_prompt,
+            &config.language,
+        );
         let clipboard = if custom_active && config.custom_prompt.contains("{{clipboard}}") {
             match arboard::Clipboard::new().and_then(|mut cb| cb.get_text()) {
                 Ok(s) => Some(s),
@@ -339,6 +343,7 @@ pub async fn process_audio(recorded: RecordedAudio, app: AppHandle, cancel: Canc
             language: &config.language,
             history: &history,
             text_structuring: config.text_structuring,
+            structuring_prompt: &config.structuring_prompt,
             vocabulary: &vocabulary,
             source_app: source_app.as_deref(),
             user_tags: &config.user_tags,
