@@ -1683,6 +1683,31 @@ Prefer these terms when phonetically similar: {{{{vocabulary}}}}
         assert!(is_custom_prompt_active(true, "你好世界。", "zh"));
     }
 
+    #[test]
+    fn test_custom_prompt_not_active_when_matches_other_zh_family_default() {
+        use crate::llm::client::{build_default_template, is_custom_prompt_active};
+        // User saved the zh-CN default unmodified, then switched to zh-TW.
+        // The saved prompt no longer matches build_default_template("zh-TW"),
+        // but it still matches build_default_template("zh-CN") — treat as
+        // not-custom so the user gets the rebuilt zh-TW default.
+        let zh_cn_default = build_default_template("zh-CN");
+        let active = is_custom_prompt_active(true, &zh_cn_default, "zh-TW");
+        assert!(!active, "saved zh-CN default should not count as custom under zh-TW");
+
+        let zh_tw_default = build_default_template("zh-TW");
+        let active2 = is_custom_prompt_active(true, &zh_tw_default, "zh-CN");
+        assert!(!active2, "saved zh-TW default should not count as custom under zh-CN");
+    }
+
+    #[test]
+    fn test_custom_prompt_active_when_genuinely_modified() {
+        use crate::llm::client::{build_default_template, is_custom_prompt_active};
+        // Real user customization: still flagged as custom.
+        let modified = format!("{}\n\n# 我的额外规则\n额外要求一行。", build_default_template("zh-CN"));
+        let active = is_custom_prompt_active(true, &modified, "zh-CN");
+        assert!(active, "real customization should be detected as custom");
+    }
+
     // --- Custom structuring prompt: user-edited module text ---
 
     #[test]

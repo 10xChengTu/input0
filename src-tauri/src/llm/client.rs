@@ -252,6 +252,17 @@ pub(crate) fn is_custom_prompt_active(
     if trimmed == build_default_template(language).trim() {
         return false;
     }
+    // Also tolerate matches against any other member of the same language
+    // family. If the user picked zh-CN, saved the unmodified default, and
+    // later switched to zh-TW, the saved prompt now equals the OTHER
+    // family member's default — still "didn't really edit it".
+    if is_zh_family(language) {
+        for sibling in ["zh-CN", "zh-TW", "zh"] {
+            if sibling != language && trimmed == build_default_template(sibling).trim() {
+                return false;
+            }
+        }
+    }
     if is_legacy_default_template(custom_prompt) {
         return false;
     }
