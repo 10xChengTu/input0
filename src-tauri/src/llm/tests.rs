@@ -1513,10 +1513,17 @@ Prefer these terms when phonetically similar: {{{{vocabulary}}}}
 
     #[test]
     fn test_is_legacy_default_template_rejects_current_default() {
-        // The current canonical default per language must NOT be classified
-        // as legacy — only previous-version defaults should match.
+        // The current canonical default for zh-CN and zh-TW must NOT be
+        // classified as legacy — those languages now embed an explicit
+        // conversion directive (simplified↔traditional) that differs from
+        // the v3 snapshot's neutral "preserve variant" clause.
+        // plain "zh", "en", and "auto" are intentionally excluded: their
+        // current defaults embed the same neutral clause as the v3 snapshot
+        // and are therefore byte-identical; they are handled by the
+        // is_custom_prompt_active path (current-default check) before the
+        // legacy path is reached.
         use crate::llm::client::{build_default_template, is_legacy_default_template};
-        for lang in ["zh", "en", "auto"] {
+        for lang in ["zh-CN", "zh-TW"] {
             let current = build_default_template(lang);
             assert!(
                 !is_legacy_default_template(&current),
@@ -1924,5 +1931,34 @@ Prefer these terms when phonetically similar: {{{{vocabulary}}}}
         let result = client.optimize_text("um hello world", "en", &[], false, &[], None, &[]).await;
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), "Hello, world!");
+    }
+
+    #[test]
+    fn test_is_legacy_default_template_detects_v3_zh() {
+        // The v3 zh default has the "preserve Chinese variant" rule embedded
+        // in the body. Its byte-for-byte form must remain detectable so users
+        // who never edited their custom prompt are migrated cleanly.
+        let snapshot = crate::llm::client::legacy_v3_default_template("zh");
+        assert!(
+            crate::llm::client::is_legacy_default_template(&snapshot),
+            "v3 zh default must be detected as legacy"
+        );
+    }
+
+    #[test]
+    fn test_is_legacy_default_template_detects_v3_en_and_auto() {
+        for lang in ["en", "auto"] {
+            let snapshot = crate::llm::client::legacy_v3_default_template(lang);
+            assert!(
+                crate::llm::client::is_legacy_default_template(&snapshot),
+                "v3 {} default must be detected as legacy",
+                lang
+            );
+        }
+    }
+
+    #[test]
+    fn test_is_legacy_default_template_rejects_unrelated_text() {
+        assert!(!crate::llm::client::is_legacy_default_template("totally unrelated prompt body"));
     }
 }
