@@ -28,5 +28,5 @@ Whisper 模型的训练数据同时包含简体和繁体中文。语言代码 `"
 ## 扩展说明
 
 - 更大的模型（medium / large）对 initial_prompt 引导的响应更稳定
-- 如需支持繁体中文输出，可在 `initial_prompt_for_language` 中新增语言变体（如 `"zh-TW"` → `"以下是普通話的句子。"`）
+- 已扩展：繁体中文输出实现见 [feature-traditional-chinese.md](feature-traditional-chinese.md)。当 `language = "zh-TW"` 时返回 `"以下是國語的句子。"` 引导繁体输出
 - 若 initial_prompt 仍不够稳定，可考虑后处理方案（opencc 简繁转换库）

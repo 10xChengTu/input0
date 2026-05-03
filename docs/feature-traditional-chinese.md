@@ -1,6 +1,6 @@
 # 输出语言支持繁体中文
 
-## 状态：设计中
+## 状态：已完成 ✅
 
 ## 目标
 
@@ -166,7 +166,6 @@ locale === "zh-TW" ? "zh-TW"
 |---|---|
 | `components/SettingsPage.tsx` | 下拉 option 拆分；i18n 文案（若有 `t.settings.languageLabel` 之类的字典需更新） |
 | `stores/settings-store.ts` | `loadConfig` 防御性归一化 |
-| `components/HistoryPage.tsx` | `toLocaleString` 的 locale 映射扩展 |
 
 **文档**：
 | 文件 | 改动 |
@@ -180,7 +179,7 @@ locale === "zh-TW" ? "zh-TW"
 
 1. **非 Whisper 的中文 STT 模型本身没有繁体输出能力**：Paraformer / FireRedASR / Zipformer-CTC / SenseVoice 都会输出简体；繁体输出依赖 LLM 阶段转换。**若用户禁用 LLM 优化（API key 为空 / 调用失败），且选了 `zh-TW`，输出会回落为简体。** 这是当前架构的固有限制，不在本次 scope 内处理；在 `feature-zh-initial-prompt.md` 与本文件的「已知限制」里写明即可。
 2. **Whisper initial_prompt 引导有概率漏字**：base/small 模型偏置偶尔失败，与简体场景同理。文档保留"使用 medium/large 更稳定"的提示。
-3. **历史记录展示**：用户在 `zh-CN` 模式下产生的旧记录、切到 `zh-TW` 后再展示，仍是简体（已落库的文本不再二次处理）。预期行为，无需改。
+3. **历史记录的日期格式**：HistoryPage 使用 UI 翻译语言（`Locale = "zh" | "en"`）驱动日期格式化，不读用户的转录目标语言。所以选择 `zh-CN` / `zh-TW` 不影响历史记录的日期显示。这是有意设计——UI 语言和转录语言是两个独立维度。
 
 ## 测试计划
 
