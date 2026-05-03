@@ -524,7 +524,12 @@ pub(crate) fn build_system_prompt_with_custom(
         } else {
             String::new()
         };
-        format!("{body}{}\n\n{}", structuring, safety_footer(language))
+        let footer = safety_footer(language);
+        let variant_tail = match language {
+            "zh-CN" | "zh-TW" => format!("\n\n{}", variant_directive_safety_tail(language)),
+            _ => String::new(),
+        };
+        format!("{body}{}\n\n{}{}", structuring, footer, variant_tail)
     } else {
         build_system_prompt(language, text_structuring, structuring_prompt, vocabulary, user_tags)
     }
@@ -539,6 +544,18 @@ pub(crate) fn safety_footer(language: &str) -> &'static str {
         SAFETY_FOOTER_ZH
     } else {
         SAFETY_FOOTER_EN
+    }
+}
+
+/// Bilingual variant-directive line appended after the safety footer when
+/// the user is on a custom prompt and has explicitly chosen zh-CN or zh-TW.
+/// Always self-contained: includes both the Chinese instruction and an
+/// English reinforcement so cross-script models still comply.
+pub(crate) fn variant_directive_safety_tail(language: &str) -> &'static str {
+    match language {
+        "zh-CN" => "## 输出变体\n请输出简体中文；如原文包含繁体字符，转换为对应的简体。 (Output Simplified Chinese; convert any Traditional characters.)",
+        "zh-TW" => "## 輸出變體\n請輸出繁體中文；如原文包含簡體字符，轉換為對應的繁體。 (Output Traditional Chinese; convert any Simplified characters.)",
+        _ => "",
     }
 }
 

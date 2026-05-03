@@ -1961,4 +1961,36 @@ Prefer these terms when phonetically similar: {{{{vocabulary}}}}
     fn test_is_legacy_default_template_rejects_unrelated_text() {
         assert!(!crate::llm::client::is_legacy_default_template("totally unrelated prompt body"));
     }
+
+    #[test]
+    fn test_custom_prompt_appends_variant_directive_for_zh_cn() {
+        // Custom prompt that does NOT mention variant. The directive must be
+        // appended via the safety tail.
+        let custom = "# 自定义\n请只清理填充词。";
+        let prompt = build_system_prompt_with_custom(
+            "zh-CN", false, "", &[], &[], true, custom, None,
+        );
+        assert!(prompt.contains("请输出简体中文"), "zh-CN custom prompt should append simplified directive");
+    }
+
+    #[test]
+    fn test_custom_prompt_appends_variant_directive_for_zh_tw() {
+        let custom = "# 自定義\n請只清理填充詞。";
+        let prompt = build_system_prompt_with_custom(
+            "zh-TW", false, "", &[], &[], true, custom, None,
+        );
+        assert!(prompt.contains("請輸出繁體中文"), "zh-TW custom prompt should append traditional directive");
+    }
+
+    #[test]
+    fn test_custom_prompt_does_not_append_directive_for_auto() {
+        let custom = "# Custom\nJust clean fillers.";
+        let prompt = build_system_prompt_with_custom(
+            "auto", false, "", &[], &[], true, custom, None,
+        );
+        assert!(
+            !prompt.contains("Output Simplified") && !prompt.contains("请输出简体"),
+            "auto/non-zh-explicit custom prompt should not force a variant"
+        );
+    }
 }
