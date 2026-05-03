@@ -34,14 +34,27 @@ mod tests {
     }
 
     #[test]
-    fn test_initial_prompt_zh_returns_simplified_prompt() {
-        let prompt = transcriber::initial_prompt_for_language("zh");
-        assert!(prompt.is_some());
-        assert!(prompt.unwrap().contains("普通话"));
+    fn test_initial_prompt_zh_cn_returns_simplified_prompt() {
+        let prompt = transcriber::initial_prompt_for_language("zh-CN");
+        assert_eq!(prompt, Some("以下是普通话的句子。"));
     }
 
     #[test]
-    fn test_initial_prompt_non_zh_returns_none() {
+    fn test_initial_prompt_zh_tw_returns_traditional_prompt() {
+        let prompt = transcriber::initial_prompt_for_language("zh-TW");
+        assert_eq!(prompt, Some("以下是國語的句子。"));
+    }
+
+    #[test]
+    fn test_initial_prompt_legacy_zh_still_returns_simplified() {
+        // Defensive: callers should never pass the legacy "zh" code post-migration,
+        // but the helper stays tolerant so a stale call site can't regress to None.
+        let prompt = transcriber::initial_prompt_for_language("zh");
+        assert_eq!(prompt, Some("以下是普通话的句子。"));
+    }
+
+    #[test]
+    fn test_initial_prompt_other_languages_returns_none() {
         assert!(transcriber::initial_prompt_for_language("en").is_none());
         assert!(transcriber::initial_prompt_for_language("ja").is_none());
         assert!(transcriber::initial_prompt_for_language("ko").is_none());
