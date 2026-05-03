@@ -35,7 +35,8 @@ impl WhisperBackend {
 
 fn initial_prompt_for_language(language: &str) -> Option<&'static str> {
     match language {
-        "zh" => Some("以下是普通话的句子。"),
+        "zh-CN" | "zh" => Some("以下是普通话的句子。"),
+        "zh-TW" => Some("以下是國語的句子。"),
         _ => None,
     }
 }
@@ -53,8 +54,9 @@ impl TranscriberBackend for WhisperBackend {
 
         let mut params = FullParams::new(SamplingStrategy::Greedy { best_of: 1 });
 
-        if language != "auto" {
-            params.set_language(Some(language));
+        let stt_lang = crate::stt::language_to_stt_lang(language);
+        if stt_lang != "auto" {
+            params.set_language(Some(stt_lang));
         } else {
             params.set_language(None);
         }
