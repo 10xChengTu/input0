@@ -205,11 +205,28 @@ locale === "zh-TW" ? "zh-TW"
 2. STT 层适配 + Whisper 繁体 prompt + 测试
 3. LLM 层 prompt 改造 + 自定义 prompt 兼容 + 测试
 4. 模型推荐折叠
-5. 前端下拉 + HistoryPage locale
+5. 前端下拉（HistoryPage locale 经实现期复核为 UI 翻译语言驱动，无需改）
 6. 文档同步（CLAUDE.md / landing-page-brief / feature-zh-initial-prompt / feature-custom-prompt）
 7. 全量手工验证
 
 每一步都可独立提交、不破坏现有功能。
+
+## 自动化验证结果（2026-05-03）
+
+- [x] `cargo test --lib`：277 passed / 0 failed / 8 ignored
+- [x] `pnpm build`：tsc + vite build 干净通过
+- [x] 全分支最终代码审查：无 Critical/Important 问题，可合并
+
+## 待手工验证
+
+下面这些场景需要在真机上运行应用确认。建议在合并前走一遍：
+
+- [ ] 全新安装 → 选 `繁體中文` → 中文录音 → Whisper（base 模型够）+ LLM 输出繁体
+- [ ] 同样录音切到 `简体中文` → 输出简体
+- [ ] 老用户：手工把 `~/Library/Application Support/com.input0.app/config.toml` 写入 `language = "zh"` → 启动 → UI 显示「简体中文」、磁盘文件被改写为 `zh-CN`
+- [ ] 选 `繁體中文` + 启用 Paraformer → LLM 把模型输出的简体转为繁体
+- [ ] 关闭 LLM（清空 API key）+ Paraformer + `繁體中文` → 输出简体（限制兜底）+ 无报错
+- [ ] 自定义 prompt 启用 + `简体中文` → `繁體中文` 切换 → 编辑器未改时不应变为「自定义」
 
 ## 参考
 

@@ -64,7 +64,7 @@ pub fn new_shared_transcriber() -> SharedTranscriber {
 /// engines accept. Whisper and SenseVoice both speak `"zh"` (no variant);
 /// the simplified/traditional distinction is handled at the prompt layer
 /// (Whisper initial_prompt) and the LLM layer.
-pub fn language_to_stt_lang(code: &str) -> &str {
+pub(crate) fn language_to_stt_lang(code: &str) -> &str {
     match code {
         "zh-CN" | "zh-TW" => "zh",
         other => other,
