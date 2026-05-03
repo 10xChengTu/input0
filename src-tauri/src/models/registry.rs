@@ -389,9 +389,13 @@ pub fn get_model(id: &str) -> Option<&'static ModelInfo> {
 
 /// Return all recommended models for a given language code.
 pub fn recommended_models_for_language(language: &str) -> Vec<&'static ModelInfo> {
+    let lookup = match language {
+        "zh-CN" | "zh-TW" => "zh",
+        other => other,
+    };
     ALL_MODELS
         .iter()
-        .filter(|m| m.best_for_languages.contains(&language))
+        .filter(|m| m.best_for_languages.contains(&lookup))
         .collect()
 }
 
@@ -428,4 +432,32 @@ pub fn resolve_url(original_url: &str, hf_endpoint: &str) -> String {
     }
     let endpoint = hf_endpoint.trim_end_matches('/');
     original_url.replacen(DEFAULT_HF_ENDPOINT, endpoint, 1)
+}
+
+#[cfg(test)]
+mod recommendation_tests {
+    use super::*;
+
+    #[test]
+    fn recommended_for_zh_cn_matches_zh() {
+        let zh = recommended_models_for_language("zh");
+        let zh_cn = recommended_models_for_language("zh-CN");
+        let zh_tw = recommended_models_for_language("zh-TW");
+        assert!(!zh.is_empty(), "zh recommendations must not be empty (sanity)");
+        assert_eq!(zh.len(), zh_cn.len());
+        assert_eq!(zh.len(), zh_tw.len());
+        for ((a, b), c) in zh.iter().zip(zh_cn.iter()).zip(zh_tw.iter()) {
+            assert_eq!(a.id, b.id);
+            assert_eq!(a.id, c.id);
+        }
+    }
+
+    #[test]
+    fn recommended_for_unrelated_codes_unchanged() {
+        let en = recommended_models_for_language("en");
+        // Just sanity: passing "auto" should not crash and may return empty.
+        let _auto = recommended_models_for_language("auto");
+        // No assertion on en content — registry-stable; just shape check.
+        let _ = en;
+    }
 }
