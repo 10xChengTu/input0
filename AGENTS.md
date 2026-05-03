@@ -119,7 +119,8 @@ docs/                         # 设计文档与需求记录
 | [docs/feature-scaffold.md](docs/feature-scaffold.md) | Tauri v2 + React + TS 脚手架搭建记录 | 2026-03-29 |
 | [docs/feature-audio-converter.md](docs/feature-audio-converter.md) | 音频转换模块（TDD 实现） | 2026-03-29 |
 | [docs/feature-pipeline.md](docs/feature-pipeline.md) | 语音处理流水线 + 启动流程 | 2026-03-29 |
-| [docs/feature-zh-initial-prompt.md](docs/feature-zh-initial-prompt.md) | 中文转录简繁体修复 | 2026-03-29 |
+| [docs/feature-zh-initial-prompt.md](docs/feature-zh-initial-prompt.md) | 中文转录简繁体修复 | 2026-05-03 |
+| [docs/feature-traditional-chinese.md](docs/feature-traditional-chinese.md) | 输出语言支持繁体中文（zh-CN / zh-TW 拆分 + 各层处理） | 2026-05-03 |
 | [docs/feature-model-switching.md](docs/feature-model-switching.md) | STT 模型切换 + 按需下载 + 推荐 | 2026-04-19 |
 | [docs/research-local-stt-models.md](docs/research-local-stt-models.md) | 本地 STT 模型调研报告 | 2026-04-19 |
 | [docs/feature-add-stt-models.md](docs/feature-add-stt-models.md) | 新增三款 STT 模型：FireRedASR v1 / Paraformer 三语 / Zipformer 中文 CTC | 2026-04-19 |

@@ -349,7 +349,8 @@ export function SettingsPage({ onToast, scrollToSection, onScrollComplete }: Set
                     >
                       <option value="auto" className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">{t.settings.autoDetect}</option>
                       <option value="en" className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">English</option>
-                      <option value="zh" className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">中文 (Chinese)</option>
+                      <option value="zh-CN" className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">简体中文 (Chinese Simplified)</option>
+                      <option value="zh-TW" className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">繁體中文 (Chinese Traditional)</option>
                       <option value="ja" className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">日本語 (Japanese)</option>
                       <option value="ko" className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">한국어 (Korean)</option>
                       <option value="es" className="bg-[var(--theme-surface)] text-[var(--theme-on-surface)]">Español (Spanish)</option>

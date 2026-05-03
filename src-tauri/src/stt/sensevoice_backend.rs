@@ -55,7 +55,7 @@ impl SenseVoiceBackend {
 
 fn map_language_for_sensevoice(language: &str) -> &str {
     match language {
-        "zh" => "zh",
+        "zh" | "zh-CN" | "zh-TW" => "zh",
         "en" => "en",
         "ja" => "ja",
         "ko" => "ko",
@@ -89,5 +89,30 @@ impl TranscriberBackend for SenseVoiceBackend {
 
     fn model_id(&self) -> &str {
         &self.model_id
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::map_language_for_sensevoice;
+
+    #[test]
+    fn map_folds_chinese_variants_to_zh() {
+        assert_eq!(map_language_for_sensevoice("zh-CN"), "zh");
+        assert_eq!(map_language_for_sensevoice("zh-TW"), "zh");
+        assert_eq!(map_language_for_sensevoice("zh"), "zh");
+    }
+
+    #[test]
+    fn map_passes_through_supported_codes() {
+        assert_eq!(map_language_for_sensevoice("en"), "en");
+        assert_eq!(map_language_for_sensevoice("ja"), "ja");
+        assert_eq!(map_language_for_sensevoice("ko"), "ko");
+    }
+
+    #[test]
+    fn map_unknown_codes_to_auto() {
+        assert_eq!(map_language_for_sensevoice("auto"), "auto");
+        assert_eq!(map_language_for_sensevoice("es"), "auto");
     }
 }

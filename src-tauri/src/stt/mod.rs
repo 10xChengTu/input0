@@ -59,3 +59,33 @@ pub type SharedTranscriber = Arc<Mutex<ManagedTranscriber>>;
 pub fn new_shared_transcriber() -> SharedTranscriber {
     Arc::new(Mutex::new(ManagedTranscriber::new()))
 }
+
+/// Fold UI-level language codes to the language string the underlying STT
+/// engines accept. Whisper and SenseVoice both speak `"zh"` (no variant);
+/// the simplified/traditional distinction is handled at the prompt layer
+/// (Whisper initial_prompt) and the LLM layer.
+pub(crate) fn language_to_stt_lang(code: &str) -> &str {
+    match code {
+        "zh-CN" | "zh-TW" => "zh",
+        other => other,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn language_to_stt_lang_folds_chinese_variants() {
+        assert_eq!(language_to_stt_lang("zh-CN"), "zh");
+        assert_eq!(language_to_stt_lang("zh-TW"), "zh");
+        assert_eq!(language_to_stt_lang("zh"), "zh");
+    }
+
+    #[test]
+    fn language_to_stt_lang_passes_through_other_codes() {
+        for code in ["auto", "en", "ja", "ko", "es", "fr", "de"] {
+            assert_eq!(language_to_stt_lang(code), code);
+        }
+    }
+}

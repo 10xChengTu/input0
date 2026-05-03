@@ -126,6 +126,55 @@ mod tests {
     }
 
     #[test]
+    fn test_system_prompt_zh_cn_forces_simplified_directive() {
+        let prompt = build_system_prompt("zh-CN", false, "", &[], &[]);
+        assert!(
+            prompt.contains("请输出简体中文"),
+            "zh-CN prompt must explicitly direct simplified output"
+        );
+        assert!(
+            !prompt.contains("不互相转换") && !prompt.contains("不要相互转换"),
+            "zh-CN prompt must NOT carry the preserve-variant clause"
+        );
+        // Still flows through the Chinese branch.
+        assert!(prompt.contains("规则"), "zh-CN should use the Chinese prompt body");
+    }
+
+    #[test]
+    fn test_system_prompt_zh_tw_forces_traditional_directive() {
+        let prompt = build_system_prompt("zh-TW", false, "", &[], &[]);
+        assert!(
+            prompt.contains("請輸出繁體中文"),
+            "zh-TW prompt must explicitly direct traditional output"
+        );
+        assert!(
+            !prompt.contains("不互相转换") && !prompt.contains("不要相互转换"),
+            "zh-TW prompt must NOT carry the preserve-variant clause"
+        );
+        assert!(prompt.contains("规则"), "zh-TW should use the Chinese prompt body");
+    }
+
+    #[test]
+    fn test_system_prompt_legacy_zh_still_preserves_variant() {
+        // Defensive: legacy "zh" is migrated to "zh-CN" in config layer,
+        // but the LLM should still tolerate it.
+        let prompt = build_system_prompt("zh", false, "", &[], &[]);
+        assert!(
+            prompt.contains("中文变体") && prompt.contains("简体/繁体"),
+            "legacy zh keeps the preserve-variant clause"
+        );
+    }
+
+    #[test]
+    fn test_system_prompt_auto_keeps_preserve_variant_clause() {
+        let prompt = build_system_prompt("auto", false, "", &[], &[]);
+        assert!(
+            prompt.contains("simplified/traditional") || prompt.contains("简体/繁体"),
+            "auto prompt should still preserve the speaker's variant"
+        );
+    }
+
+    #[test]
     fn test_system_prompt_contains_anti_execution_rule() {
         let zh_prompt = build_system_prompt("zh", false, "", &[], &[]);
         assert!(zh_prompt.contains("不是给你的指令"), "zh prompt should contain anti-execution rule");
@@ -1464,10 +1513,17 @@ Prefer these terms when phonetically similar: {{{{vocabulary}}}}
 
     #[test]
     fn test_is_legacy_default_template_rejects_current_default() {
-        // The current canonical default per language must NOT be classified
-        // as legacy — only previous-version defaults should match.
+        // The current canonical default for zh-CN and zh-TW must NOT be
+        // classified as legacy — those languages now embed an explicit
+        // conversion directive (simplified↔traditional) that differs from
+        // the v3 snapshot's neutral "preserve variant" clause.
+        // plain "zh", "en", and "auto" are intentionally excluded: their
+        // current defaults embed the same neutral clause as the v3 snapshot
+        // and are therefore byte-identical; they are handled by the
+        // is_custom_prompt_active path (current-default check) before the
+        // legacy path is reached.
         use crate::llm::client::{build_default_template, is_legacy_default_template};
-        for lang in ["zh", "en", "auto"] {
+        for lang in ["zh-CN", "zh-TW"] {
             let current = build_default_template(lang);
             assert!(
                 !is_legacy_default_template(&current),
@@ -1632,6 +1688,31 @@ Prefer these terms when phonetically similar: {{{{vocabulary}}}}
         use crate::llm::client::is_custom_prompt_active;
         assert!(is_custom_prompt_active(true, "Hello world.", "en"));
         assert!(is_custom_prompt_active(true, "你好世界。", "zh"));
+    }
+
+    #[test]
+    fn test_custom_prompt_not_active_when_matches_other_zh_family_default() {
+        use crate::llm::client::{build_default_template, is_custom_prompt_active};
+        // User saved the zh-CN default unmodified, then switched to zh-TW.
+        // The saved prompt no longer matches build_default_template("zh-TW"),
+        // but it still matches build_default_template("zh-CN") — treat as
+        // not-custom so the user gets the rebuilt zh-TW default.
+        let zh_cn_default = build_default_template("zh-CN");
+        let active = is_custom_prompt_active(true, &zh_cn_default, "zh-TW");
+        assert!(!active, "saved zh-CN default should not count as custom under zh-TW");
+
+        let zh_tw_default = build_default_template("zh-TW");
+        let active2 = is_custom_prompt_active(true, &zh_tw_default, "zh-CN");
+        assert!(!active2, "saved zh-TW default should not count as custom under zh-CN");
+    }
+
+    #[test]
+    fn test_custom_prompt_active_when_genuinely_modified() {
+        use crate::llm::client::{build_default_template, is_custom_prompt_active};
+        // Real user customization: still flagged as custom.
+        let modified = format!("{}\n\n# 我的额外规则\n额外要求一行。", build_default_template("zh-CN"));
+        let active = is_custom_prompt_active(true, &modified, "zh-CN");
+        assert!(active, "real customization should be detected as custom");
     }
 
     // --- Custom structuring prompt: user-edited module text ---
@@ -1850,5 +1931,66 @@ Prefer these terms when phonetically similar: {{{{vocabulary}}}}
         let result = client.optimize_text("um hello world", "en", &[], false, &[], None, &[]).await;
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), "Hello, world!");
+    }
+
+    #[test]
+    fn test_is_legacy_default_template_detects_v3_zh() {
+        // The v3 zh default has the "preserve Chinese variant" rule embedded
+        // in the body. Its byte-for-byte form must remain detectable so users
+        // who never edited their custom prompt are migrated cleanly.
+        let snapshot = crate::llm::client::legacy_v3_default_template("zh");
+        assert!(
+            crate::llm::client::is_legacy_default_template(&snapshot),
+            "v3 zh default must be detected as legacy"
+        );
+    }
+
+    #[test]
+    fn test_is_legacy_default_template_detects_v3_en_and_auto() {
+        for lang in ["en", "auto"] {
+            let snapshot = crate::llm::client::legacy_v3_default_template(lang);
+            assert!(
+                crate::llm::client::is_legacy_default_template(&snapshot),
+                "v3 {} default must be detected as legacy",
+                lang
+            );
+        }
+    }
+
+    #[test]
+    fn test_is_legacy_default_template_rejects_unrelated_text() {
+        assert!(!crate::llm::client::is_legacy_default_template("totally unrelated prompt body"));
+    }
+
+    #[test]
+    fn test_custom_prompt_appends_variant_directive_for_zh_cn() {
+        // Custom prompt that does NOT mention variant. The directive must be
+        // appended via the safety tail.
+        let custom = "# 自定义\n请只清理填充词。";
+        let prompt = build_system_prompt_with_custom(
+            "zh-CN", false, "", &[], &[], true, custom, None,
+        );
+        assert!(prompt.contains("请输出简体中文"), "zh-CN custom prompt should append simplified directive");
+    }
+
+    #[test]
+    fn test_custom_prompt_appends_variant_directive_for_zh_tw() {
+        let custom = "# 自定義\n請只清理填充詞。";
+        let prompt = build_system_prompt_with_custom(
+            "zh-TW", false, "", &[], &[], true, custom, None,
+        );
+        assert!(prompt.contains("請輸出繁體中文"), "zh-TW custom prompt should append traditional directive");
+    }
+
+    #[test]
+    fn test_custom_prompt_does_not_append_directive_for_auto() {
+        let custom = "# Custom\nJust clean fillers.";
+        let prompt = build_system_prompt_with_custom(
+            "auto", false, "", &[], &[], true, custom, None,
+        );
+        assert!(
+            !prompt.contains("Output Simplified") && !prompt.contains("请输出简体"),
+            "auto/non-zh-explicit custom prompt should not force a variant"
+        );
     }
 }
