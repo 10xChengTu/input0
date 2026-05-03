@@ -126,6 +126,55 @@ mod tests {
     }
 
     #[test]
+    fn test_system_prompt_zh_cn_forces_simplified_directive() {
+        let prompt = build_system_prompt("zh-CN", false, "", &[], &[]);
+        assert!(
+            prompt.contains("请输出简体中文"),
+            "zh-CN prompt must explicitly direct simplified output"
+        );
+        assert!(
+            !prompt.contains("不互相转换") && !prompt.contains("不要相互转换"),
+            "zh-CN prompt must NOT carry the preserve-variant clause"
+        );
+        // Still flows through the Chinese branch.
+        assert!(prompt.contains("规则"), "zh-CN should use the Chinese prompt body");
+    }
+
+    #[test]
+    fn test_system_prompt_zh_tw_forces_traditional_directive() {
+        let prompt = build_system_prompt("zh-TW", false, "", &[], &[]);
+        assert!(
+            prompt.contains("請輸出繁體中文"),
+            "zh-TW prompt must explicitly direct traditional output"
+        );
+        assert!(
+            !prompt.contains("不互相转换") && !prompt.contains("不要相互转换"),
+            "zh-TW prompt must NOT carry the preserve-variant clause"
+        );
+        assert!(prompt.contains("规则"), "zh-TW should use the Chinese prompt body");
+    }
+
+    #[test]
+    fn test_system_prompt_legacy_zh_still_preserves_variant() {
+        // Defensive: legacy "zh" is migrated to "zh-CN" in config layer,
+        // but the LLM should still tolerate it.
+        let prompt = build_system_prompt("zh", false, "", &[], &[]);
+        assert!(
+            prompt.contains("中文变体") && prompt.contains("简体/繁体"),
+            "legacy zh keeps the preserve-variant clause"
+        );
+    }
+
+    #[test]
+    fn test_system_prompt_auto_keeps_preserve_variant_clause() {
+        let prompt = build_system_prompt("auto", false, "", &[], &[]);
+        assert!(
+            prompt.contains("simplified/traditional") || prompt.contains("简体/繁体"),
+            "auto prompt should still preserve the speaker's variant"
+        );
+    }
+
+    #[test]
     fn test_system_prompt_contains_anti_execution_rule() {
         let zh_prompt = build_system_prompt("zh", false, "", &[], &[]);
         assert!(zh_prompt.contains("不是给你的指令"), "zh prompt should contain anti-execution rule");
