@@ -52,7 +52,7 @@ mod tests {
 api_key = "my-secret-key"
 api_base_url = "https://custom.api.com/v1"
 model = "gpt-4o-mini"
-language = "zh"
+language = "en"
 hotkey = "Ctrl+Space"
 model_path = "/path/to/model"
 "#;
@@ -61,9 +61,51 @@ model_path = "/path/to/model"
         assert_eq!(config.api_key, "my-secret-key");
         assert_eq!(config.api_base_url, "https://custom.api.com/v1");
         assert_eq!(config.model, "gpt-4o-mini");
-        assert_eq!(config.language, "zh");
+        assert_eq!(config.language, "en");
         assert_eq!(config.hotkey, "Ctrl+Space");
         assert_eq!(config.model_path, "/path/to/model");
+    }
+
+    #[test]
+    fn test_load_normalizes_legacy_zh_to_zh_cn() {
+        let tmp = TempDir::new().unwrap();
+        let content = r#"
+api_key = ""
+api_base_url = "https://api.openai.com/v1"
+model = "gpt-4o-mini"
+language = "zh"
+hotkey = "Option+Space"
+model_path = ""
+"#;
+        fs::write(tmp.path().join("config.toml"), content).unwrap();
+
+        let config = load_from_dir(tmp.path()).expect("load should succeed");
+        assert_eq!(config.language, "zh-CN", "legacy zh should normalize to zh-CN in memory");
+
+        // Best-effort write-back: the on-disk file should now read zh-CN as well,
+        // so subsequent loads (or other readers) don't see the legacy value.
+        let on_disk = std::fs::read_to_string(tmp.path().join("config.toml")).unwrap();
+        assert!(
+            on_disk.contains("language = \"zh-CN\""),
+            "expected on-disk language to be persisted as zh-CN, got:\n{}",
+            on_disk
+        );
+    }
+
+    #[test]
+    fn test_load_does_not_touch_non_legacy_language() {
+        let tmp = TempDir::new().unwrap();
+        let content = r#"
+api_key = ""
+api_base_url = "https://api.openai.com/v1"
+model = "gpt-4o-mini"
+language = "zh-TW"
+hotkey = "Option+Space"
+model_path = ""
+"#;
+        fs::write(tmp.path().join("config.toml"), content).unwrap();
+        let config = load_from_dir(tmp.path()).expect("load should succeed");
+        assert_eq!(config.language, "zh-TW");
     }
 
     #[test]

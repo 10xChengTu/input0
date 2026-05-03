@@ -108,6 +108,16 @@ pub(crate) fn load_from_dir(dir: &Path) -> Result<AppConfig, AppError> {
     let mut config: AppConfig = toml::from_str(&contents)
         .map_err(|e| AppError::Config(format!("Failed to parse config file: {}", e)))?;
 
+    // Legacy code `zh` predates the simplified/traditional split. Treat it as
+    // simplified (the previous behavior — see feature-zh-initial-prompt.md)
+    // and persist so downstream code only ever sees the new codes.
+    let legacy_lang_migrated = if config.language == "zh" {
+        config.language = "zh-CN".to_string();
+        true
+    } else {
+        false
+    };
+
     // One-time migration: an upgraded user may have `custom_prompt` saved as
     // a verbatim pre-v2 default template (which the new prompt builder no
     // longer produces). Treating it as a real custom prompt would silently
@@ -125,6 +135,12 @@ pub(crate) fn load_from_dir(dir: &Path) -> Result<AppConfig, AppError> {
         // launch, which is harmless.
         if let Err(e) = save_to_dir(&config, dir) {
             log::warn!("config migration: failed to persist cleaned custom_prompt: {}", e);
+        }
+    }
+
+    if legacy_lang_migrated {
+        if let Err(e) = save_to_dir(&config, dir) {
+            log::warn!("config migration: failed to persist zh -> zh-CN normalization: {}", e);
         }
     }
 
