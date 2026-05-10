@@ -1,6 +1,6 @@
 [
   {
-    "id": "smoke-zh-001",
+    "id": "mixed-zh-001",
     "scenario": "mixed",
     "language": "zh",
     "text_structuring": false,
@@ -11,8 +11,1130 @@
       "must_match_regex": [],
       "no_markdown": true,
       "form": "plain",
-      "min_chars": 5,
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-002",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "前端用泰普斯克瑞普特写，配合杰森解析",
+    "checks": {
+      "must_contain": ["TypeScript", "JSON"],
+      "must_not_contain": ["泰普斯克瑞普特", "杰森"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-003",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用派森写脚本，然后部署到道克容器里",
+    "checks": {
+      "must_contain": ["Python", "Docker"],
+      "must_not_contain": ["派森", "道克"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-004",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "数据库用瑞迪斯做缓存，提升读性能",
+    "checks": {
+      "must_contain": ["Redis"],
+      "must_not_contain": ["瑞迪斯"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-005",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "容器编排用库伯内特斯，现在规模大了必须用",
+    "checks": {
+      "must_contain": ["Kubernetes"],
+      "must_not_contain": ["库伯内特斯"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-006",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "后端接口用高语言写，并发性能很好",
+    "checks": {
+      "must_contain": ["Go"],
+      "must_not_contain": ["高语言"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-007",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用恩屁恩安装依赖，再跑构建命令",
+    "checks": {
+      "must_contain": ["npm"],
+      "must_not_contain": ["恩屁恩"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-008",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "前端框架在威由和诶恩苟拉之间纠结",
+    "checks": {
+      "must_contain": ["Vue", "Angular"],
+      "must_not_contain": ["威由", "诶恩苟拉"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-009",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "认证方案用傲优提配合葛微提发令牌",
+    "checks": {
+      "must_contain": ["OAuth", "JWT"],
+      "must_not_contain": ["傲优提", "葛微提"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-010",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "我用 GitHub Copilot 写代码，速度快多了",
+    "checks": {
+      "must_contain": ["GitHub Copilot"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": "Output must keep 'GitHub Copilot' verbatim and the meaning that the speaker uses it to write code faster. Must not invent details."
+  },
+  {
+    "id": "mixed-zh-011",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "把 PR 合到 main 分支之前要先跑测试",
+    "checks": {
+      "must_contain": ["PR", "main"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-012",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "跑 CI 流水线失败了，看了一下是单元测试挂了",
+    "checks": {
+      "must_contain": ["CI"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-013",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 docker compose 起服务，本地开发环境搭好了",
+    "checks": {
+      "must_contain": ["Docker Compose"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-014",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "调用 useState 钩子管理组件状态",
+    "checks": {
+      "must_contain": ["useState"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 40
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-015",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 useEffect 处理副作用，记得清理订阅",
+    "checks": {
+      "must_contain": ["useEffect"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-016",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "接口设计用瑞斯特风格还是葛阿皮西",
+    "checks": {
+      "must_contain": ["REST", "gRPC"],
+      "must_not_contain": ["瑞斯特", "葛阿皮西"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": "Output must restore the phonetic transliterations: 瑞斯特→REST, 葛阿皮西→gRPC. Must preserve the speaker's question of choosing between REST and gRPC for interface design. Must not take a side or recommend one over the other."
+  },
+  {
+    "id": "mixed-zh-017",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "打包工具从 Webpack 换成 Vite 了，构建快很多",
+    "checks": {
+      "must_contain": ["Webpack", "Vite"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-018",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "代码风格用 ESLint 加 Prettier 保证一致性",
+    "checks": {
+      "must_contain": ["ESLint", "Prettier"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-019",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用吉特拉布管代码仓库，自带 CI 功能挺方便",
+    "checks": {
+      "must_contain": ["GitLab", "CI"],
+      "must_not_contain": ["吉特拉布"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-020",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "查询语言用葛拉服 QL 比 REST 更灵活",
+    "checks": {
+      "must_contain": ["GraphQL", "REST"],
+      "must_not_contain": ["葛拉服"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-021",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "这个 bug 在 main 分支上，需要赶紧 hotfix",
+    "checks": {
+      "must_contain": ["bug", "main", "hotfix"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-022",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "前端状态管理用瑞多克斯还是 Zustand",
+    "checks": {
+      "must_contain": ["Redux", "Zustand"],
+      "must_not_contain": ["瑞多克斯"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-023",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "模型用嗯木 MongoDB 存文档，查询很方便",
+    "checks": {
+      "must_contain": ["MongoDB"],
+      "must_not_contain": ["嗯木"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-024",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "这个 feature 做完要写 unit test 再合代码",
+    "checks": {
+      "must_contain": ["feature", "unit test"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-025",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "这次发布用蓝绿部署，零停机切换",
+    "checks": {
+      "must_contain": [],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": "Output must convey that the deployment strategy is blue-green with zero downtime. Must not add unrelated technical details."
+  },
+  {
+    "id": "mixed-zh-026",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Terraform 管基础设施，比手动配置稳多了",
+    "checks": {
+      "must_contain": ["Terraform"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-027",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "机器学习框架用派托驰还是天盛流",
+    "checks": {
+      "must_contain": ["PyTorch", "TensorFlow"],
+      "must_not_contain": ["派托驰", "天盛流"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-028",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Figma 画原型，设计稿和开发直接对齐",
+    "checks": {
+      "must_contain": ["Figma"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-029",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "移动端用瑞科特内提夫开发，一套代码跑双端",
+    "checks": {
+      "must_contain": ["React Native"],
+      "must_not_contain": ["瑞科特内提夫"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-030",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "服务部署在 AWS 上，用 Lambda 做无服务器计算",
+    "checks": {
+      "must_contain": ["AWS", "Lambda"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-031",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "今天 code review 发现好几个内存泄漏的问题",
+    "checks": {
+      "must_contain": ["code review"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-032",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "测试覆盖率要求 80% 以上，现在差 end to end 测试",
+    "checks": {
+      "must_contain": ["80%", "end to end"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-033",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "消息队列用卡夫卡，日志量大的时候稳",
+    "checks": {
+      "must_contain": ["Kafka"],
+      "must_not_contain": ["卡夫卡"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-034",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "监控告警用 Prometheus 加 Grafana 看板",
+    "checks": {
+      "must_contain": ["Prometheus", "Grafana"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-035",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "这次迭代的 sprint 目标是把登录模块重构",
+    "checks": {
+      "must_contain": ["sprint"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-036",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "接口文档用 Swagger 自动生成，省了很多手写时间",
+    "checks": {
+      "must_contain": ["Swagger"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-037",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "把这个微服务拆成独立的 repo 管理",
+    "checks": {
+      "must_contain": ["repo"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 45
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-038",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Nginx 做反向代理，前面再加 CDN 加速",
+    "checks": {
+      "must_contain": ["Nginx", "CDN"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-039",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "数据可视化用 D3.js，灵活但学习曲线陡",
+    "checks": {
+      "must_contain": ["D3.js"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-040",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Next.js 做服务端渲染，SEO 效果好",
+    "checks": {
+      "must_contain": ["Next.js", "SEO"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-041",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "数据分析用朱派特写，可视化很直观",
+    "checks": {
+      "must_contain": ["Jupyter"],
+      "must_not_contain": ["朱派特"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 45
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-042",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "安全扫描用 OWASP 规范，每次发布前必查",
+    "checks": {
+      "must_contain": ["OWASP"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-043",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Storybook 维护组件文档，跟设计同步",
+    "checks": {
+      "must_contain": ["Storybook"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-044",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "吉特提交规范用康冯神纳尔提交，自动生成 changelog",
+    "checks": {
+      "must_contain": ["Git", "changelog"],
+      "must_not_contain": ["吉特", "康冯神纳尔提交"],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-045",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Cursor 写代码，AI 补全比之前的 IDE 强很多",
+    "checks": {
+      "must_contain": ["Cursor", "AI", "IDE"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-046",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "微服务间通信用 gRPC，性能比 REST 好",
+    "checks": {
+      "must_contain": ["gRPC", "REST"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-047",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Tailwind CSS 写样式，开发效率高",
+    "checks": {
+      "must_contain": ["Tailwind CSS"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-001",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we use react with the api layer and json everywhere",
+    "checks": {
+      "must_contain": ["React", "API", "JSON"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 30,
       "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-002",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the sla was 99.9% uptime last quarter",
+    "checks": {
+      "must_contain": ["SLA", "99.9%"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 25,
+      "max_chars": 80
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-003",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we pushed to github and the ci pipeline kicked off automatically",
+    "checks": {
+      "must_contain": ["GitHub", "CI"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-004",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the team uses typescript for all new javascript projects",
+    "checks": {
+      "must_contain": ["TypeScript", "JavaScript"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 90
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-005",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we containerize everything with docker and orchestrate it with kubernetes",
+    "checks": {
+      "must_contain": ["Docker", "Kubernetes"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-006",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "switched from rest to graphql and the over-fetching problem went away",
+    "checks": {
+      "must_contain": ["REST", "GraphQL"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-007",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the pr needs review before merging to main, check the ci status first",
+    "checks": {
+      "must_contain": ["PR", "main", "CI"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-008",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we cache expensive queries in redis, hits the 200ms p99 target",
+    "checks": {
+      "must_contain": ["Redis"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-009",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "authentication is handled by oauth with jwt tokens, no sessions",
+    "checks": {
+      "must_contain": ["OAuth", "JWT"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-010",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "python script reads from mongodb and writes summary to a csv file",
+    "checks": {
+      "must_contain": ["Python", "MongoDB"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-011",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the api rate limit is 1000 requests per minute with an rps cap",
+    "checks": {
+      "must_contain": ["API", "1000"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-012",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we use eslint and prettier for code style, enforced in the gitlab ci",
+    "checks": {
+      "must_contain": ["ESLint", "Prettier", "GitLab", "CI"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-013",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the go service handles 10k rps with sub-millisecond latency",
+    "checks": {
+      "must_contain": ["Go"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 90
+    },
+    "judge_rubric": "Output must capitalize 'go' as the Go programming language. Must preserve the performance claim of 10k RPS and sub-millisecond latency without altering the numbers."
+  },
+  {
+    "id": "mixed-en-014",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "infra is managed by terraform, no more clicking around in the aws console",
+    "checks": {
+      "must_contain": ["Terraform", "AWS"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-015",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we stream events through kafka and process them in real time with flink",
+    "checks": {
+      "must_contain": ["Kafka"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-016",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the model is trained in pytorch, exported to onnx for serving",
+    "checks": {
+      "must_contain": ["PyTorch", "ONNX"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-017",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we track all issues in jira and link them to the github prs",
+    "checks": {
+      "must_contain": ["Jira", "GitHub"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-018",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the frontend is built with next.js, deployed on vercel with edge functions",
+    "checks": {
+      "must_contain": ["Next.js", "Vercel"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-019",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "monitoring is done via prometheus metrics exposed on a grafana dashboard",
+    "checks": {
+      "must_contain": ["Prometheus", "Grafana"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": "Output must clearly describe that Prometheus collects metrics and Grafana is used for visualization/dashboards. Must not omit either tool."
+  },
+  {
+    "id": "mixed-en-020",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we write unit tests with jest and e2e tests with playwright, coverage is above 85%",
+    "checks": {
+      "must_contain": ["Jest", "Playwright", "85%"],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 45,
+      "max_chars": 120
     },
     "judge_rubric": null
   }
