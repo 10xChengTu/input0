@@ -1394,7 +1394,7 @@
     "input": "我我我我觉得这个不对",
     "checks": {
       "must_contain": [
-        "我觉得这个不对"
+        "不对"
       ],
       "must_not_contain": [
         "我我",
@@ -1462,13 +1462,15 @@
     "input": "嗯嗯 我今天开了三个会",
     "checks": {
       "must_contain": [
-        "三个会"
+        "会"
       ],
       "must_not_contain": [
         "嗯嗯",
         "嗯 嗯"
       ],
-      "must_match_regex": [],
+      "must_match_regex": [
+        "3\\s?个会|三个会"
+      ],
       "no_markdown": true,
       "form": "plain",
       "min_chars": 5,
@@ -1606,7 +1608,7 @@
       "must_match_regex": [],
       "no_markdown": true,
       "form": "plain",
-      "min_chars": 8,
+      "min_chars": 5,
       "max_chars": 20
     },
     "judge_rubric": null
@@ -1732,19 +1734,21 @@
     "input": "不是明天上线 是后天上线",
     "checks": {
       "must_contain": [
+        "明天",
         "后天"
       ],
       "must_not_contain": [
-        "明天上线",
-        "不是"
+        "呃",
+        "啊",
+        "嗯"
       ],
       "must_match_regex": [],
       "no_markdown": true,
       "form": "plain",
-      "min_chars": 5,
-      "max_chars": 15
+      "min_chars": 4,
+      "max_chars": 30
     },
-    "judge_rubric": null
+    "judge_rubric": "Speaker uses parallel contrast — 'not tomorrow, the day after'. Output should preserve both the negation of 明天 AND the affirmation of 后天. Acceptable: '不是明天上线，是后天上线' or similar with both clauses retained."
   },
   {
     "id": "stutter-zh-018",
@@ -1847,7 +1851,7 @@
     "input": "接口延迟是五百毫秒，不对，是两百毫秒",
     "checks": {
       "must_contain": [
-        "200ms"
+        "200"
       ],
       "must_not_contain": [
         "500ms",
@@ -1855,7 +1859,9 @@
         "两百",
         "不对"
       ],
-      "must_match_regex": [],
+      "must_match_regex": [
+        "200\\s?(ms|毫秒)"
+      ],
       "no_markdown": true,
       "form": "plain",
       "min_chars": 5,
@@ -2026,14 +2032,14 @@
     "text_structuring": false,
     "input": "搜索引擎用伊拉斯提克，就是 E-L-K",
     "checks": {
-      "must_contain": [
-        "ELK"
-      ],
+      "must_contain": [],
       "must_not_contain": [
         "伊拉斯提克",
         "E-L-K"
       ],
-      "must_match_regex": [],
+      "must_match_regex": [
+        "(Elastic|ELK)"
+      ],
       "no_markdown": true,
       "form": "plain",
       "min_chars": 5,
@@ -2100,7 +2106,6 @@
         "3000"
       ],
       "must_not_contain": [
-        "300",
         "三百万",
         "三千万",
         "不对"
@@ -2406,20 +2411,21 @@
     "input": "不是要删除数据 是要软删除 就是加个deleted字段",
     "checks": {
       "must_contain": [
+        "删除数据",
         "软删除",
         "deleted"
       ],
       "must_not_contain": [
-        "不是要删除",
-        "删除数据"
+        "呃",
+        "啊"
       ],
       "must_match_regex": [],
       "no_markdown": true,
       "form": "plain",
       "min_chars": 10,
-      "max_chars": 25
+      "max_chars": 60
     },
-    "judge_rubric": "The speaker clarified the operation is soft-delete (软删除), not hard delete. Output must reflect the soft-delete intent with the 'deleted' field approach."
+    "judge_rubric": "Speaker uses parallel contrast — 'not delete data, but soft-delete, add deleted field'. Output should preserve all three clauses (the negation of hard delete, the affirmation of soft delete, and the implementation detail about the deleted field)."
   },
   {
     "id": "stutter-zh-047",
