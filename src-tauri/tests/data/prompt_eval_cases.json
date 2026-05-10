@@ -3723,7 +3723,7 @@
       "min_chars": 50,
       "max_chars": 300
     },
-    "judge_rubric": "4-step deployment checklist as numbered list. 'twenty minutes' → '20 minutes' or '20 min' (both acceptable Arabic forms), 'thirty minutes' → '30 minutes' or '30 min'. Each step action-oriented. All four steps (backup database / migrations / smoke tests / monitor) must appear."
+    "judge_rubric": "4-step deployment checklist as numbered list. 'twenty minutes' → '20 minutes' or '20 min' (both acceptable Arabic forms), 'thirty minutes' → '30 minutes' or '30 min'. Each step action-oriented. All four steps (backup database / migrations / deploy docker image / watch error rate) must appear."
   },
   {
     "id": "structure-en-007",
@@ -4494,7 +4494,7 @@
       "min_chars": 20,
       "max_chars": 170
     },
-    "judge_rubric": "Toggle OFF — input has 'first/second/third/fourth' for 4 quarter priorities. Output must NOT be a newline-delimited list (form=plain enforces). Inline enumeration in a single sentence with semicolons or commas IS acceptable plain prose. All four priorities (latency reduction, test coverage, hiring, infra migration) must come through."
+    "judge_rubric": "Toggle OFF — input has 'first/second/third/fourth' for 4 quarter priorities. Output must NOT be a newline-delimited list (form=plain enforces). Inline enumeration in a single sentence with semicolons or commas IS acceptable plain prose. All four priorities (latency reduction, test coverage, hiring 2 engineers, mobile app launch) must come through."
   },
   {
     "id": "structure-en-017",
