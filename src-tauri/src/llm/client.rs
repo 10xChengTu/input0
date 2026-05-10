@@ -708,9 +708,11 @@ pub(crate) struct ChatMessage {
 }
 
 #[derive(Serialize)]
-struct ChatRequest {
-    model: String,
-    messages: Vec<ChatMessage>,
+pub(crate) struct ChatRequest {
+    pub(crate) model: String,
+    pub(crate) messages: Vec<ChatMessage>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub(crate) temperature: Option<f32>,
 }
 
 #[derive(Deserialize)]
@@ -820,6 +822,7 @@ impl LlmClient {
         let request_body = ChatRequest {
             model: self.model.clone(),
             messages,
+            temperature: None,
         };
 
         let response = self
@@ -867,6 +870,7 @@ impl LlmClient {
                 role: "user".to_string(),
                 content: "Hello".to_string(),
             }],
+            temperature: None,
         };
 
         let response = self
@@ -905,67 +909,10 @@ impl LlmClient {
     }
 
     pub async fn optimize_text(&self, raw_text: &str, language: &str, history: &[HistoryEntry], text_structuring: bool, vocabulary: &[String], source_app: Option<&str>, user_tags: &[String]) -> Result<String, AppError> {
-        let url = format!("{}/chat/completions", self.base_url);
-
-        let mut messages = vec![
-            ChatMessage {
-                role: "system".to_string(),
-                content: build_system_prompt(language, text_structuring, "", vocabulary, user_tags),
-            },
-        ];
-
-        if let Some(ctx) = build_context_message(history, source_app) {
-            messages.push(ctx);
-        }
-
-        messages.push(ChatMessage {
-            role: "user".to_string(),
-            content: wrap_raw_transcript(raw_text),
-        });
-
-        let request_body = ChatRequest {
-            model: self.model.clone(),
-            messages,
-        };
-
-        let response = self
-            .http_client
-            .post(&url)
-            .header("Authorization", format!("Bearer {}", self.api_key))
-            .header("Content-Type", "application/json")
-            .json(&request_body)
-            .send()
-            .await
-            .map_err(|e| AppError::Llm(format!("Network error: {}", e)))?;
-
-        let status = response.status();
-        if !status.is_success() {
-            let body = response
-                .text()
-                .await
-                .unwrap_or_else(|_| String::from("(failed to read body)"));
-            return Err(AppError::Llm(extract_api_error(status, &body)));
-        }
-
-        let chat_response: ChatResponse = response
-            .json()
-            .await
-            .map_err(|e| AppError::Llm(format!("Failed to parse response JSON: {}", e)))?;
-
-        let choices = chat_response
-            .choices
-            .ok_or_else(|| AppError::Llm("Response missing 'choices' field".to_string()))?;
-
-        if choices.is_empty() {
-            return Err(AppError::Llm("Response contains empty 'choices' array".to_string()));
-        }
-
-        let first_choice = choices
-            .into_iter()
-            .next()
-            .ok_or_else(|| AppError::Llm("Response contains empty 'choices' array".to_string()))?;
-
-        Ok(clean_llm_output(&first_choice.message.content))
+        self.optimize_text_with_temperature(
+            raw_text, language, history, text_structuring,
+            vocabulary, source_app, user_tags, None,
+        ).await
     }
 
     pub(crate) async fn optimize_text_with_options(
@@ -1019,6 +966,86 @@ impl LlmClient {
         let request_body = ChatRequest {
             model: self.model.clone(),
             messages,
+            temperature: None,
+        };
+
+        let response = self
+            .http_client
+            .post(&url)
+            .header("Authorization", format!("Bearer {}", self.api_key))
+            .header("Content-Type", "application/json")
+            .json(&request_body)
+            .send()
+            .await
+            .map_err(|e| AppError::Llm(format!("Network error: {}", e)))?;
+
+        let status = response.status();
+        if !status.is_success() {
+            let body = response
+                .text()
+                .await
+                .unwrap_or_else(|_| String::from("(failed to read body)"));
+            return Err(AppError::Llm(extract_api_error(status, &body)));
+        }
+
+        let chat_response: ChatResponse = response
+            .json()
+            .await
+            .map_err(|e| AppError::Llm(format!("Failed to parse response JSON: {}", e)))?;
+
+        let choices = chat_response
+            .choices
+            .ok_or_else(|| AppError::Llm("Response missing 'choices' field".to_string()))?;
+
+        if choices.is_empty() {
+            return Err(AppError::Llm("Response contains empty 'choices' array".to_string()));
+        }
+
+        let first_choice = choices
+            .into_iter()
+            .next()
+            .ok_or_else(|| AppError::Llm("Response contains empty 'choices' array".to_string()))?;
+
+        Ok(clean_llm_output(&first_choice.message.content))
+    }
+
+    /// Variant of `optimize_text` that accepts an explicit temperature override.
+    /// Used by the prompt eval suite to run with `temperature=0` for reproducibility.
+    /// Production callers should keep using `optimize_text` (which delegates here
+    /// with `temperature: None`, preserving the OpenAI default).
+    pub async fn optimize_text_with_temperature(
+        &self,
+        raw_text: &str,
+        language: &str,
+        history: &[HistoryEntry],
+        text_structuring: bool,
+        vocabulary: &[String],
+        source_app: Option<&str>,
+        user_tags: &[String],
+        temperature: Option<f32>,
+    ) -> Result<String, AppError> {
+        let url = format!("{}/chat/completions", self.base_url);
+
+        let mut messages = vec![
+            ChatMessage {
+                role: "system".to_string(),
+                content: build_system_prompt(language, text_structuring, "", vocabulary, user_tags),
+            },
+        ];
+
+        if let Some(ctx) = build_context_message(history, source_app) {
+            messages.push(ctx);
+        }
+
+        messages.push(ChatMessage {
+            role: "user".to_string(),
+            content: wrap_raw_transcript(raw_text),
+        });
+
+        let request_body = ChatRequest {
+            model: self.model.clone(),
+            messages,
+            temperature,
         };
 
         let response = self

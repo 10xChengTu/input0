@@ -1993,4 +1993,30 @@ Prefer these terms when phonetically similar: {{{{vocabulary}}}}
             "auto/non-zh-explicit custom prompt should not force a variant"
         );
     }
+
+    // --- ChatRequest Serialization Tests ---
+
+    #[test]
+    fn test_chat_request_serializes_temperature_when_set() {
+        use serde_json::json;
+        let req = crate::llm::client::ChatRequest {
+            model: "gpt-4o-mini".to_string(),
+            messages: vec![],
+            temperature: Some(0.0),
+        };
+        let serialized = serde_json::to_value(&req).unwrap();
+        assert_eq!(serialized["temperature"], json!(0.0));
+    }
+
+    #[test]
+    fn test_chat_request_omits_temperature_when_none() {
+        let req = crate::llm::client::ChatRequest {
+            model: "gpt-4o-mini".to_string(),
+            messages: vec![],
+            temperature: None,
+        };
+        let serialized = serde_json::to_value(&req).unwrap();
+        assert!(serialized.get("temperature").is_none(),
+            "temperature field should be omitted when None");
+    }
 }
