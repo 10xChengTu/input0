@@ -38,6 +38,12 @@ Local AI transcription → LLM text optimization → auto-paste. Private, fast, 
 
 Download the latest `.dmg` from [GitHub Releases](https://github.com/nicepkg/input0/releases), open it, and drag **Input 0** into your Applications folder.
 
+Using [Homebrew](https://brew.sh):
+
+```shell
+brew install --cask input0
+```
+
 > On first launch, macOS may show a security warning. Go to **System Settings → Privacy & Security** and click **Open Anyway**.
 
 ### 2. Grant Permissions
