@@ -127,7 +127,8 @@ docs/                         # 设计文档与需求记录
 | [docs/feature-ui-redesign.md](docs/feature-ui-redesign.md) | UI 重设计：暗黑主题 + 动画 | 2026-03-30 |
 | [docs/feature-esc-cancel.md](docs/feature-esc-cancel.md) | ESC 取消语音输入 | 2026-03-31 |
 | [docs/feature-ui-redesign-sidebar.md](docs/feature-ui-redesign-sidebar.md) | Sidebar + 多页面布局 | 2026-04-01 |
-| [docs/feature-prompt-optimization.md](docs/feature-prompt-optimization.md) | LLM 文本纠错 Prompt 优化 + 历史上下文（中英双版） | 2026-05-01 |
+| [docs/feature-prompt-optimization.md](docs/feature-prompt-optimization.md) | LLM 文本纠错 Prompt 优化 + 历史上下文（中英双版） | 2026-05-10 |
+| [docs/feature-prompt-eval-suite.md](docs/feature-prompt-eval-suite.md) | 200 条提示词评估套件 + 默认提示词重优化（Rust integration test + Codex CLI judge + 100% 通过） | 2026-05-10 |
 | [docs/feature-custom-prompt.md](docs/feature-custom-prompt.md) | 自定义提示词（覆盖内置 + 安全尾巴 + tag 引用） | 2026-05-01 |
 | [docs/landing-page-brief.md](docs/landing-page-brief.md) | Landing Page Brief：品牌文案、功能清单、设计系统规范 | 2026-04-19 |
 | [docs/feature-text-structuring.md](docs/feature-text-structuring.md) | 文本结构化优化（可选 toggle，LLM 自动换行/列表/段落） | 2026-04-10 |

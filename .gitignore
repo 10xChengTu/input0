@@ -7,3 +7,4 @@ debug
 # Whisper model files (too large for git, download separately)
 src-tauri/resources/*.bin
 .specstory
+tmp/

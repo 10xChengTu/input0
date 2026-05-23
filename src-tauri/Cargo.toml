@@ -39,6 +39,8 @@ regex = "1"
 wiremock = "0.6"
 tempfile = "3"
 tokio = { version = "1", features = ["full", "test-util"] }
+anyhow = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
 
 [lints.rust]
 # The `objc` crate 0.2's msg_send!/class! macros reference cfg(feature = "cargo-clippy")

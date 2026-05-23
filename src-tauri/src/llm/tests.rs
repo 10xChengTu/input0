@@ -1224,8 +1224,8 @@ mod tests {
         let prompt = build_system_prompt("zh", false, "", &[], &[]);
         assert!(prompt.contains("自我修正"), "zh prompt should declare self-correction rule");
         assert!(prompt.contains("不对") && prompt.contains("哦不") && prompt.contains("算了"), "zh prompt should list correction triggers");
-        assert!(prompt.contains("不是 A 是 B") || prompt.contains("不是 A — 是 B"), "zh prompt should mention 'A vs B' correction structure");
-        assert!(prompt.contains("数量必须同步修正"), "zh prompt should require chained count correction after collapse");
+        assert!(prompt.contains("实际罗列数严格一致") || prompt.contains("不是 A 是 B") || prompt.contains("不是 A — 是 B"), "zh prompt should mention count alignment or 'A vs B' correction structure");
+        assert!(prompt.contains("数量必须同步修正") || prompt.contains("同步修正前文中的数量词"), "zh prompt should require chained count correction after collapse");
     }
 
     #[test]
@@ -1234,7 +1234,7 @@ mod tests {
         assert!(prompt.contains("Self-correction"), "en prompt should declare self-correction rule");
         assert!(prompt.contains("no wait") && prompt.contains("actually") && prompt.contains("scratch that"), "en prompt should list correction triggers");
         assert!(prompt.contains("不对") && prompt.contains("算了"), "en prompt should list Chinese correction triggers for code-switching");
-        assert!(prompt.contains("match the actual count"), "en prompt should require count consistency after collapse");
+        assert!(prompt.contains("match the actual count") || prompt.contains("rewrite the opening count to match") || prompt.contains("ALWAYS rewrite the opening count"), "en prompt should require count consistency after collapse");
     }
 
     #[test]
@@ -1992,5 +1992,31 @@ Prefer these terms when phonetically similar: {{{{vocabulary}}}}
             !prompt.contains("Output Simplified") && !prompt.contains("请输出简体"),
             "auto/non-zh-explicit custom prompt should not force a variant"
         );
+    }
+
+    // --- ChatRequest Serialization Tests ---
+
+    #[test]
+    fn test_chat_request_serializes_temperature_when_set() {
+        use serde_json::json;
+        let req = crate::llm::client::ChatRequest {
+            model: "gpt-4o-mini".to_string(),
+            messages: vec![],
+            temperature: Some(0.0),
+        };
+        let serialized = serde_json::to_value(&req).unwrap();
+        assert_eq!(serialized["temperature"], json!(0.0));
+    }
+
+    #[test]
+    fn test_chat_request_omits_temperature_when_none() {
+        let req = crate::llm::client::ChatRequest {
+            model: "gpt-4o-mini".to_string(),
+            messages: vec![],
+            temperature: None,
+        };
+        let serialized = serde_json::to_value(&req).unwrap();
+        assert!(serialized.get("temperature").is_none(),
+            "temperature field should be omitted when None");
     }
 }

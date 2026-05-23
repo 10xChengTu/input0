@@ -1,0 +1,4595 @@
+[
+  {
+    "id": "mixed-zh-001",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "我们用瑞嗯特做前端，然后通过诶辟爱调后端",
+    "checks": {
+      "must_contain": [
+        "React",
+        "API"
+      ],
+      "must_not_contain": [
+        "瑞嗯特",
+        "诶辟爱"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-002",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "前端用泰普斯克瑞普特写，配合杰森解析",
+    "checks": {
+      "must_contain": [
+        "TypeScript",
+        "JSON"
+      ],
+      "must_not_contain": [
+        "泰普斯克瑞普特",
+        "杰森"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-003",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用派森写脚本，然后部署到道克容器里",
+    "checks": {
+      "must_contain": [
+        "Python",
+        "Docker"
+      ],
+      "must_not_contain": [
+        "派森",
+        "道克"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-004",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "数据库用瑞迪斯做缓存，提升读性能",
+    "checks": {
+      "must_contain": [
+        "Redis"
+      ],
+      "must_not_contain": [
+        "瑞迪斯"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-005",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "容器编排用库伯内特斯，现在规模大了必须用",
+    "checks": {
+      "must_contain": [
+        "Kubernetes"
+      ],
+      "must_not_contain": [
+        "库伯内特斯"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-006",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "后端接口用高语言写，并发性能很好",
+    "checks": {
+      "must_contain": [
+        "Go"
+      ],
+      "must_not_contain": [
+        "高语言"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-007",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用恩屁恩安装依赖，再跑构建命令",
+    "checks": {
+      "must_contain": [
+        "npm"
+      ],
+      "must_not_contain": [
+        "恩屁恩"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-008",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "前端框架在威由和诶恩苟拉之间纠结",
+    "checks": {
+      "must_contain": [
+        "Vue",
+        "Angular"
+      ],
+      "must_not_contain": [
+        "威由",
+        "诶恩苟拉"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-009",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "认证方案用傲优提配合葛微提发令牌",
+    "checks": {
+      "must_contain": [
+        "OAuth",
+        "JWT"
+      ],
+      "must_not_contain": [
+        "傲优提",
+        "葛微提"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-010",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "我用 GitHub Copilot 写代码，速度快多了",
+    "checks": {
+      "must_contain": [
+        "GitHub Copilot"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": "Output must keep 'GitHub Copilot' verbatim and the meaning that the speaker uses it to write code faster. Must not invent details."
+  },
+  {
+    "id": "mixed-zh-011",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "把 PR 合到 main 分支之前要先跑测试",
+    "checks": {
+      "must_contain": [
+        "PR",
+        "main"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-012",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "跑 CI 流水线失败了，看了一下是单元测试挂了",
+    "checks": {
+      "must_contain": [
+        "CI"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-013",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 docker compose 起服务，本地开发环境搭好了",
+    "checks": {
+      "must_contain": [
+        "Docker Compose"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-014",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "调用 useState 钩子管理组件状态",
+    "checks": {
+      "must_contain": [
+        "useState"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 40
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-015",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 useEffect 处理副作用，记得清理订阅",
+    "checks": {
+      "must_contain": [
+        "useEffect"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-016",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "接口设计用瑞斯特风格还是葛阿皮西",
+    "checks": {
+      "must_contain": [
+        "REST",
+        "gRPC"
+      ],
+      "must_not_contain": [
+        "瑞斯特",
+        "葛阿皮西"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": "Output must restore the phonetic transliterations: 瑞斯特→REST, 葛阿皮西→gRPC. Must preserve the speaker's question of choosing between REST and gRPC for interface design. Must not take a side or recommend one over the other."
+  },
+  {
+    "id": "mixed-zh-017",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "打包工具从 Webpack 换成 Vite 了，构建快很多",
+    "checks": {
+      "must_contain": [
+        "Webpack",
+        "Vite"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-018",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "代码风格用 ESLint 加 Prettier 保证一致性",
+    "checks": {
+      "must_contain": [
+        "ESLint",
+        "Prettier"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-019",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用吉特拉布管代码仓库，自带 CI 功能挺方便",
+    "checks": {
+      "must_contain": [
+        "GitLab",
+        "CI"
+      ],
+      "must_not_contain": [
+        "吉特拉布"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-020",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "查询语言用葛拉服 QL 比 REST 更灵活",
+    "checks": {
+      "must_contain": [
+        "GraphQL",
+        "REST"
+      ],
+      "must_not_contain": [
+        "葛拉服"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-021",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "这个 bug 在 main 分支上，需要赶紧 hotfix",
+    "checks": {
+      "must_contain": [
+        "bug",
+        "main",
+        "hotfix"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-022",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "前端状态管理用瑞多克斯还是 Zustand",
+    "checks": {
+      "must_contain": [
+        "Redux",
+        "Zustand"
+      ],
+      "must_not_contain": [
+        "瑞多克斯"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-023",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "模型用嗯木 MongoDB 存文档，查询很方便",
+    "checks": {
+      "must_contain": [
+        "MongoDB"
+      ],
+      "must_not_contain": [
+        "嗯木"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-024",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "这个 feature 做完要写 unit test 再合代码",
+    "checks": {
+      "must_contain": [
+        "feature",
+        "unit test"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-025",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "这次发布用蓝绿部署，零停机切换",
+    "checks": {
+      "must_contain": [],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": "Output must convey that the deployment strategy is blue-green with zero downtime. Must not add unrelated technical details."
+  },
+  {
+    "id": "mixed-zh-026",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Terraform 管基础设施，比手动配置稳多了",
+    "checks": {
+      "must_contain": [
+        "Terraform"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-027",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "机器学习框架用派托驰还是天盛流",
+    "checks": {
+      "must_contain": [
+        "PyTorch",
+        "TensorFlow"
+      ],
+      "must_not_contain": [
+        "派托驰",
+        "天盛流"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-028",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Figma 画原型，设计稿和开发直接对齐",
+    "checks": {
+      "must_contain": [
+        "Figma"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-029",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "移动端用瑞科特内提夫开发，一套代码跑双端",
+    "checks": {
+      "must_contain": [
+        "React Native"
+      ],
+      "must_not_contain": [
+        "瑞科特内提夫"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-030",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "服务部署在 AWS 上，用 Lambda 做无服务器计算",
+    "checks": {
+      "must_contain": [
+        "AWS",
+        "Lambda"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-031",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "今天 code review 发现好几个内存泄漏的问题",
+    "checks": {
+      "must_contain": [
+        "code review"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-032",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "测试覆盖率要求 80% 以上，现在差 end to end 测试",
+    "checks": {
+      "must_contain": [
+        "80%",
+        "end to end"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-033",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "消息队列用卡夫卡，日志量大的时候稳",
+    "checks": {
+      "must_contain": [
+        "Kafka"
+      ],
+      "must_not_contain": [
+        "卡夫卡"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-034",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "监控告警用 Prometheus 加 Grafana 看板",
+    "checks": {
+      "must_contain": [
+        "Prometheus",
+        "Grafana"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-035",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "这次迭代的 sprint 目标是把登录模块重构",
+    "checks": {
+      "must_contain": [
+        "sprint"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-036",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "接口文档用 Swagger 自动生成，省了很多手写时间",
+    "checks": {
+      "must_contain": [
+        "Swagger"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-037",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "把这个微服务拆成独立的 repo 管理",
+    "checks": {
+      "must_contain": [
+        "repo"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 45
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-038",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Nginx 做反向代理，前面再加 CDN 加速",
+    "checks": {
+      "must_contain": [
+        "Nginx",
+        "CDN"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-039",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "数据可视化用 D3.js，灵活但学习曲线陡",
+    "checks": {
+      "must_contain": [
+        "D3.js"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-040",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Next.js 做服务端渲染，SEO 效果好",
+    "checks": {
+      "must_contain": [
+        "Next.js",
+        "SEO"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-041",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "数据分析用朱派特写，可视化很直观",
+    "checks": {
+      "must_contain": [
+        "Jupyter"
+      ],
+      "must_not_contain": [
+        "朱派特"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 45
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-042",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "安全扫描用 OWASP 规范，每次发布前必查",
+    "checks": {
+      "must_contain": [
+        "OWASP"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-043",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Storybook 维护组件文档，跟设计同步",
+    "checks": {
+      "must_contain": [
+        "Storybook"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-044",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "吉特提交规范用康冯神纳尔提交，自动生成 changelog",
+    "checks": {
+      "must_contain": [
+        "Git",
+        "changelog"
+      ],
+      "must_not_contain": [
+        "吉特",
+        "康冯神纳尔提交"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-045",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Cursor 写代码，AI 补全比之前的 IDE 强很多",
+    "checks": {
+      "must_contain": [
+        "Cursor",
+        "AI",
+        "IDE"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 60
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-046",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "微服务间通信用 gRPC，性能比 REST 好",
+    "checks": {
+      "must_contain": [
+        "gRPC",
+        "REST"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-zh-047",
+    "scenario": "mixed",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用 Tailwind CSS 写样式，开发效率高",
+    "checks": {
+      "must_contain": [
+        "Tailwind CSS"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-001",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we use react with the api layer and json everywhere",
+    "checks": {
+      "must_contain": [
+        "React",
+        "API",
+        "JSON"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 30,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-002",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the sla was 99.9% uptime last quarter",
+    "checks": {
+      "must_contain": [
+        "SLA",
+        "99.9%"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 25,
+      "max_chars": 80
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-003",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we pushed to github and the ci pipeline kicked off automatically",
+    "checks": {
+      "must_contain": [
+        "GitHub",
+        "CI"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-004",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the team uses typescript for all new javascript projects",
+    "checks": {
+      "must_contain": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 90
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-005",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we containerize everything with docker and orchestrate it with kubernetes",
+    "checks": {
+      "must_contain": [
+        "Docker",
+        "Kubernetes"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-006",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "switched from rest to graphql and the over-fetching problem went away",
+    "checks": {
+      "must_contain": [
+        "REST",
+        "GraphQL"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-007",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the pr needs review before merging to main, check the ci status first",
+    "checks": {
+      "must_contain": [
+        "PR",
+        "main",
+        "CI"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-008",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we cache expensive queries in redis, hits the 200ms p99 target",
+    "checks": {
+      "must_contain": [
+        "Redis"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-009",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "authentication is handled by oauth with jwt tokens, no sessions",
+    "checks": {
+      "must_contain": [
+        "OAuth",
+        "JWT"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-010",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "python script reads from mongodb and writes summary to a csv file",
+    "checks": {
+      "must_contain": [
+        "Python",
+        "MongoDB"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-011",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the api rate limit is 1000 requests per minute with an rps cap",
+    "checks": {
+      "must_contain": [
+        "API",
+        "1000"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-012",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we use eslint and prettier for code style, enforced in the gitlab ci",
+    "checks": {
+      "must_contain": [
+        "ESLint",
+        "Prettier",
+        "GitLab",
+        "CI"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-013",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the go service handles 10k rps with sub-millisecond latency",
+    "checks": {
+      "must_contain": [
+        "Go"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 90
+    },
+    "judge_rubric": "Output must capitalize 'go' as the Go programming language. Must preserve the performance claim of 10k RPS and sub-millisecond latency without altering the numbers."
+  },
+  {
+    "id": "mixed-en-014",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "infra is managed by terraform, no more clicking around in the aws console",
+    "checks": {
+      "must_contain": [
+        "Terraform",
+        "AWS"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-015",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we stream events through kafka and process them in real time with flink",
+    "checks": {
+      "must_contain": [
+        "Kafka"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-016",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the model is trained in pytorch, exported to onnx for serving",
+    "checks": {
+      "must_contain": [
+        "PyTorch",
+        "ONNX"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-017",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we track all issues in jira and link them to the github prs",
+    "checks": {
+      "must_contain": [
+        "Jira",
+        "GitHub"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 35,
+      "max_chars": 100
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-018",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the frontend is built with next.js, deployed on vercel with edge functions",
+    "checks": {
+      "must_contain": [
+        "Next.js",
+        "Vercel"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "mixed-en-019",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "monitoring is done via prometheus metrics exposed on a grafana dashboard",
+    "checks": {
+      "must_contain": [
+        "Prometheus",
+        "Grafana"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 40,
+      "max_chars": 110
+    },
+    "judge_rubric": "Output must clearly describe that Prometheus collects metrics and Grafana is used for visualization/dashboards. Must not omit either tool."
+  },
+  {
+    "id": "mixed-en-020",
+    "scenario": "mixed",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we write unit tests with jest and e2e tests with playwright, coverage is above 85%",
+    "checks": {
+      "must_contain": [
+        "Jest",
+        "Playwright",
+        "85%"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 45,
+      "max_chars": 120
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-001",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "呃 我觉得吧 嗯 这个方案 啊 还行",
+    "checks": {
+      "must_contain": [
+        "这个方案"
+      ],
+      "must_not_contain": [
+        "呃",
+        "嗯",
+        "啊"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 30
+    },
+    "judge_rubric": "Output should be a clean version of '我觉得这个方案还行' or similar — preserve the speaker's positive evaluation, no filler words."
+  },
+  {
+    "id": "stutter-zh-002",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "我我我我觉得这个不对",
+    "checks": {
+      "must_contain": [
+        "不对"
+      ],
+      "must_not_contain": [
+        "我我",
+        "我我我"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-003",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "那个 那个 你帮我看一下这份报告",
+    "checks": {
+      "must_contain": [
+        "报告"
+      ],
+      "must_not_contain": [
+        "那个 那个",
+        "那个那个"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-004",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "就是 就是 这个功能明天上线",
+    "checks": {
+      "must_contain": [
+        "功能",
+        "明天",
+        "上线"
+      ],
+      "must_not_contain": [
+        "就是 就是",
+        "就是就是"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-005",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "嗯嗯 我今天开了三个会",
+    "checks": {
+      "must_contain": [
+        "会"
+      ],
+      "must_not_contain": [
+        "嗯嗯",
+        "嗯 嗯"
+      ],
+      "must_match_regex": [
+        "3\\s?个会|三个会"
+      ],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 15
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-006",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "啊 这个 啊 代码要重构一下",
+    "checks": {
+      "must_contain": [
+        "代码",
+        "重构"
+      ],
+      "must_not_contain": [
+        "啊"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-007",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "呃 下周呃 我们需要呃 交付这个项目",
+    "checks": {
+      "must_contain": [
+        "下周",
+        "交付",
+        "项目"
+      ],
+      "must_not_contain": [
+        "呃"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 25
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-008",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "他他他说明天不来了",
+    "checks": {
+      "must_contain": [
+        "他说明天不来了"
+      ],
+      "must_not_contain": [
+        "他他",
+        "他他他"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 7,
+      "max_chars": 15
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-009",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "这这这个接口返回了错误",
+    "checks": {
+      "must_contain": [
+        "接口",
+        "错误"
+      ],
+      "must_not_contain": [
+        "这这",
+        "这这这"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 18
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-010",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "明天九点开会，不对，是十点",
+    "checks": {
+      "must_contain": [
+        "10"
+      ],
+      "must_not_contain": [
+        "不对",
+        "九点",
+        "9点"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 30
+    },
+    "judge_rubric": "Output must reflect the corrected time (10 o'clock / 10:00) and drop the original mistaken '九点' completely."
+  },
+  {
+    "id": "stutter-zh-011",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "我觉得吧 我觉得吧 这个方向是对的",
+    "checks": {
+      "must_contain": [
+        "方向是对的"
+      ],
+      "must_not_contain": [
+        "我觉得吧 我觉得吧",
+        "我觉得吧我觉得吧"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-012",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "说真的说真的 这个需求有点难",
+    "checks": {
+      "must_contain": [
+        "需求",
+        "难"
+      ],
+      "must_not_contain": [
+        "说真的说真的",
+        "说真的 说真的"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 6,
+      "max_chars": 18
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-013",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "一步一步来 一步一步来 别着急",
+    "checks": {
+      "must_contain": [
+        "一步一步来"
+      ],
+      "must_not_contain": [
+        "一步一步来 一步一步来"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 6,
+      "max_chars": 18
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-014",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "不是说要删 是说要归档",
+    "checks": {
+      "must_contain": [
+        "归档"
+      ],
+      "must_not_contain": [
+        "不是说要删",
+        "删"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 3,
+      "max_chars": 15
+    },
+    "judge_rubric": "Output should convey that the action is archiving, not deleting. The speaker corrected themselves — final intent is '归档'."
+  },
+  {
+    "id": "stutter-zh-015",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "不是后端的问题 是前端的问题",
+    "checks": {
+      "must_contain": [
+        "后端",
+        "前端"
+      ],
+      "must_not_contain": [
+        "呃",
+        "啊",
+        "嗯"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 4,
+      "max_chars": 40
+    },
+    "judge_rubric": "Speaker is using parallel contrast — 'not the backend issue, it's the frontend issue'. Output should preserve both the negation of backend AND the affirmation of frontend, not just one. Acceptable forms: '不是后端的问题，是前端的问题' or '是前端的问题不是后端' or similar."
+  },
+  {
+    "id": "stutter-zh-016",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "不是用户的锅 是我们系统的bug",
+    "checks": {
+      "must_contain": [
+        "用户的锅",
+        "系统"
+      ],
+      "must_not_contain": [
+        "呃",
+        "啊"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 20
+    },
+    "judge_rubric": "Parallel contrast: speaker clarifies it's not the user's fault but the system's bug. Both clauses should be retained. Output must contain both \"用户的锅\" (not their fault) and \"系统\" (system bug)."
+  },
+  {
+    "id": "stutter-zh-017",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "不是明天上线 是后天上线",
+    "checks": {
+      "must_contain": [
+        "后天"
+      ],
+      "must_not_contain": [
+        "呃",
+        "啊",
+        "嗯"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 4,
+      "max_chars": 30
+    },
+    "judge_rubric": "Ambiguous '不是 A 是 B' — could be self-correction (drop 明天) or parallel contrast (keep both). Either interpretation is acceptable as long as 后天 (the final/intended date) is preserved and no filler words remain."
+  },
+  {
+    "id": "stutter-zh-018",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "不是减少 是增加预算",
+    "checks": {
+      "must_contain": [
+        "增加预算"
+      ],
+      "must_not_contain": [
+        "减少",
+        "不是"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 4,
+      "max_chars": 15
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-019",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "不是第三方库的问题 是我们自己代码的问题",
+    "checks": {
+      "must_contain": [
+        "第三方库",
+        "自己代码"
+      ],
+      "must_not_contain": [
+        "呃",
+        "啊"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 30
+    },
+    "judge_rubric": "Parallel contrast: speaker clarifies it's not the third-party library but their own code. Both clauses should be retained. Output must contain both \"第三方库\" and \"自己代码\"."
+  },
+  {
+    "id": "stutter-zh-020",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用户增长了百分之十五，不对是百分之二十五",
+    "checks": {
+      "must_contain": [
+        "25%"
+      ],
+      "must_not_contain": [
+        "15%",
+        "百分之十五",
+        "百分之二十五",
+        "不对"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 30
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-021",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "团队规模是二十人，不对，是三十人",
+    "checks": {
+      "must_contain": [
+        "30"
+      ],
+      "must_not_contain": [
+        "20",
+        "二十人",
+        "三十人",
+        "不对"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-022",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "接口延迟是五百毫秒，不对，是两百毫秒",
+    "checks": {
+      "must_contain": [
+        "200"
+      ],
+      "must_not_contain": [
+        "500ms",
+        "五百",
+        "两百",
+        "不对"
+      ],
+      "must_match_regex": [
+        "200\\s?(ms|毫秒)"
+      ],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 25
+    },
+    "judge_rubric": "Output must show the corrected latency value of 200ms, not 500ms."
+  },
+  {
+    "id": "stutter-zh-023",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "会议在三楼，啊不对，是五楼",
+    "checks": {
+      "must_contain": [
+        "5"
+      ],
+      "must_not_contain": [
+        "3楼",
+        "三楼",
+        "不对",
+        "啊不对"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 15
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-024",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "截止日期是六号，不对，是八号",
+    "checks": {
+      "must_contain": [
+        "8"
+      ],
+      "must_not_contain": [
+        "六号",
+        "不对"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 15
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-025",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "瑞嗯特，就是 R-E-A-C-T，是我们前端的框架",
+    "checks": {
+      "must_contain": [
+        "React"
+      ],
+      "must_not_contain": [
+        "瑞嗯特",
+        "R-E-A-C-T"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 50
+    },
+    "judge_rubric": "The phonetic '瑞嗯特' and spelled-out 'R-E-A-C-T' should both collapse into 'React'. The output should sound natural."
+  },
+  {
+    "id": "stutter-zh-026",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "吉特，就是 G-I-T，用来管理代码版本",
+    "checks": {
+      "must_contain": [
+        "Git"
+      ],
+      "must_not_contain": [
+        "吉特",
+        "G-I-T"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 20
+    },
+    "judge_rubric": "The phonetic '吉特' and the spelled 'G-I-T' together indicate Git. The output should say 'Git' naturally."
+  },
+  {
+    "id": "stutter-zh-027",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "用赛艾斯哦，就是 C-S-S，写样式",
+    "checks": {
+      "must_contain": [
+        "CSS"
+      ],
+      "must_not_contain": [
+        "赛艾斯哦",
+        "C-S-S"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 15
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-028",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "接口文档用斯沃格，就是 S-W-A-G-G-E-R",
+    "checks": {
+      "must_contain": [
+        "Swagger"
+      ],
+      "must_not_contain": [
+        "斯沃格",
+        "S-W-A-G-G-E-R"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 50
+    },
+    "judge_rubric": "Phonetic '斯沃格' + spelled 'S-W-A-G-G-E-R' should merge to 'Swagger'. Output should read naturally."
+  },
+  {
+    "id": "stutter-zh-029",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "消息队列用卡夫卡，就是 K-A-F-K-A",
+    "checks": {
+      "must_contain": [
+        "Kafka"
+      ],
+      "must_not_contain": [
+        "卡夫卡",
+        "K-A-F-K-A"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 8,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-030",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "搜索引擎用伊拉斯提克，就是 E-L-K",
+    "checks": {
+      "must_contain": [],
+      "must_not_contain": [
+        "伊拉斯提克",
+        "E-L-K"
+      ],
+      "must_match_regex": [
+        "(Elastic|ELK)"
+      ],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-031",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "预算两千三百，不对，两千五百",
+    "checks": {
+      "must_contain": [
+        "2500"
+      ],
+      "must_not_contain": [
+        "2300",
+        "两千三百",
+        "两千五百",
+        "不对"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 25
+    },
+    "judge_rubric": "The corrected budget figure must be 2500. The original wrong figure 2300 must not appear."
+  },
+  {
+    "id": "stutter-zh-032",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "服务器有三十二核，不对，是六十四核",
+    "checks": {
+      "must_contain": [
+        "64"
+      ],
+      "must_not_contain": [
+        "32",
+        "三十二",
+        "六十四",
+        "不对"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-033",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "今年销售额三百万，啊不对，是三千万",
+    "checks": {
+      "must_contain": [
+        "3000"
+      ],
+      "must_not_contain": [
+        "三百万",
+        "三千万",
+        "不对"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 20
+    },
+    "judge_rubric": "Output must show the corrected figure of 30 million (3000万). The tenfold difference matters."
+  },
+  {
+    "id": "stutter-zh-034",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "响应时间一百毫秒，不对，五十毫秒",
+    "checks": {
+      "must_contain": [
+        "50"
+      ],
+      "must_not_contain": [
+        "100ms",
+        "一百",
+        "五十",
+        "不对"
+      ],
+      "must_match_regex": [
+        "50\\s?(ms|毫秒)"
+      ],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-035",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "内存占用四个G，不对，是八个G",
+    "checks": {
+      "must_contain": [
+        "8"
+      ],
+      "must_not_contain": [
+        "4GB",
+        "四个G",
+        "不对"
+      ],
+      "must_match_regex": [
+        "8\\s?G"
+      ],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-036",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "磁盘空间五十个G，啊 不对是一百个G",
+    "checks": {
+      "must_contain": [
+        "100"
+      ],
+      "must_not_contain": [
+        "50GB",
+        "五十个G",
+        "不对"
+      ],
+      "must_match_regex": [
+        "100\\s?G"
+      ],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-037",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "我想说三件事 第一是优化性能 第二是修复bug 啊算了 就说两件事好了",
+    "checks": {
+      "must_contain": [
+        "性能",
+        "bug"
+      ],
+      "must_not_contain": [
+        "三件",
+        "第三"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 50
+    },
+    "judge_rubric": "The speaker self-corrected from 3 items to 2. Output must list exactly 2 items (performance + bug fix) and not mention '三件事' or imply a third item."
+  },
+  {
+    "id": "stutter-zh-038",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "今天有四个任务 第一是写文档 第二是做测试 第三是代码review 嗯算了 只做两个",
+    "checks": {
+      "must_contain": [
+        "文档",
+        "测试"
+      ],
+      "must_not_contain": [
+        "四个",
+        "第四",
+        "review",
+        "第三"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 40
+    },
+    "judge_rubric": "The speaker narrowed from 4 tasks to 2. Only '写文档' and '做测试' should appear. '代码review' and any mention of 4 or 3 tasks should be absent."
+  },
+  {
+    "id": "stutter-zh-039",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "要做五个模块 登录 注册 首页 详情 啊不对 就做三个 登录 注册 首页",
+    "checks": {
+      "must_contain": [
+        "登录",
+        "注册",
+        "首页"
+      ],
+      "must_not_contain": [
+        "五个",
+        "详情",
+        "不对"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 30
+    },
+    "judge_rubric": "Output must list exactly three modules: 登录、注册、首页. '详情' and any reference to 5 modules must be absent."
+  },
+  {
+    "id": "stutter-zh-040",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "分享两点经验 第一是多写代码 第二是多读文档 对了还有第三点 多交流 但第三点最重要",
+    "checks": {
+      "must_contain": [
+        "代码",
+        "文档",
+        "交流"
+      ],
+      "must_not_contain": [
+        "两点"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 50
+    },
+    "judge_rubric": "The speaker expanded from 2 to 3 points mid-sentence. Output must reflect all 3 points (写代码、读文档、交流) and adjust count accordingly."
+  },
+  {
+    "id": "stutter-zh-041",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "说三个优化点 第一减少请求 第二缓存数据 第三压缩图片 嗯其实第一点最重要",
+    "checks": {
+      "must_contain": [
+        "请求",
+        "缓存",
+        "压缩"
+      ],
+      "must_not_contain": [
+        "嗯其实"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 50
+    },
+    "judge_rubric": "All 3 optimization points must appear. The filler commentary '嗯其实第一点最重要' should be dropped or integrated cleanly."
+  },
+  {
+    "id": "stutter-zh-042",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "呃 这个bug出现在登录页 嗯 大概是token过期的问题 啊 需要刷新一下",
+    "checks": {
+      "must_contain": [
+        "登录",
+        "token"
+      ],
+      "must_not_contain": [
+        "呃",
+        "嗯",
+        "啊"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 40
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-043",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "就是 我想说的是 就是 用户体验很重要",
+    "checks": {
+      "must_contain": [
+        "用户体验"
+      ],
+      "must_not_contain": [
+        "就是 就是",
+        "就是我想说的是 就是"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 6,
+      "max_chars": 15
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-044",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "那个 这次发布 那个 我们要做好回滚计划",
+    "checks": {
+      "must_contain": [
+        "发布",
+        "回滚"
+      ],
+      "must_not_contain": [
+        "那个"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 20
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-045",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "嗯 这个任务嗯 优先级比较高 嗯嗯 下午之前要完成",
+    "checks": {
+      "must_contain": [
+        "优先级",
+        "下午"
+      ],
+      "must_not_contain": [
+        "嗯"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 25
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-zh-046",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "不是要删除数据 是要软删除 就是加个deleted字段",
+    "checks": {
+      "must_contain": [
+        "删除数据",
+        "软删除",
+        "deleted"
+      ],
+      "must_not_contain": [
+        "呃",
+        "啊"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": "Speaker uses parallel contrast — 'not delete data, but soft-delete, add deleted field'. Output should preserve all three clauses (the negation of hard delete, the affirmation of soft delete, and the implementation detail about the deleted field)."
+  },
+  {
+    "id": "stutter-zh-047",
+    "scenario": "stutter",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "呃 这个版本我们支持 嗯 三个平台 啊 苹果 安卓 网页",
+    "checks": {
+      "must_contain": [
+        "苹果",
+        "安卓",
+        "网页"
+      ],
+      "must_not_contain": [
+        "呃",
+        "嗯",
+        "啊"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 12,
+      "max_chars": 25
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-001",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "uh I I I think the the the plan is okay",
+    "checks": {
+      "must_contain": [
+        "plan"
+      ],
+      "must_not_contain": [
+        "uh ",
+        "I I",
+        "the the"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 40
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-002",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "um we we need to fix this bug before the release",
+    "checks": {
+      "must_contain": [
+        "fix",
+        "bug",
+        "release"
+      ],
+      "must_not_contain": [
+        "um ",
+        "we we"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-003",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "like you know the API is like not responding right now",
+    "checks": {
+      "must_contain": [
+        "API"
+      ],
+      "must_not_contain": [
+        "like you know",
+        "like not",
+        "like like"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 70
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-004",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the the the database connection keeps dropping",
+    "checks": {
+      "must_contain": [
+        "database",
+        "connection"
+      ],
+      "must_not_contain": [
+        "the the"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-005",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "actually no wait scratch that we should use PostgreSQL not MySQL",
+    "checks": {
+      "must_contain": [
+        "PostgreSQL"
+      ],
+      "must_not_contain": [
+        "no wait",
+        "scratch that",
+        "actually"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 40
+    },
+    "judge_rubric": "Self-correction: \"scratch that\" means ignore \"actually no wait\" preamble. The corrected statement is \"we should use PostgreSQL not MySQL\" — the contrast \"not MySQL\" is part of the corrected content and should be kept. Fillers/hesitations must be removed."
+  },
+  {
+    "id": "stutter-en-006",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "I mean the deadline is Friday no wait it's Thursday",
+    "checks": {
+      "must_contain": [
+        "Thursday"
+      ],
+      "must_not_contain": [
+        "Friday",
+        "no wait",
+        "I mean"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 35
+    },
+    "judge_rubric": "Output must reflect the corrected deadline of Thursday, not Friday."
+  },
+  {
+    "id": "stutter-en-007",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we have like twenty employees you know working on this product",
+    "checks": {
+      "must_contain": [
+        "20",
+        "product"
+      ],
+      "must_not_contain": [
+        "you know"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 50
+    },
+    "judge_rubric": "Filler removal: \"you know\" must be dropped. \"like\" used as approximation hedge (\"like twenty employees\") may be retained. \"twenty\" → \"20\"."
+  },
+  {
+    "id": "stutter-en-008",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the server has um thirty-two cores and uh sixty-four gigs of RAM",
+    "checks": {
+      "must_contain": [
+        "32",
+        "64"
+      ],
+      "must_not_contain": [
+        "um ",
+        "uh "
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 25,
+      "max_chars": 55
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-009",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the team is actually actually really good at this",
+    "checks": {
+      "must_contain": [
+        "team"
+      ],
+      "must_not_contain": [
+        "actually actually"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 40
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-010",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the response time was five hundred milliseconds no wait it was two hundred",
+    "checks": {
+      "must_contain": [
+        "200"
+      ],
+      "must_not_contain": [
+        "500ms",
+        "no wait",
+        "five hundred"
+      ],
+      "must_match_regex": [
+        "200\\s?(ms|milliseconds?)"
+      ],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 40
+    },
+    "judge_rubric": "The corrected response time is 200ms, not 500ms. Output must reflect the final corrected value."
+  },
+  {
+    "id": "stutter-en-011",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "I I want to say that the deployment went smoothly",
+    "checks": {
+      "must_contain": [
+        "deployment"
+      ],
+      "must_not_contain": [
+        "I I"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-012",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "so so the main issue is memory leaks in the service",
+    "checks": {
+      "must_contain": [
+        "memory leaks",
+        "service"
+      ],
+      "must_not_contain": [
+        "so so"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-013",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we're talking three things first performance second security and third uh actually just two things performance and security",
+    "checks": {
+      "must_contain": [
+        "performance",
+        "security"
+      ],
+      "must_not_contain": [
+        "three things",
+        "third"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 90
+    },
+    "judge_rubric": "The speaker corrected from 3 items to 2. Output must list only performance and security, not reference a third item."
+  },
+  {
+    "id": "stutter-en-014",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "it's not the frontend issue it's the backend issue",
+    "checks": {
+      "must_contain": [
+        "backend",
+        "frontend"
+      ],
+      "must_not_contain": [
+        "uh",
+        "um"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 65
+    },
+    "judge_rubric": "Parallel contrast: \"not the frontend issue, it's the backend issue\" — both clauses carry meaning. Output should retain both frontend (negated) and backend (affirmed)."
+  },
+  {
+    "id": "stutter-en-015",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "uh the budget is like two million dollars you know for this quarter",
+    "checks": {
+      "must_contain": [
+        "budget",
+        "quarter"
+      ],
+      "must_not_contain": [
+        "uh ",
+        "you know"
+      ],
+      "must_match_regex": [
+        "(2,000,000|\\$2M|2 million)"
+      ],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 80
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-016",
+    "strategy_note": "phonetic-then-spell",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "we use Gee Queue Ell, that's G-Q-L, for our data layer",
+    "checks": {
+      "must_contain": [
+        "GQL"
+      ],
+      "must_not_contain": [
+        "Gee Queue Ell",
+        "G-Q-L"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 40
+    },
+    "judge_rubric": "The phonetic 'Gee Queue Ell' and 'G-Q-L' both resolve to 'GQL'. Output should use 'GQL' naturally."
+  },
+  {
+    "id": "stutter-en-017",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the error rate dropped to fifteen percent no scratch that five percent",
+    "checks": {
+      "must_contain": [
+        "5%"
+      ],
+      "must_not_contain": [
+        "15%",
+        "no scratch that",
+        "scratch that"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 40
+    },
+    "judge_rubric": "The corrected error rate is 5%, not 15%. Output must show only the final corrected figure."
+  },
+  {
+    "id": "stutter-en-018",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "you know we should you know document this API you know",
+    "checks": {
+      "must_contain": [
+        "document",
+        "API"
+      ],
+      "must_not_contain": [
+        "you know"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 40
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "stutter-en-019",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "the meeting is at room three oh four, no wait, room four oh three",
+    "checks": {
+      "must_contain": [
+        "403"
+      ],
+      "must_not_contain": [
+        "304",
+        "no wait"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 40
+    },
+    "judge_rubric": "The speaker corrected the room from 304 to 403. Output must reflect room 403."
+  },
+  {
+    "id": "stutter-en-020",
+    "scenario": "stutter",
+    "language": "en",
+    "text_structuring": false,
+    "input": "um the the app supports iOS Android and um web right now",
+    "checks": {
+      "must_contain": [
+        "iOS",
+        "Android",
+        "web"
+      ],
+      "must_not_contain": [
+        "um ",
+        "the the"
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 50
+    },
+    "judge_rubric": null
+  },
+  {
+    "id": "structure-zh-001",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "我说三件事 第一是用户增长上周新增了两千三百个 第二是收入这个月达到了五十万 第三是团队下周要招聘",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "2300",
+        "50"
+      ],
+      "must_not_contain": [
+        "第一是",
+        "第二是",
+        "第三是",
+        "两千三百"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 30,
+      "max_chars": 200
+    },
+    "judge_rubric": "Output must be a numbered list with a brief opening summary mentioning '3' items, then 1./2./3. with concise titled headings. Numbers must be in Arabic digits."
+  },
+  {
+    "id": "structure-zh-002",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "今天站会说四个点 第一前端登录页已经完成 第二后端接口还差两个 第三测试环境明天下午搭好 第四上线时间定在下周五",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "2"
+      ],
+      "must_not_contain": [
+        "第一",
+        "第二",
+        "第三",
+        "第四"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "4-item daily standup. Output must be a numbered list (1./2./3./4.) with each item on its own line. Item titles (e.g., '前端：' / '后端：') are nice but not required — '1. 内容' format is also acceptable. All four items (前端登录页 / 后端接口剩 2 个 / 测试环境明天下午 / 上线下周五) must come through. Numbers in Arabic."
+  },
+  {
+    "id": "structure-zh-003",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "周报汇报三点 一是本周完成了支付模块的开发 二是修复了十五个bug 三是下周计划做性能优化",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "15"
+      ],
+      "must_not_contain": [
+        "一是",
+        "二是",
+        "三是",
+        "十五个"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 30,
+      "max_chars": 200
+    },
+    "judge_rubric": "3-item numbered list. '十五个bug' must become '15个bug'. Each item should summarize the weekly report point concisely."
+  },
+  {
+    "id": "structure-zh-004",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "有三个风险需要提示 第一个是第三方API不稳定可能影响上线 第二个是设计稿还没最终确认 第三个是压测结果超出预期百分之二十",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "20%"
+      ],
+      "must_not_contain": [
+        "第一个是",
+        "第二个是",
+        "第三个是",
+        "百分之二十"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-item risk list. Each item on its own line in numbered format. '百分之二十' must convert to '20%'. Item titles (e.g., '第三方 API：') are acceptable but not required. All three risks (第三方 API 不稳定 / 设计稿未确认 / 压测超出预期 20%) must appear."
+  },
+  {
+    "id": "structure-zh-005",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "这道菜做法有五个步骤 首先把蒜切碎 然后热锅冷油 接着加入牛肉翻炒三分钟 之后倒入两勺生抽和一勺老抽 最后起锅前撒葱花",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "5.",
+        "3",
+        "2"
+      ],
+      "must_not_contain": [
+        "首先把",
+        "然后热",
+        "接着加"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "5-step recipe instruction list. Each step should be numbered. Quantities like '三分钟', '两勺', '一勺' should be in Arabic digits ('3分钟', '2勺', '1勺')."
+  },
+  {
+    "id": "structure-zh-006",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "项目review有三个问题 第一代码里有重复逻辑没有抽成公共函数 第二单测覆盖率只有百分之四十不达标 第三命名不规范有中文注释",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "40%"
+      ],
+      "must_not_contain": [
+        "第一代码",
+        "第二单测",
+        "第三命名",
+        "百分之四十"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-issue code review list. '百分之四十' must become '40%'. Each issue should have a title. Opening should say '3 issues found' or similar."
+  },
+  {
+    "id": "structure-zh-007",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "周末安排三件事 第一个去超市买东西大概要花一百五十块 第二个送孩子去兴趣班下午两点到四点 第三个晚上和朋友吃饭大概七点",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "150",
+        "2",
+        "4",
+        "7"
+      ],
+      "must_not_contain": [
+        "第一个去",
+        "第二个送",
+        "第三个晚",
+        "一百五十"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-item weekend plan as numbered list. Currency '一百五十块' → either '150 块' or '150 元' (both Arabic-converted are fine). Times '两点到四点' → '2:00 到 4:00' or '14:00–16:00' or similar Arabic forms; '七点' → '7 点' or '7:00' or '19:00'. All three plans (超市 / 兴趣班 / 朋友吃饭) must appear with their numbers in Arabic."
+  },
+  {
+    "id": "structure-zh-008",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "这次发布要做四件事 第一停机维护时间是凌晨两点到三点 第二要备份数据库大概需要二十分钟 第三部署新版本 第四发布完成后监控半小时",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "2:00",
+        "20"
+      ],
+      "must_not_contain": [
+        "第一停机",
+        "第二要",
+        "第三部署",
+        "第四发布",
+        "凌晨两点",
+        "二十分钟"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "4-step deployment checklist. '凌晨两点到三点' → '2:00–3:00 AM', '二十分钟' → '20分钟'. Numbered list with action-oriented items."
+  },
+  {
+    "id": "structure-zh-009",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "销售报告有三个重点 首先本季度总销售额达到了三百八十万 其次新客户比上季度增加了百分之三十五 最后退货率降到了百分之二",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "380",
+        "35%",
+        "2%"
+      ],
+      "must_not_contain": [
+        "首先",
+        "其次",
+        "最后",
+        "三百八十万",
+        "百分之三十五",
+        "百分之二"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-point sales report. '三百八十万' → '380万', '百分之三十五' → '35%', '百分之二' → '2%'. Numbered list with titles like '销售额', '新客户增长', '退货率'."
+  },
+  {
+    "id": "structure-zh-010",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "面试反馈三点 第一技术能力扎实算法题全部通过 第二表达能力一般回答有些绕 第三薪资期望两万五比预算高出三千",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "25000",
+        "3000"
+      ],
+      "must_not_contain": [
+        "第一技术",
+        "第二表达",
+        "第三薪资",
+        "两万五",
+        "三千"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-point interview feedback list. '两万五' → '25000元', '三千' → '3000元'. Each item: short heading + brief evaluation."
+  },
+  {
+    "id": "structure-zh-011",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "装修方案三个选项 第一方案是北欧风预算大概十八万 第二方案是现代简约预算十二万到十五万 第三方案是日式风格预算二十万以上",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "18",
+        "12",
+        "20"
+      ],
+      "must_not_contain": [
+        "第一方案是",
+        "第二方案是",
+        "第三方案是",
+        "十八万",
+        "十二万",
+        "二十万"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-option renovation plan. All amounts should be Arabic digits: '十八万' → '18万', '十二万到十五万' → '12万–15万', '二十万' → '20万'. Each option: style name + budget."
+  },
+  {
+    "id": "structure-zh-012",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "调试步骤有四步 第一先看日志确认报错信息 第二复现问题在本地环境 第三定位到具体代码行 第四修复并写单元测试验证",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4."
+      ],
+      "must_not_contain": [
+        "第一先",
+        "第二复",
+        "第三定",
+        "第四修"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "4-step debugging process. Each step should be an action item. Opening should mention '4 steps'. Concise numbered list format."
+  },
+  {
+    "id": "structure-zh-013",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "产品规划三个阶段 第一阶段是MVP版本两个月内完成核心功能 第二阶段是三个月后推出付费套餐 第三阶段是半年内实现月活一万",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "2",
+        "3"
+      ],
+      "must_not_contain": [
+        "第一阶段是",
+        "第二阶段是",
+        "第三阶段是",
+        "一万"
+      ],
+      "must_match_regex": [
+        "(10000|1\\s?万)"
+      ],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-phase product roadmap. '一万' → '10000' (or '1万'). Each phase: label + timeframe + goal. Opening summarizes 3 phases."
+  },
+  {
+    "id": "structure-zh-014",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "今天任务清单三项 一是写完需求文档下午三点前提交 二是和设计师确认图标尺寸 三是更新看板状态",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "3"
+      ],
+      "must_not_contain": [
+        "一是写",
+        "二是和",
+        "三是更"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 30,
+      "max_chars": 200
+    },
+    "judge_rubric": "3-item daily task list as numbered list. '下午三点' → either '下午 3 点' or '3:00 PM' or '15:00' (any Arabic-digit form is acceptable). All three tasks (需求文档 / 设计图标 / 看板) must come through."
+  },
+  {
+    "id": "structure-zh-015",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "客户反馈有五点 第一是响应速度太慢 第二是报表导出格式不对 第三是手机端体验差 第四是客服回复不及时超过四十八小时 第五是价格偏高",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "5.",
+        "48"
+      ],
+      "must_not_contain": [
+        "第一是",
+        "第二是",
+        "第三是",
+        "第四是",
+        "第五是",
+        "四十八小时"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "5-point customer feedback list. '四十八小时' → '48小时'. Each issue: short label. Opening: '5 points of customer feedback' or similar."
+  },
+  {
+    "id": "structure-zh-016",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "团队建设活动三个方案 第一是下周五下午去打卡球大概需要三百块人均 第二是团队聚餐人均一百五十以内 第三是周末爬山不用花钱",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "300",
+        "150"
+      ],
+      "must_not_contain": [
+        "第一是下",
+        "第二是团",
+        "第三是周",
+        "三百块",
+        "一百五十"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-option team activity plan. '三百块' → '300元', '一百五十' → '150元'. Each option: activity name + cost/note."
+  },
+  {
+    "id": "structure-zh-017",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "上线前检查清单四条 一检查数据库迁移脚本有没有问题 二确认环境变量都配置好了 三跑一遍回归测试通过率要达到百分之九十五以上 四通知运维准备好回滚方案",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "95%"
+      ],
+      "must_not_contain": [
+        "百分之九十五"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "4-item pre-launch checklist. '百分之九十五' → '95%'. Each item: clear action verb. Opening: '上线前4项检查' or similar."
+  },
+  {
+    "id": "structure-zh-018",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "本次迭代三个目标 首先完成用户登录注册流程预计工时四十小时 其次优化首页加载速度从五秒降到两秒 最后补齐单元测试覆盖率到百分之八十",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "40",
+        "5",
+        "2",
+        "80%"
+      ],
+      "must_not_contain": [
+        "首先完成",
+        "其次优化",
+        "最后补",
+        "四十小时",
+        "五秒",
+        "两秒",
+        "百分之八十"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 280
+    },
+    "judge_rubric": "3-goal sprint list. '四十小时' → '40小时', '五秒' → '5秒', '两秒' → '2秒', '百分之八十' → '80%'. Each goal: title + metric."
+  },
+  {
+    "id": "structure-zh-019",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "采购需求三项 第一服务器要再买八台每台配置至少六十四G内存 第二网络带宽升级到一千兆 第三买两套备用电源",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "8",
+        "64",
+        "1000",
+        "2"
+      ],
+      "must_not_contain": [
+        "第一服务器",
+        "第二网络",
+        "第三买",
+        "八台",
+        "六十四G",
+        "一千兆"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-item procurement list as numbered list. '八台' → '8 台', '六十四G' → '64 G' or '64 GB', '一千兆' → either '1000 兆' or '1000 Mbps' or '1 Gbps' (any Arabic-digit form acceptable; the speaker said '兆' so keeping that unit is fine), '两套' → '2 套'. All three items (服务器 / 网络带宽 / 备用电源) must appear."
+  },
+  {
+    "id": "structure-zh-020",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "年度总结三点 第一技术债还了百分之六十 第二上线了三个新功能 第三团队从五人扩张到十二人",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "60%",
+        "3",
+        "5",
+        "12"
+      ],
+      "must_not_contain": [
+        "第一技术",
+        "第二上线",
+        "第三团队",
+        "百分之六十",
+        "五人",
+        "十二人"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 30,
+      "max_chars": 200
+    },
+    "judge_rubric": "3-point annual summary. '百分之六十' → '60%', '五人' → '5人', '十二人' → '12人'. Brief numbered list with heading per point."
+  },
+  {
+    "id": "structure-zh-021",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "问题排查三步 一先确认是前端还是后端问题 二看监控看板查接口响应时间超过五百毫秒的请求 三对照日志找具体报错",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "500"
+      ],
+      "must_not_contain": [
+        "一先确",
+        "二看监",
+        "三对照",
+        "五百毫秒"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 30,
+      "max_chars": 220
+    },
+    "judge_rubric": "3-step troubleshooting guide as numbered list. '五百毫秒' → either '500 毫秒' or '500ms' (both acceptable). Each step describes a clear action. All three steps (确认问题 / 监控分析 / 日志排查) must appear."
+  },
+  {
+    "id": "structure-zh-022",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "这次会议有四个决策 第一是把发布时间推到下月十五号 第二是前端由小王负责 第三是预算控制在八万以内 第四是每周三下午开进度会",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "15",
+        "8"
+      ],
+      "must_not_contain": [
+        "第一是把",
+        "第二是前",
+        "第三是预",
+        "第四是每",
+        "八万"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "4-decision meeting summary. '八万' → '8万'. Each decision: clear outcome statement. Opening: '4 decisions from this meeting' or '本次会议4项决策'."
+  },
+  {
+    "id": "structure-en-001",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "three things first user growth two thousand three hundred new this week second revenue hit five hundred k third team is hiring next week",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "2300",
+        "500"
+      ],
+      "must_not_contain": [
+        "first ",
+        "second ",
+        "third "
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "Numbered list with summary opener mentioning '3' items, Arabic digits for counts, brief titled headings."
+  },
+  {
+    "id": "structure-en-002",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "four action items from the meeting first update the API docs by friday second run the load test with five hundred concurrent users third review the design mockups fourth send the invoice to the client",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "500"
+      ],
+      "must_not_contain": [
+        "first update",
+        "second run",
+        "third review",
+        "fourth send"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "4-item action list. '500 concurrent users' should use the numeral. Each item: verb-first action sentence. Opening: '4 action items'."
+  },
+  {
+    "id": "structure-en-003",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "weekly standup three points one i finished the auth module two the bug count dropped from forty to twelve three tomorrow i am doing code review",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "40",
+        "12"
+      ],
+      "must_not_contain": [
+        "one i",
+        "two the",
+        "three tomorrow",
+        "forty"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 40,
+      "max_chars": 250
+    },
+    "judge_rubric": "3-point standup. 'forty' → '40', 'twelve' → '12'. Numbered list with brief items. Opening: '3 standup points' or similar."
+  },
+  {
+    "id": "structure-en-004",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "three risks for the launch first the third party payment gateway has ninety nine point nine percent uptime which might not be enough second the database migration could take up to two hours third we need fifteen more QA test cases",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "99.9%",
+        "2",
+        "15"
+      ],
+      "must_not_contain": [
+        "first the third",
+        "second the database",
+        "third we",
+        "ninety nine",
+        "two hours",
+        "fifteen"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "3-risk launch list. 'ninety nine point nine percent' → '99.9%', 'two hours' → '2 hours', 'fifteen' → '15'. Each risk: short title + description."
+  },
+  {
+    "id": "structure-en-005",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "quarterly report highlights first sales grew thirty percent year over year to two point four million second churn rate fell to three percent third we added forty two enterprise customers",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "30%",
+        "2.4",
+        "3%",
+        "42"
+      ],
+      "must_not_contain": [
+        "first sales",
+        "second churn",
+        "third we",
+        "thirty percent",
+        "three percent",
+        "forty two"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "3-point quarterly highlights as numbered list. All numbers in Arabic ('30%', '$2.4M', '3%', '42'). Opening sentence summarizing the highlights is good but doesn't have to literally say 'three highlights'; 'Quarterly report highlights:' followed by the items is acceptable. All three highlights (sales 30% / churn 3% / 42 enterprise customers) must appear."
+  },
+  {
+    "id": "structure-en-006",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "deployment steps four items one backup the database it takes about twenty minutes two run database migrations three deploy the new docker image four watch the error rate for thirty minutes",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "20",
+        "30"
+      ],
+      "must_not_contain": [
+        "one backup",
+        "two run",
+        "three deploy",
+        "four watch",
+        "twenty minutes",
+        "thirty minutes"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "4-step deployment checklist as numbered list. 'twenty minutes' → '20 minutes' or '20 min' (both acceptable Arabic forms), 'thirty minutes' → '30 minutes' or '30 min'. Each step action-oriented. All four steps (backup database / migrations / deploy docker image / watch error rate) must appear."
+  },
+  {
+    "id": "structure-en-007",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "interview feedback three points one strong technical skills passed all five algorithm problems two communication could be clearer answers were sometimes too long three salary expectation is eighty five thousand which is ten percent above budget",
+    "checks": {
+      "must_contain": [
+        "85,000"
+      ],
+      "must_not_contain": [
+        "one strong",
+        "two communication",
+        "three salary",
+        "eighty five thousand",
+        "ten percent"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "3-point interview feedback. 'five algorithm problems' → '5', 'eighty five thousand' → '$85,000', 'ten percent' → '10%'. Each point: heading + brief note."
+  },
+  {
+    "id": "structure-en-008",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "performance issues three items first page load is eight point three seconds need to get it under two second second the search query is hitting the database sixty times per request third image sizes averaging four megabytes need compression",
+    "checks": {
+      "must_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "8.3",
+        "2",
+        "60",
+        "4"
+      ],
+      "must_not_contain": [
+        "first page",
+        "second the search",
+        "third image",
+        "eight point three",
+        "sixty times",
+        "four megabytes"
+      ],
+      "must_match_regex": [],
+      "no_markdown": false,
+      "form": "numbered_list",
+      "min_chars": 50,
+      "max_chars": 300
+    },
+    "judge_rubric": "3-issue performance list as numbered list. All numbers in Arabic ('8.3', '2', '60', '4'); units may be either compact ('8.3s', '2s', '4MB') or expanded ('8.3 seconds', '2 seconds', '4 MB'). All three issues (page load 8.3s / search 60 queries per request / images 4MB) must come through."
+  },
+  {
+    "id": "structure-zh-023",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "我就说一个事 就是明天下午三点开会",
+    "checks": {
+      "must_contain": [
+        "3"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 40
+    },
+    "judge_rubric": "Single point — must NOT use '1.' even though structuring is on. Output should be a natural sentence about a 3pm meeting tomorrow."
+  },
+  {
+    "id": "structure-zh-024",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "提醒一下大家 今天下午六点准时下班",
+    "checks": {
+      "must_contain": [
+        "6"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 35
+    },
+    "judge_rubric": "Single reminder — no numbered list. '六点' → '6点' or '18:00'. Natural sentence form."
+  },
+  {
+    "id": "structure-zh-025",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "我只有一件事要说 就是本周五截止之前把代码合并进去",
+    "checks": {
+      "must_contain": [
+        "周五"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 40
+    },
+    "judge_rubric": "Single deadline reminder — must NOT produce a numbered list. '只有一件事' signals single item, structuring should output plain sentence."
+  },
+  {
+    "id": "structure-zh-026",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "就一个问题 为什么昨晚生产环境挂了",
+    "checks": {
+      "must_contain": [
+        "生产"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 35
+    },
+    "judge_rubric": "Single question — must stay as a natural interrogative sentence. No numbered list."
+  },
+  {
+    "id": "structure-zh-027",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "告诉你一件事 明天客户来参观不要穿得太随意",
+    "checks": {
+      "must_contain": [
+        "客户"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 40
+    },
+    "judge_rubric": "Single notice to team — plain sentence form. No list marker."
+  },
+  {
+    "id": "structure-zh-028",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "说个更新 API文档已经发布了",
+    "checks": {
+      "must_contain": [
+        "API"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 5,
+      "max_chars": 30
+    },
+    "judge_rubric": "Single update announcement — very short, plain sentence. No numbered list."
+  },
+  {
+    "id": "structure-zh-029",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "就说一点 下周一上午九点所有人都要出席",
+    "checks": {
+      "must_contain": [
+        "9"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 35
+    },
+    "judge_rubric": "Single attendance reminder. '九点' → '9点' or '9:00 AM'. Plain sentence, no list."
+  },
+  {
+    "id": "structure-zh-030",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "有一个好消息 我们拿到了A轮融资五百万",
+    "checks": {
+      "must_contain": [
+        "500"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 35
+    },
+    "judge_rubric": "Single good news announcement. '五百万' → '500万'. Natural sentence, no numbered list."
+  },
+  {
+    "id": "structure-zh-031",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "只有一个请求 记得在今天下班前把合同发我一下",
+    "checks": {
+      "must_contain": [
+        "合同"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 40
+    },
+    "judge_rubric": "Single request — must output as one natural imperative sentence. No list."
+  },
+  {
+    "id": "structure-en-009",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "just one thing the standup is moved to nine thirty tomorrow morning",
+    "checks": {
+      "must_contain": [
+        "9:30"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 85
+    },
+    "judge_rubric": "Single item — must NOT produce a numbered list. 'nine thirty' → '9:30'. Natural sentence about rescheduled standup."
+  },
+  {
+    "id": "structure-en-010",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "i only have one update the deployment was successful and everything is running fine",
+    "checks": {
+      "must_contain": [
+        "deployment"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 110
+    },
+    "judge_rubric": "Single status update — plain sentence. 'only one update' signals single item. No numbered list."
+  },
+  {
+    "id": "structure-en-011",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "one reminder please submit your timesheets before five pm on friday",
+    "checks": {
+      "must_contain": [
+        "5 PM",
+        "Friday"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 90
+    },
+    "judge_rubric": "Single reminder — 'one reminder' signals single item. 'five pm' → '5:00 PM', 'friday' → 'Friday'. Plain sentence, no list."
+  },
+  {
+    "id": "structure-zh-032",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "唉今天好烦啊 客户改需求改了三次 我都快崩溃了",
+    "checks": {
+      "must_contain": [
+        "客户",
+        "需求"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": "Informal rant — must stay as a natural paragraph, preserve the emotional tone (frustrated). No numbered list even though there's an enumerable element ('three times')."
+  },
+  {
+    "id": "structure-zh-033",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "哎呀我今天状态太差了 早上会议开了俩小时 下午又要改bug 晚上还有个述职 累死了",
+    "checks": {
+      "must_contain": [
+        "会议",
+        "bug"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 80
+    },
+    "judge_rubric": "Exhaustion rant with three items (meeting, bug, review) but emotional, informal tone — must NOT become a list. Output should read as a complaint in paragraph form, preserving the tired feeling."
+  },
+  {
+    "id": "structure-zh-034",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "我跟你说 昨晚睡得太晚了 熬夜改了那个报错 最后发现是个括号问题 服了",
+    "checks": {
+      "must_contain": [
+        "昨晚",
+        "报错"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 70
+    },
+    "judge_rubric": "Informal story/complaint about debugging — must preserve conversational tone. Multiple events but NOT a list. Output: natural narrative paragraph."
+  },
+  {
+    "id": "structure-zh-035",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "真的 这个需求文档写得太烂了 逻辑乱 边界没说清楚 验收标准也不明确 做得人一脸懵",
+    "checks": {
+      "must_contain": [
+        "需求",
+        "文档"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 80
+    },
+    "judge_rubric": "Casual complaint about a bad requirements doc — multiple issues mentioned but tone is informal/venting. Must NOT produce a list. Natural paragraph preserving frustration."
+  },
+  {
+    "id": "structure-zh-036",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "哎最近工作压力好大 项目快截止了 老板又加了新需求 同事还请假了 感觉快撑不住了",
+    "checks": {
+      "must_contain": [
+        "项目",
+        "需求"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 80
+    },
+    "judge_rubric": "Stress rant — multiple stressors mentioned informally. Must stay as a paragraph expressing overwhelm. No numbered list."
+  },
+  {
+    "id": "structure-zh-037",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "跟你抱怨一下 今天的代码审查被说了一通 注释不够 命名不规范 还有几个地方没有处理异常 哎",
+    "checks": {
+      "must_contain": [
+        "代码",
+        "注释"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 80
+    },
+    "judge_rubric": "Code review complaint — informal tone, multiple issues but used as venting material, not a structured list. Output must be a natural self-deprecating or frustrated paragraph."
+  },
+  {
+    "id": "structure-zh-038",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "我好烦啊 今天连续开了三个会 吃饭都没时间 下午还有一个 真的做不下去了",
+    "checks": {
+      "must_contain": [
+        "会"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 70
+    },
+    "judge_rubric": "Meeting-overload complaint — '三个会' is enumerable but context is emotional rant. Must NOT produce list. Output: natural expression of meeting fatigue."
+  },
+  {
+    "id": "structure-zh-039",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "笑死 我在等产品确认方案 等了整整两周 结果他们说方向变了要重新做",
+    "checks": {
+      "must_contain": [
+        "产品",
+        "方案"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 70
+    },
+    "judge_rubric": "Sarcastic frustration about changing requirements — casual storytelling tone. Must stay as a narrative paragraph. No list."
+  },
+  {
+    "id": "structure-zh-040",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": true,
+    "input": "说实话今天运气太差 早高峰地铁挤死了 到公司发现忘带电脑充电器 下午又开了两个小时无效会议",
+    "checks": {
+      "must_contain": [
+        "地铁",
+        "充电器"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 80
+    },
+    "judge_rubric": "Bad-day rant with 3 incidents listed informally — must remain as a flowing bad-luck story paragraph. Preserve the unlucky, tired tone. No numbered list."
+  },
+  {
+    "id": "structure-en-012",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "ugh today was rough the client kept changing requirements three times and my build broke twice and now i have to stay late",
+    "checks": {
+      "must_contain": [
+        "client"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 145
+    },
+    "judge_rubric": "Informal frustration rant — multiple bad things happened but it's emotional venting, not a structured list. Output must be a natural paragraph preserving the tired/frustrated tone."
+  },
+  {
+    "id": "structure-en-013",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "honestly the code review today was brutal they flagged like five things missing tests bad naming no error handling and a security issue i'm exhausted",
+    "checks": {
+      "must_contain": [
+        "code review",
+        "tests"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 180
+    },
+    "judge_rubric": "Casual complaint about code review feedback. Output should preserve emotional tone (frustration / brutal). Inline enumeration with colon ('5 things: missing tests, bad naming, ...') in a single sentence IS acceptable as plain prose — only newline-delimited numbered lists are forbidden by the structuring=off rule. The complaint nature and the breadth of the feedback must come through."
+  },
+  {
+    "id": "structure-en-014",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": true,
+    "input": "so annoying i had back to back meetings all morning then the staging server went down then my laptop ran out of battery couldn't get anything done",
+    "checks": {
+      "must_contain": [
+        "meetings",
+        "server"
+      ],
+      "must_not_contain": [
+        "1."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 175
+    },
+    "judge_rubric": "Bad-day narrative — three incidents but told as a flowing complaint. Must preserve the 'so annoying' emotional register. Plain paragraph, no list."
+  },
+  {
+    "id": "structure-zh-041",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "我说三件事 第一是用户增长 第二是收入 第三是团队",
+    "checks": {
+      "must_contain": [
+        "用户增长",
+        "收入",
+        "团队"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2.",
+        "3."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": "Structuring is OFF — output MUST be a natural sentence even though sequence words are present. No numbered list, no markdown."
+  },
+  {
+    "id": "structure-zh-042",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "有四个问题需要解决 首先是性能 其次是安全 然后是兼容性 最后是文档",
+    "checks": {
+      "must_contain": [
+        "性能",
+        "安全",
+        "兼容性",
+        "文档"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 70
+    },
+    "judge_rubric": "Toggle OFF — sequence words '首先/其次/然后/最后' in input. Output must be plain prose, not a numbered list."
+  },
+  {
+    "id": "structure-zh-043",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "本周任务三项 一是写测试用例 二是做性能分析 三是整理文档",
+    "checks": {
+      "must_contain": [
+        "测试",
+        "性能",
+        "文档"
+      ],
+      "must_not_contain": [],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 80
+    },
+    "judge_rubric": "Structuring toggle is OFF. Input has '一是/二是/三是'; output should NOT be a true newline-delimited list (form=plain enforces that), but inline 1./2./3. labels within a continuous sentence are acceptable as the model's stylistic choice."
+  },
+  {
+    "id": "structure-zh-044",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "规划三步走 第一步搭框架 第二步开发核心功能 第三步测试上线",
+    "checks": {
+      "must_contain": [
+        "框架",
+        "功能",
+        "测试"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2.",
+        "3."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 60
+    },
+    "judge_rubric": "Toggle OFF — '第一步/第二步/第三步' in input. Output must be prose, not a list. Sequence words should be rephrased or kept as prose connectors."
+  },
+  {
+    "id": "structure-zh-045",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "采购要买三样东西 第一是服务器 第二是交换机 第三是UPS电源",
+    "checks": {
+      "must_contain": [
+        "服务器",
+        "交换机",
+        "UPS"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2.",
+        "3."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 55
+    },
+    "judge_rubric": "Structuring is OFF. Output must NOT be a newline-delimited numbered list (form=plain heuristic enforces that). Inline enumeration like '采购要买 3 样：第一是 X，第二是 Y，第三是 Z' or '需要采购服务器、交换机、UPS 电源' (single sentence with sequence words or comma-separated items) is acceptable as plain prose. The three items (服务器/交换机/UPS) must all appear."
+  },
+  {
+    "id": "structure-zh-046",
+    "scenario": "structure",
+    "language": "zh",
+    "text_structuring": false,
+    "input": "有两个方向可以选 一个是继续做B端 另一个是转型做C端",
+    "checks": {
+      "must_contain": [
+        "B"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2."
+      ],
+      "must_match_regex": [
+        "[Bb]\\s?端",
+        "[Cc]\\s?端"
+      ],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 50
+    },
+    "judge_rubric": "Toggle OFF — two options mentioned with '一个是/另一个是'. Output must be a plain sentence presenting the two options naturally."
+  },
+  {
+    "id": "structure-en-015",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": false,
+    "input": "three things first user growth second revenue third team hiring",
+    "checks": {
+      "must_contain": [
+        "user growth",
+        "revenue",
+        "team"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2.",
+        "3."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 95
+    },
+    "judge_rubric": "Toggle OFF — input has 'first/second/third' but the structuring rule is disabled. Output must NOT be a newline-delimited numbered list (form=plain enforces). Single sentence with inline enumeration ('3 things: first, X; second, Y; third, Z') IS acceptable plain prose. All three items (user growth, revenue, team hiring) must appear."
+  },
+  {
+    "id": "structure-en-016",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": false,
+    "input": "four priorities for next quarter first reduce latency second improve test coverage third hire two engineers fourth launch the mobile app",
+    "checks": {
+      "must_contain": [
+        "latency",
+        "test coverage",
+        "mobile app"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2.",
+        "3.",
+        "4."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 20,
+      "max_chars": 170
+    },
+    "judge_rubric": "Toggle OFF — input has 'first/second/third/fourth' for 4 quarter priorities. Output must NOT be a newline-delimited list (form=plain enforces). Inline enumeration in a single sentence with semicolons or commas IS acceptable plain prose. All four priorities (latency reduction, test coverage, hiring 2 engineers, mobile app launch) must come through."
+  },
+  {
+    "id": "structure-en-017",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": false,
+    "input": "two options we can either refactor the old module or build a new one from scratch",
+    "checks": {
+      "must_contain": [
+        "refactor",
+        "new"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 10,
+      "max_chars": 110
+    },
+    "judge_rubric": "Toggle OFF — 'either/or' structure in input. Output must present two options as a plain sentence. No list."
+  },
+  {
+    "id": "structure-en-018",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": false,
+    "input": "three bugs to fix first the login redirect is broken second the search returns empty results sometimes third notifications are not sending",
+    "checks": {
+      "must_contain": [
+        "login",
+        "search",
+        "notifications"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2.",
+        "3."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 170
+    },
+    "judge_rubric": "Toggle OFF — three bugs described with 'first/second/third'. Output must NOT be a newline-delimited list (form=plain enforces). Inline enumeration in continuous prose ('3 bugs: first, login... second, search... third, file upload...') is acceptable. The three bugs must all appear."
+  },
+  {
+    "id": "structure-en-019",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": false,
+    "input": "weekly goals first finish the API spec second get design approval third start implementation",
+    "checks": {
+      "must_contain": [
+        "API",
+        "design",
+        "implementation"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2.",
+        "3."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 125
+    },
+    "judge_rubric": "Toggle OFF — weekly goals with 'first/second/third'. Output must NOT be a newline-delimited list (form=plain enforces). Inline enumeration in a single sentence with semicolons or 'and' IS acceptable plain prose. All three goals (API spec, design approval, implementation) must appear."
+  },
+  {
+    "id": "structure-en-020",
+    "scenario": "structure",
+    "language": "en",
+    "text_structuring": false,
+    "input": "two main risks first the vendor might delay delivery by two weeks second the budget might run over by fifteen percent",
+    "checks": {
+      "must_contain": [
+        "vendor",
+        "budget"
+      ],
+      "must_not_contain": [
+        "1.",
+        "2."
+      ],
+      "must_match_regex": [],
+      "no_markdown": true,
+      "form": "plain",
+      "min_chars": 15,
+      "max_chars": 135
+    },
+    "judge_rubric": "Toggle OFF — two risks with 'first/second'. Output must NOT be a newline-delimited list (form=plain enforces). Inline enumeration in a continuous sentence ('2 main risks: first, X; second, Y') IS acceptable plain prose. Both risks (vendor delay, budget overrun) must appear, with the 15% number preserved."
+  }
+]
