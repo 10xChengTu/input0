@@ -38,6 +38,12 @@ macOS 语音输入工具 — 按住快捷键录音，松开后自动转写、优
 
 从 [GitHub Releases](https://github.com/nicepkg/input0/releases) 下载最新的 `.dmg` 文件，打开后将 **Input 0** 拖入「应用程序」文件夹即可。
 
+通过 [Homebrew](https://brew.sh) 安装：
+
+```shell
+brew install --cask input0
+```
+
 > 首次打开时，macOS 可能会弹出安全提示。前往 **系统设置 → 隐私与安全性**，点击 **仍要打开** 即可。
 
 ### 2. 授予权限
