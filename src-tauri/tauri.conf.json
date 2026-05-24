@@ -1,6 +1,6 @@
 {
   "productName": "Input0",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "identifier": "com.input0",
   "build": {
     "frontendDist": "../dist",
